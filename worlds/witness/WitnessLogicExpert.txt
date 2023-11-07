@@ -254,10 +254,10 @@ Quarry (Quarry) - Quarry Stoneworks Ground Floor - 0x02010 - Quarry Boathouse Se
 159802 - 0xFFD01 (Inside Reached Independently) - True - True
 Door - 0x02010 (Stoneworks Entry) - 0x01E59 & 0x01E5A
 
-Quarry Stoneworks Entry Left Panel (Quarry Stoneworks):
+Quarry Stoneworks Entry Left Panel (Quarry):
 158121 - 0x01E5A (Stoneworks Entry Left Panel) - True - Squares & Black/White Squares & Stars & Stars + Same Colored Symbol
 
-Quarry Stoneworks Entry Right Panel (Quarry Stoneworks):
+Quarry Stoneworks Entry Right Panel (Quarry):
 158122 - 0x01E59 (Stoneworks Entry Right Panel) - True - Triangles
 
 Quarry Stoneworks Ground Floor (Quarry Stoneworks) - Quarry - 0x275FF - Quarry Stoneworks Middle Floor - 0x03678 - Outside Quarry - 0x17CE8 - Quarry Stoneworks Lift - TrueOneWay - Quarry Stoneworks Stairs Panel - Snipes3 & NRS - Quarry Stoneworks Side Exit Panel - TrueOneWay - Quarry Stoneworks Lower Row Panels - Snipes1 - Quarry Stoneworks Upper Row Panels - Snipes4:
@@ -285,6 +285,13 @@ Quarry Stoneworks Lift (Quarry Stoneworks) - Quarry Stoneworks Middle Floor - 0x
 Quarry Stoneworks Upper Floor (Quarry Stoneworks) - Quarry Stoneworks Lift - 0x03675 - Quarry Stoneworks Ground Floor - 0x0368A - Quarry Stoneworks Stairs Panel - TrueOneWay - Quarry Stoneworks Side Exit Panel - Snipes1 - Quarry Stoneworks Upper Row Panels - TrueOneWay:
 158132 - 0x03676 (Upper Ramp Control) - True - Dots & Eraser
 158133 - 0x03675 (Upper Lift Control) - True - Dots & Eraser
+Door - 0x0368A (Stairs) - 0x03677
+158143 - 0x3C125 (Control Room Left) - 0x014E9 - Squares & Black/White Squares & Dots & Full Dots & Eraser
+158144 - 0x0367C (Control Room Right) - 0x014E9 - Squares & Colored Squares & Triangles & Eraser & Stars & Stars + Same Colored Symbol
+159411 - 0x0069D (Ramp EP) - 0x03676 & 0x275FF - True
+159413 - 0x00614 (Lift EP) - 0x275FF & 0x03675 - True
+
+Quarry Stoneworks Upper Row Panels (Quarry Stoneworks):
 158134 - 0x00557 (Upper Row 1) - True - Squares & Colored Squares & Eraser & Stars & Stars + Same Colored Symbol
 158135 - 0x005F1 (Upper Row 2) - 0x00557 - Squares & Colored Squares & Eraser & Stars & Stars + Same Colored Symbol
 158136 - 0x00620 (Upper Row 3) - 0x005F1 - Squares & Colored Squares & Eraser & Stars & Stars + Same Colored Symbol
@@ -293,11 +300,6 @@ Quarry Stoneworks Upper Floor (Quarry Stoneworks) - Quarry Stoneworks Lift - 0x0
 158139 - 0x3C12D (Upper Row 6) - 0x0146C - Squares & Colored Squares & Eraser & Stars & Stars + Same Colored Symbol
 158140 - 0x03686 (Upper Row 7) - 0x3C12D - Squares & Colored Squares & Eraser & Stars & Stars + Same Colored Symbol
 158141 - 0x014E9 (Upper Row 8) - 0x03686 - Squares & Colored Squares & Eraser & Stars & Stars + Same Colored Symbol
-Door - 0x0368A (Stairs) - 0x03677
-158143 - 0x3C125 (Control Room Left) - 0x014E9 - Squares & Black/White Squares & Dots & Full Dots & Eraser
-158144 - 0x0367C (Control Room Right) - 0x014E9 - Squares & Colored Squares & Triangles & Eraser & Stars & Stars + Same Colored Symbol
-159411 - 0x0069D (Ramp EP) - 0x03676 & 0x275FF - True
-159413 - 0x00614 (Lift EP) - 0x275FF & 0x03675 - True
 
 Quarry Stoneworks Stairs Panel (Quarry Stoneworks):
 158142 - 0x03677 (Stairs Panel) - True - Squares & Colored Squares & Eraser
@@ -663,7 +665,7 @@ Outside Bunker (Bunker) - Main Island - True - Bunker - 0x0C2A4 - Bunker Intro L
 158268 - 0x17C2E (Entry Panel) - True - Squares & Black/White Squares & Colored Squares
 Door - 0x0C2A4 (Entry) - 0x17C2E
 
-Bunker (Bunker) - Bunker Glass Room - 0x17C79:
+Bunker (Bunker) - Bunker Glass Room - 0x17C79 - Bunker Intro Left Panels - TrueOneWay - Bunker Tinted Glass Door Panel - TrueOneWay:
 158274 - 0x09D9F (Intro Back 1) - 0x09FF8 - Squares & Colored Squares & Black/White Squares
 158275 - 0x09DA1 (Intro Back 2) - 0x09D9F - Squares & Colored Squares
 158276 - 0x09DA2 (Intro Back 3) - 0x09DA1 - Squares & Colored Squares
