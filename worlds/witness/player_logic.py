@@ -326,6 +326,11 @@ class WitnessPlayerLogic:
         elif victory == 3:
             self.VICTORY_LOCATION = "0xFFF00"
 
+        if mnt_lasers >= 8:
+            adjustment_linesets_in_order.append([
+                "Requirement Changes:",
+                "0x09F7F - 7 Lasers & Snipes1 - True"
+            ])
         if chal_lasers <= 7:
             adjustment_linesets_in_order.append([
                 "Requirement Changes:",
