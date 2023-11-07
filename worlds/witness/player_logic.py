@@ -294,7 +294,10 @@ class WitnessPlayerLogic:
                     adjustment_linesets_in_order.append(get_bottom_floor_discard_nondoors_exclusion_list())
 
             if victory == 2 and chal_lasers >= mnt_lasers:
-                adjustment_linesets_in_order.append(["Disabled Locations:", "0xFFF00 (Mountain Box Long)"])
+                adjustment_linesets_in_order.append([
+                    "Disabled Locations:",
+                    "0xFFF00 (Mountain Box Long)"
+                ])
 
         # Exclude Discards / Vaults
 
