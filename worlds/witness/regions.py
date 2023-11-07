@@ -42,7 +42,7 @@ class WitnessRegions:
 
         # There are some connections that should only be done one way. If this is a backwards connection, check for that
         if backwards:
-            real_requirement = frozenset({option for option in real_requirement if "TrueOneWay" not in option})
+            real_requirement = frozenset({option for option in real_requirement if not option & {"TrueOneWay", "Snipes1", "Snipes2", "Snipes3", "Snipes4"}})
 
         # Dissolve any "True" or "TrueOneWay"
         real_requirement = frozenset({option - {"True", "TrueOneWay"} for option in real_requirement})

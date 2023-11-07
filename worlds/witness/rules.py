@@ -56,6 +56,13 @@ def _can_solve_panel(panel: str, world: "WitnessWorld", player: int, player_logi
     Determines whether a panel can be solved
     """
 
+    if panel.startswith("Snipes"):
+        return int(panel[6]) <= world.options.expect_snipes
+    elif panel.startswith("Foreknowledge"):
+        return int(panel[13]) <= world.options.expect_prior_knowledge
+    elif panel == "NRS":
+        return world.options.expect_non_randomized_snipes
+
     panel_obj = StaticWitnessLogic.ENTITIES_BY_HEX[panel]
     entity_name = panel_obj["checkName"]
 
@@ -158,6 +165,12 @@ def _has_item(item: str, world: "WitnessWorld", player: int,
         return lambda state: _can_do_expert_pp2(state, world)
     elif item == "Theater to Tunnels":
         return lambda state: _can_do_theater_to_tunnels(state, world)
+    elif item.startswith("Snipes"):
+        return lambda state: int(item[6]) <= world.options.expect_snipes
+    elif item == "NRS":
+        return lambda state: world.options.expect_non_randomized_snipes
+    elif item.startswith("Foreknowledge"):
+        return lambda state: int(item[13]) <= world.options.expect_prior_knowledge            
     if item in player_logic.EVENT_PANELS:
         return _can_solve_panel(item, world, player, player_logic, locat)
 

@@ -18,6 +18,7 @@ from .rules import set_rules
 from .Options import TheWitnessOptions
 from .utils import get_audio_logs
 from logging import warning, error
+from Utils import visualize_regions
 
 
 class WitnessWebWorld(WebWorld):
@@ -73,7 +74,7 @@ class WitnessWorld(World):
 
     def _get_slot_data(self):
         return {
-            'seed': self.random.randrange(0, 1000000),
+            'seed': self.options.randomization_seed,
             'victory_location': int(self.player_logic.VICTORY_LOCATION, 16),
             'panelhex_to_id': self.locat.CHECK_PANELHEX_TO_ID,
             'item_id_to_door_hexes': StaticWitnessItems.get_item_to_door_mappings(),
@@ -110,6 +111,10 @@ class WitnessWorld(World):
             else:
                 raise Exception(f"{self.multiworld.get_player_name(self.player)}'s Witness world doesn't have any"
                                 f" progression items. Please turn on Symbol Shuffle, Door Shuffle or Laser Shuffle.")
+
+        if (self.options.mountain_lasers > 7 and not self.options.expect_snipes):
+            raise Exception(f"{self.multiworld.get_player_name(self.player)}'s Witness world has incompatible snipes"
+                            f" and laser box settings. Please enable snipes or set the required lasers to 7 or less.")
 
     def create_regions(self):
         location_cache = self.regio.create_regions(self, self.player_logic)
@@ -298,6 +303,7 @@ class WitnessWorld(World):
                             if attr not in dataclasses.fields(PerGameCommonOptions)]:
             slot_data[option_name] = getattr(self.options, option_name).value
 
+        visualize_regions(self.multiworld.get_region("Menu", self.player), "test_world.puml")
         return slot_data
 
     def create_item(self, item_name: str) -> Item:

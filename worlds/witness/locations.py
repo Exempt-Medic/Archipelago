@@ -506,7 +506,7 @@ class WitnessPlayerLocations:
         if world.options.shuffle_discarded_panels:
             self.PANEL_TYPES_TO_SHUFFLE.add("Discard")
 
-        if world.options.shuffle_vault_boxes:
+        if world.options.shuffle_vault_boxes or world.options.expect_prior_knowledge:
             self.PANEL_TYPES_TO_SHUFFLE.add("Vault")
 
         if world.options.shuffle_EPs == 1:

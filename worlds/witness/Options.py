@@ -136,7 +136,7 @@ class MountainLasers(Range):
     """Sets the amount of beams required to enter the final area."""
     display_name = "Required Lasers for Mountain Entry"
     range_start = 1
-    range_end = 7
+    range_end = 11
     default = 7
 
 
@@ -180,6 +180,41 @@ class HintAmount(Range):
     default = 10
 
 
+class RandomizationSeed(Range):
+    """Sets the value of the seed for the randomizer."""
+    display_name = "Randomization Seed"
+    range_start = 1
+    range_end = 999999
+    default = "random"
+
+
+class ExpectSnipes(Choice):
+    """Difficulty of expected snipes. Includes randomized, trivial, and EP snipes such as Quarry Stoneworks Lower Row, Quarry Stoneworks Side Exit Panel, and Keep Pressure Plates 2 EP."""
+    display_name = "Snipe Difficulty"
+    option_none = 0
+    option_easy = 1
+    option_medium = 2
+    option_hard = 3
+    option_deadly = 4
+    default = 0
+
+
+class NonRandomizedSnipes(Toggle):
+    """Whether or not you are expected to solve non-trivial, non-randomized snipes such as Shadows. Difficulty matches your Snipe Difficulty setting."""
+    display_name = "Include Non-Randomized Snipes"
+
+
+class ExpectPriorKnowledge(Choice):
+    """Whether or not you are expected to solve nearby panels earlier than usual."""
+    display_name = "Prior Knowledge Required"
+    option_none = 0
+    option_easy = 1
+    option_hard = 2
+    option_desert_panels = 3
+    option_RGB_room = 4
+    default = 0
+
+
 class DeathLink(Toggle):
     """If on: Whenever you fail a puzzle (with some exceptions), everyone who is also on Death Link dies.
     The effect of a "death" in The Witness is a Power Surge."""
@@ -208,4 +243,8 @@ class TheWitnessOptions(PerGameCommonOptions):
     trap_percentage: TrapPercentage
     puzzle_skip_amount: PuzzleSkipAmount
     hint_amount: HintAmount
+    randomization_seed: RandomizationSeed
+    expect_snipes: ExpectSnipes
+    expect_non_randomized_snipes: NonRandomizedSnipes
+    expect_prior_knowledge: ExpectPriorKnowledge
     death_link: DeathLink

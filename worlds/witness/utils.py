@@ -174,12 +174,20 @@ def get_vault_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Exclusions/Vaults.txt")
 
 
+def get_vault_panels_exclusion_list() -> List[str]:
+    return get_adjustment_file("settings/Exclusions/Vault_Panels.txt")
+
+
 def get_discard_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Exclusions/Discards.txt")
 
 
 def get_caves_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Postgame/Caves.txt")
+
+
+def get_tutorial_gate_exclusion_list() -> List[str]:
+    return get_adjustment_file("settings/Postgame/Tutorial_Gate.txt")
 
 
 def get_beyond_challenge_exclusion_list() -> List[str]:

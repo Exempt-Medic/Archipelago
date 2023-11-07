@@ -99,7 +99,7 @@ class WitnessPlayerLogic:
 
                 if option_entity in self.EVENT_NAMES_BY_HEX:
                     new_items = frozenset({frozenset([option_entity])})
-                elif option_entity in {"7 Lasers", "11 Lasers", "PP2 Weirdness", "Theater to Tunnels"}:
+                elif option_entity in {"7 Lasers", "11 Lasers", "PP2 Weirdness", "Theater to Tunnels", "NRS"} or option_entity.startswith("Foreknowledge") or option_entity.startswith("Snipes"):
                     new_items = frozenset({frozenset([option_entity])})
                 else:
                     new_items = self.reduce_req_within_region(option_entity)
@@ -259,19 +259,24 @@ class WitnessPlayerLogic:
         victory = world.options.victory_condition
         mnt_lasers = world.options.mountain_lasers
         chal_lasers = world.options.challenge_lasers
+        foreknowledge = world.options.expect_prior_knowledge
 
         mountain_enterable_from_top = victory == 0 or victory == 1 or (victory == 3 and chal_lasers > mnt_lasers)
 
         if not world.options.shuffle_postgame:
             if not (early_caves or doors):
                 adjustment_linesets_in_order.append(get_caves_exclusion_list())
+                if not foreknowledge:
+                    adjustment_linesets_in_order.append(get_tutorial_gate_exclusion_list())
                 if not victory == 1:
                     adjustment_linesets_in_order.append(get_path_to_challenge_exclusion_list())
                     adjustment_linesets_in_order.append(get_challenge_vault_box_exclusion_list())
-                    adjustment_linesets_in_order.append(get_beyond_challenge_exclusion_list())
+                    if not foreknowledge:
+                        adjustment_linesets_in_order.append(get_beyond_challenge_exclusion_list())
 
             if not ((doors or early_caves) and (victory == 0 or (victory == 2 and mnt_lasers > chal_lasers))):
-                adjustment_linesets_in_order.append(get_beyond_challenge_exclusion_list())
+                if not foreknowledge:
+                    adjustment_linesets_in_order.append(get_beyond_challenge_exclusion_list())
                 if not victory == 1:
                     adjustment_linesets_in_order.append(get_challenge_vault_box_exclusion_list())
 
@@ -302,7 +307,10 @@ class WitnessPlayerLogic:
                 adjustment_linesets_in_order.append(get_bottom_floor_discard_exclusion_list())
 
         if not world.options.shuffle_vault_boxes:
-            adjustment_linesets_in_order.append(get_vault_exclusion_list())
+            if foreknowledge:
+                adjustment_linesets_in_order.append(get_vault_panels_exclusion_list())
+            else:
+                adjustment_linesets_in_order.append(get_vault_exclusion_list())
             if not victory == 1:
                 adjustment_linesets_in_order.append(get_challenge_vault_box_exclusion_list())
 

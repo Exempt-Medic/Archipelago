@@ -62,4 +62,3 @@ Disabled Locations:
 0x3397C (Skylight EP)
 0x28B30 (Water EP)
 0x33A20 (Theater Flowers EP)
-0x3352F (Gate EP)
