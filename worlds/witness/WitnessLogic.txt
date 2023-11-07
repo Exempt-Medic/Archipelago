@@ -1170,7 +1170,7 @@ Elevator (Mountain Final Room):
 The Ocean (Boat) - Main Island - TrueOneWay - Swamp Near Boat - TrueOneWay - Treehouse Entry Area - TrueOneWay - Quarry Boathouse Behind Staircase - TrueOneWay - Inside Glass Factory Behind Back Wall - TrueOneWay - Symmetry Island Lower Right Panels - Snipes4 - Symmetry Island Lower Scenery Outline Panels - Snipes3 & NRS:
 159042 - 0x22106 (Desert EP) - True - True
 159223 - 0x03B25 (Shipwreck CCW Underside EP) - True - True
-159231 - 0x28B29 (Shipwreck Green EP) - True - Truesniep
+159231 - 0x28B29 (Shipwreck Green EP) - True - True
 159232 - 0x28B2A (Shipwreck CW Underside EP) - True - True
 159323 - 0x03D0D (Bunker Yellow Line EP) - True - True
 159515 - 0x28A37 (Town Long Sewer EP) - True - True
