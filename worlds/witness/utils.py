@@ -118,6 +118,10 @@ def get_symbol_shuffle_list() -> List[str]:
     return get_adjustment_file("settings/Symbol_Shuffle.txt")
 
 
+def get_no_doors() -> List[str]:
+    return get_adjustment_file("settings/Door_Shuffle/No_Doors.txt")
+
+
 def get_complex_doors() -> List[str]:
     return get_adjustment_file("settings/Door_Shuffle/Complex_Doors.txt")
 

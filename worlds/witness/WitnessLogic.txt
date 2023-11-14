@@ -246,9 +246,11 @@ Quarry Elevator (Quarry) - Outside Quarry - 0x17CC4 - Quarry - 0x17CC4:
 158120 - 0x17CC4 (Elevator Control) - 0x0367C - Dots & Eraser
 159403 - 0x17CB9 (Railroad EP) - 0x17CC4 - True
 
-Quarry Between Entrys (Quarry) - Quarry - 0x17C07:
-158119 - 0x17C09 (Entry 2 Panel) - True - Shapers
+Quarry Between Entrys (Quarry) - Quarry - 0x17C07 - Quarry Entry 2 Panel - TrueOneWay:
 Door - 0x17C07 (Entry 2) - 0x17C09
+
+Quarry Entry 2 Panel (Quarry):
+158119 - 0x17C09 (Entry 2 Panel) - True - Shapers
 
 Quarry (Quarry) - Quarry Stoneworks Ground Floor - 0x02010 - Quarry Boathouse Second Barrier Panel - Snipes1 - Quarry Stoneworks Lower Row Panels - Snipes2 - Quarry Stoneworks Entry Left Panel - TrueOneWay - Quarry Stoneworks Entry Right Panel - TrueOneWay - Shadows Door Timer Inside Panel - Snipes1:
 159802 - 0xFFD01 (Inside Reached Independently) - True - True

@@ -351,6 +351,8 @@ class WitnessPlayerLogic:
         elif world.options.EP_difficulty == 1:
             adjustment_linesets_in_order.append(get_ep_no_eclipse())
 
+        if world.options.shuffle_doors <= 1:
+            adjustment_linesets_in_order.append(get_no_doors())
         if world.options.door_groupings == 1:
             if world.options.shuffle_doors == 1:
                 adjustment_linesets_in_order.append(get_simple_panels())

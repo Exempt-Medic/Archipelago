@@ -9,3 +9,4 @@ Town Red Rooftop - Town Maze Rooftop - TrueOneWay
 
 Requirement Changes:
 0x035DE - 0x17E2B - True
+0x03601 - 0x17E2B | Foreknowledge1 - True
