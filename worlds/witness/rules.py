@@ -3,9 +3,9 @@ Defines the rules by which locations can be accessed,
 depending on the items received
 """
 
-from typing import Dict, TYPE_CHECKING, Callable, FrozenSet
+from typing import TYPE_CHECKING, Callable, FrozenSet
 
-from BaseClasses import Location, CollectionState
+from BaseClasses import CollectionState
 from .player_logic import WitnessPlayerLogic
 from .locations import WitnessPlayerLocations
 from . import StaticWitnessLogic, WitnessRegions
@@ -73,14 +73,19 @@ def _can_solve_panel(panel: str, world: "WitnessWorld", player: int, player_logi
 
 
 def _can_move_either_direction(state: CollectionState, source: str, target: str, regio: WitnessRegions) -> bool:
+    entrance_forward = regio.created_entrances[(source, target)]
+    entrance_backward = regio.created_entrances[(source, target)]
+
     return (
-        any(entrance.can_reach(state) for entrance in regio.created_entrances[(source, target)])
+        any(entrance.can_reach(state) for entrance in entrance_forward)
         or
-        any(entrance.can_reach(state) for entrance in regio.created_entrances[(target, source)])
+        any(entrance.can_reach(state) for entrance in entrance_backward)
     )
 
 
 def _can_do_expert_pp2(state: CollectionState, world: "WitnessWorld") -> bool:
+    player = world.player
+
     hedge_2_access = (
         _can_move_either_direction(state, "Keep 2nd Maze", "Keep", world.regio)
     )
@@ -99,12 +104,12 @@ def _can_do_expert_pp2(state: CollectionState, world: "WitnessWorld") -> bool:
 
     hedge_access = (
             _can_move_either_direction(state, "Keep 4th Maze", "Keep Tower", world.regio)
-            and world.regio.region_cache["Keep"].can_reach(state)
+            and state.can_reach("Keep", "Region", player)
             and hedge_4_access
     )
 
     backwards_to_fourth = (
-            world.regio.region_cache["Keep"].can_reach(state)
+            state.can_reach("Keep", "Region", player)
             and _can_move_either_direction(state, "Keep 4th Pressure Plate", "Keep Tower", world.regio)
             and (
                     _can_move_either_direction(state, "Keep", "Keep Tower", world.regio)
@@ -113,7 +118,7 @@ def _can_do_expert_pp2(state: CollectionState, world: "WitnessWorld") -> bool:
     )
 
     shadows_shortcut = (
-            world.regio.region_cache["Main Island"].can_reach(state)
+            state.can_reach("Main Island", "Region", player)
             and _can_move_either_direction(state, "Keep 4th Pressure Plate", "Shadows", world.regio)
     )
 
@@ -124,7 +129,7 @@ def _can_do_expert_pp2(state: CollectionState, world: "WitnessWorld") -> bool:
 
     front_access = (
             _can_move_either_direction(state, "Keep 2nd Pressure Plate", "Keep", world.regio)
-            and world.regio.region_cache["Keep"].can_reach(state)
+            and state.can_reach("Keep", "Region", player)
     )
 
     return front_access and backwards_access
@@ -154,7 +159,7 @@ def _can_do_theater_to_tunnels(state: CollectionState, world: "WitnessWorld") ->
 def _has_item(item: str, world: "WitnessWorld", player: int,
               player_logic: WitnessPlayerLogic, locat: WitnessPlayerLocations) -> Callable[[CollectionState], bool]:
     if item in player_logic.REFERENCE_LOGIC.ALL_REGIONS_BY_NAME:
-        return lambda state: world.regio.region_cache[item].can_reach(state)
+        return lambda state: state.can_reach(item, "Region", player)
     if item == "7 Lasers":
         laser_req = world.options.mountain_lasers.value
         return _has_lasers(laser_req, world)
@@ -205,7 +210,7 @@ def make_lambda(entity_hex: str, world: "WitnessWorld") -> Callable[[CollectionS
     return _meets_item_requirements(entity_req, world)
 
 
-def set_rules(world: "WitnessWorld", location_cache: Dict[str, Location]):
+def set_rules(world: "WitnessWorld"):
     """
     Sets all rules for all locations
     """
@@ -221,8 +226,7 @@ def set_rules(world: "WitnessWorld", location_cache: Dict[str, Location]):
 
         rule = make_lambda(entity_hex, world)
 
-        location = location_cache[location] if location in location_cache\
-            else world.multiworld.get_location(location, world.player)
+        location = world.multiworld.get_location(location, world.player)
 
         set_rule(location, rule)
 

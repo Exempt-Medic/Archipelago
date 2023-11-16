@@ -117,11 +117,11 @@ class WitnessWorld(World):
                             f" and laser box settings. Please enable snipes or set the required lasers to 7 or less.")
 
     def create_regions(self):
-        location_cache = self.regio.create_regions(self, self.player_logic)
+        self.regio.create_regions(self, self.player_logic)
 
         # Set rules early so extra locations can be created based on the results of exploring collection states
 
-        set_rules(self, location_cache)
+        set_rules(self)
 
         # Add event items and tie them to event locations (e.g. laser activations).
 
@@ -131,7 +131,7 @@ class WitnessWorld(World):
             item_obj = self.create_item(
                 self.player_logic.EVENT_ITEM_PAIRS[event_location]
             )
-            location_obj = location_cache[event_location]
+            location_obj = self.multiworld.get_location(event_location, self.player)
             location_obj.place_locked_item(item_obj)
             self.own_itempool.append(item_obj)
 
@@ -139,7 +139,7 @@ class WitnessWorld(World):
 
         # Place other locked items
         dog_puzzle_skip = self.create_item("Puzzle Skip")
-        location_cache["Town Pet the Dog"].place_locked_item(dog_puzzle_skip)
+        self.multiworld.get_location("Town Pet the Dog", self.player).place_locked_item(dog_puzzle_skip)
 
         self.own_itempool.append(dog_puzzle_skip)
 
@@ -155,7 +155,7 @@ class WitnessWorld(World):
             else:
                 # Force the item onto the tutorial gate check and remove it from our random pool.
                 gate_item = self.create_item(random_early_item)
-                location_cache["Tutorial Gate Open"].place_locked_item(gate_item)
+                self.multiworld.get_location("Tutorial Gate Open", self.player).place_locked_item(gate_item)
                 self.own_itempool.append(gate_item)
                 self.items_placed_early.append(random_early_item)
 
