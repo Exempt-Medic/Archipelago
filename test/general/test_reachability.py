@@ -28,26 +28,6 @@ class TestBase(unittest.TestCase):
             "Ceres",
             "Gauntlet Top",
             "Mama Turtle"
-        },
-
-        # The Witness has a setting called "shuffle_postgame". What is "postgame" depends heavily on the settings.
-        # Also, there is a setting called "Vault Shuffle". If it is off, Vaults are made inaccessible.
-        # To catch errors in generation related to these settings, I decided it should fail "loudly".
-        # Thus, "postgame" regions are made entirely unreachable. These are the postgame regions in default settings.
-
-        "The Witness": {
-            "Mountain Bottom Floor Rock",
-            "Mountain Path to Caves",
-            "Caves",
-            "Path to Challenge",
-            "Challenge",
-            "Challenge Vault",
-            "Tunnels",
-            "Outside Tutorial Vault",
-            "Desert Vault",
-            "River Vault",
-            "Shipwreck Vault",
-            "Mountainside Vault",
         }
     }
 
