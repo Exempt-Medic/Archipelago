@@ -115,6 +115,11 @@ class WitnessPlayerItems:
         # Adjust item classifications based on game settings.
         eps_shuffled = self._world.options.shuffle_EPs
         come_to_you = self._world.options.elevators_come_to_you
+        snipes = self._world.options.expect_snipes
+        non_random_snipes = self._world.options.expect_non_randomized_snipes
+        foreknowledge = self._world.options.expect_prior_knowledge
+        doors = self._world.options.shuffle_doors
+        random_shadows_laser_door = "Shadows Laser Entry Left (Door)" if self._world.random.randint(0, 1) else "Shadows Laser Entry Right (Door)"
         for item_name, item_data in self.item_data.items():
             if not eps_shuffled and item_name in {"Monastery Garden Entry (Door)",
                                                   "Monastery Shortcuts",
@@ -134,6 +139,33 @@ class WitnessPlayerItems:
                                "Caves Elevator Controls (Panel)"}:
                 # Downgrade doors that don't gate progress.
                 item_data.classification = ItemClassification.useful
+
+            # Downgrade doors skipped with Snipes
+            elif snipes:
+                if snipes >= 2 and item_name in {"Glass Factory Entry (Door)",
+                                                 "Glass Factory Back Wall (Door)",
+                                                 "Glass Factory Doors"}:
+                    item_data.classification = ItemClassification.useful
+                elif snipes >= 2 and non_random_snipes and item_name in {"Treehouse Drawbridge (Door)"}:
+                    item_data.classification = ItemClassification.useful
+                elif snipes >= 3 and doors <= 1 and non_random_snipes and not eps_shuffled and item_name in {"Quarry Stoneworks Lift Controls (Panel)",
+                                                                                                             "Quarry Stoneworks Ramp Controls (Panel)"}:
+                    item_data.classification = ItemClassification.useful
+
+            # Downgrade doors skipped with Foreknowledge
+            elif foreknowledge:
+                if item_name in {random_shadows_laser_door,
+                                 "Bunker Drop-Down Door Controls (Panel)"}:
+                    item_data.classification = ItemClassification.useful
+                elif not eps_shuffled and item_name in {"Monastery Shutters Control (Panel)"}:
+                    item_data.classification = ItemClassification.useful
+                elif foreknowledge >= 3 and item_name in {"Desert Light Control (Panel)"}:
+                    item_data.classification = ItemClassification.useful
+                elif foreknowledge >= 3 and not eps_shuffled and item_name in {"Desert Flood Controls (Panel)",
+                                                                               "Desert Control Panels"}:
+                    item_data.classification = ItemClassification.useful
+                elif foreknowledge >= 4 and not eps_shuffled and item_name in {"Town RGB Control (Panel)"}:
+                    item_data.classification = ItemClassification.useful
 
         # Build the mandatory item list.
         self._mandatory_items: Dict[str, int] = {}
