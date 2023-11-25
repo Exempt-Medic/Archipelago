@@ -260,6 +260,7 @@ class WitnessPlayerLogic:
         victory = world.options.victory_condition
         mnt_lasers = world.options.mountain_lasers
         chal_lasers = world.options.challenge_lasers
+        foreknowledge = world.options.expect_prior_knowledge
 
         # Goal is "short box" but short box requires more lasers than long box
         reverse_shortbox_goal = victory == "mountain_box_short" and mnt_lasers > chal_lasers
@@ -277,12 +278,14 @@ class WitnessPlayerLogic:
         # This is technically imprecise, but it matches player expectations better.
         if not (early_caves or doors):
             postgame_adjustments.append(get_caves_exclusion_list())
-            postgame_adjustments.append(get_beyond_challenge_exclusion_list())
+            if not foreknowledge:
+                postgame_adjustments.append(get_beyond_challenge_exclusion_list())
 
             # If Challenge is the goal, some panels on the way need to be left on, as well as Challenge Vault box itself
             if not victory == "challenge":
                 postgame_adjustments.append(get_path_to_challenge_exclusion_list())
-                postgame_adjustments.append(get_challenge_vault_box_exclusion_list())
+                if not foreknowledge:
+                    postgame_adjustments.append(get_challenge_vault_box_exclusion_list())
 
         # Challenge can only have something if the goal is not challenge or longbox itself.
         # In case of shortbox, it'd have to be a "reverse shortbox" situation where shortbox requires *more* lasers.
@@ -336,13 +339,12 @@ class WitnessPlayerLogic:
         lasers = world.options.shuffle_lasers
         victory = world.options.victory_condition
         chal_lasers = world.options.challenge_lasers
+        foreknowledge = world.options.expect_prior_knowledge
 
-            if victory == 2 and chal_lasers >= mnt_lasers:
-                adjustment_linesets_in_order.append([
-                    "Disabled Locations:",
-                    "0xFFF00 (Mountain Box Long)"
-                ])
-
+        # Exclude panels from the post-game if shuffle_postgame is false.
+        if not world.options.shuffle_postgame:
+            adjustment_linesets_in_order += self.handle_postgame(world)
+        
         # Exclude Discards / Vaults
         if not world.options.shuffle_discarded_panels:
             # In disable_non_randomized, the discards are needed for alternate activation triggers, UNLESS both
