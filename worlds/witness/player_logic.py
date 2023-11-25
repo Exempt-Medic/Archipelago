@@ -279,19 +279,20 @@ class WitnessPlayerLogic:
         if not (early_caves or doors):
             postgame_adjustments.append(get_caves_exclusion_list())
             if not foreknowledge:
+                postgame_adjustments.append(get_tutorial_gate_exclusion_list())
                 postgame_adjustments.append(get_beyond_challenge_exclusion_list())
-
+                
             # If Challenge is the goal, some panels on the way need to be left on, as well as Challenge Vault box itself
             if not victory == "challenge":
                 postgame_adjustments.append(get_path_to_challenge_exclusion_list())
-                if not foreknowledge:
-                    postgame_adjustments.append(get_challenge_vault_box_exclusion_list())
+                postgame_adjustments.append(get_challenge_vault_box_exclusion_list())
 
         # Challenge can only have something if the goal is not challenge or longbox itself.
         # In case of shortbox, it'd have to be a "reverse shortbox" situation where shortbox requires *more* lasers.
         # In that case, it'd also have to be a doors mode, but that's already covered by the previous block.
         if not (victory == "elevator" or reverse_shortbox_goal):
-            postgame_adjustments.append(get_beyond_challenge_exclusion_list())
+            if not foreknowledge:
+                postgame_adjustments.append(get_beyond_challenge_exclusion_list())
             if not victory == "challenge":
                 postgame_adjustments.append(get_challenge_vault_box_exclusion_list())
 
@@ -344,7 +345,7 @@ class WitnessPlayerLogic:
         # Exclude panels from the post-game if shuffle_postgame is false.
         if not world.options.shuffle_postgame:
             adjustment_linesets_in_order += self.handle_postgame(world)
-        
+
         # Exclude Discards / Vaults
         if not world.options.shuffle_discarded_panels:
             # In disable_non_randomized, the discards are needed for alternate activation triggers, UNLESS both
