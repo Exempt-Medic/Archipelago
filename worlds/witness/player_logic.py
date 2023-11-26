@@ -339,6 +339,7 @@ class WitnessPlayerLogic:
         doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         lasers = world.options.shuffle_lasers
         victory = world.options.victory_condition
+        mnt_lasers = world.options.mountain_lasers
         chal_lasers = world.options.challenge_lasers
         foreknowledge = world.options.expect_prior_knowledge
 
