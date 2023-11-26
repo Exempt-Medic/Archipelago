@@ -188,13 +188,13 @@ def get_always_hint_items(world: "WitnessWorld"):
 
 
 def get_always_hint_locations(_: "WitnessWorld"):
-    return {
+    return [
         "Challenge Vault Box",
         "Mountain Bottom Floor Discard",
         "Theater Eclipse EP",
         "Shipwreck Couch EP",
         "Mountainside Cloud Cycle EP",
-    }
+    ]
 
 
 def get_priority_hint_items(world: "WitnessWorld"):
@@ -246,11 +246,11 @@ def get_priority_hint_items(world: "WitnessWorld"):
             lasers.append("Desert Laser")
             priority.update(world.random.sample(lasers, 6))
 
-    return priority
+    return sorted(priority)
 
 
 def get_priority_hint_locations(_: "WitnessWorld"):
-    return {
+    return [
         "Swamp Purple Underwater",
         "Shipwreck Vault Box",
         "Town RGB Room Left",
@@ -264,7 +264,7 @@ def get_priority_hint_locations(_: "WitnessWorld"):
         "Tunnels Theater Flowers EP",
         "Boat Shipwreck Green EP",
         "Quarry Stoneworks Control Room Left",
-    }
+    ]
 
 
 def make_hint_from_item(world: "WitnessWorld", item_name: str, own_itempool: List[Item]):
