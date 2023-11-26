@@ -115,29 +115,32 @@ class WitnessPlayerItems:
         # Adjust item classifications based on game settings.
         eps_shuffled = self._world.options.shuffle_EPs
         come_to_you = self._world.options.elevators_come_to_you
+        difficulty = self._world.options.puzzle_randomization
         snipes = self._world.options.expect_snipes
         non_random_snipes = self._world.options.expect_non_randomized_snipes
         foreknowledge = self._world.options.expect_prior_knowledge
         doors = self._world.options.shuffle_doors
         random_shadows_laser_door = "Shadows Laser Entry Left (Door)" if self._world.random.randint(0, 1) else "Shadows Laser Entry Right (Door)"
         for item_name, item_data in self.item_data.items():
+            # Downgrade doors that only gate progress in EP shuffle.
             if not eps_shuffled and item_name in {"Monastery Garden Entry (Door)",
                                                   "Monastery Shortcuts",
                                                   "Quarry Boathouse Hook Control (Panel)",
                                                   "Windmill Turn Control (Panel)"}:
-                # Downgrade doors that only gate progress in EP shuffle.
                 item_data.classification = ItemClassification.useful
+            # These Bridges/Elevators are not logical access because they may leave you stuck.
             elif not come_to_you and not eps_shuffled and item_name in {"Quarry Elevator Control (Panel)",
                                                                         "Swamp Long Bridge (Panel)"}:
-                # These Bridges/Elevators are not logical access because they may leave you stuck.
                 item_data.classification = ItemClassification.useful
+            # Downgrade doors that don't gate progress.
             elif item_name in {"River Monastery Garden Shortcut (Door)",
                                "Monastery Laser Shortcut (Door)",
                                "Orchard Second Gate (Door)",
                                "Jungle Bamboo Laser Shortcut (Door)",
                                "Keep Pressure Plates 2 Exit (Door)",
                                "Caves Elevator Controls (Panel)"}:
-                # Downgrade doors that don't gate progress.
+                item_data.classification = ItemClassification.useful
+            elif item_name == "Keep Pressure Plates 2 Exit (Door)" and difficulty != "none":
                 item_data.classification = ItemClassification.useful
 
             # Downgrade doors skipped with Snipes
@@ -146,7 +149,7 @@ class WitnessPlayerItems:
                                                  "Glass Factory Back Wall (Door)",
                                                  "Glass Factory Doors"}:
                     item_data.classification = ItemClassification.useful
-                elif snipes >= 2 and non_random_snipes and item_name in {"Treehouse Drawbridge (Door)"}:
+                elif snipes >= 2 and non_random_snipes and item_name == "Treehouse Drawbridge (Door)":
                     item_data.classification = ItemClassification.useful
                 elif snipes >= 3 and doors <= 1 and non_random_snipes and not eps_shuffled and item_name in {"Quarry Stoneworks Lift Controls (Panel)",
                                                                                                              "Quarry Stoneworks Ramp Controls (Panel)"}:
@@ -157,14 +160,14 @@ class WitnessPlayerItems:
                 if item_name in {random_shadows_laser_door,
                                  "Bunker Drop-Down Door Controls (Panel)"}:
                     item_data.classification = ItemClassification.useful
-                elif not eps_shuffled and item_name in {"Monastery Shutters Control (Panel)"}:
+                elif not eps_shuffled and item_name == "Monastery Shutters Control (Panel)":
                     item_data.classification = ItemClassification.useful
-                elif foreknowledge >= 3 and item_name in {"Desert Light Control (Panel)"}:
+                elif foreknowledge >= 3 and item_name == "Desert Light Control (Panel)":
                     item_data.classification = ItemClassification.useful
                 elif foreknowledge >= 3 and not eps_shuffled and item_name in {"Desert Flood Controls (Panel)",
                                                                                "Desert Control Panels"}:
                     item_data.classification = ItemClassification.useful
-                elif foreknowledge >= 4 and not eps_shuffled and item_name in {"Town RGB Control (Panel)"}:
+                elif foreknowledge >= 4 and not eps_shuffled and item_name == "Town RGB Control (Panel)":
                     item_data.classification = ItemClassification.useful
 
         # Build the mandatory item list.
