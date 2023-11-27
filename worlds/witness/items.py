@@ -137,10 +137,9 @@ class WitnessPlayerItems:
                                "Monastery Laser Shortcut (Door)",
                                "Orchard Second Gate (Door)",
                                "Jungle Bamboo Laser Shortcut (Door)",
-                               "Keep Pressure Plates 2 Exit (Door)",
                                "Caves Elevator Controls (Panel)"}:
                 item_data.classification = ItemClassification.useful
-            elif item_name == "Keep Pressure Plates 2 Exit (Door)" and difficulty != "none":
+            elif item_name == "Keep Pressure Plates 2 Exit (Door)" and not (difficulty == "none" and eps_shuffled):
                 item_data.classification = ItemClassification.useful
 
             # Downgrade doors skipped with Snipes
