@@ -206,6 +206,10 @@ def get_bottom_floor_discard_nondoors_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Postgame/Bottom_Floor_Discard_NonDoors.txt")
 
 
+def get_mountainbox_long_exclusion_list() -> List[str]:
+    return get_adjustment_file("settings/Postgame/Mountainbox_Long.txt")
+
+
 def get_mountain_upper_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Postgame/Mountain_Upper.txt")
 

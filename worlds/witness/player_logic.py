@@ -326,7 +326,7 @@ class WitnessPlayerLogic:
 
         # If we have a proper short box goal, long box will never be activated first.
         if proper_shortbox_goal:
-            postgame_adjustments.append(["Disabled Locations:", "0xFFF00 (Mountain Box Long)"])
+            postgame_adjustments.append(get_mountainbox_long_exclusion_list())
 
         return postgame_adjustments
 
