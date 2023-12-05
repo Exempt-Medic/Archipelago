@@ -70,12 +70,18 @@ class WitnessPlayerLogic:
                 for items_option in these_items:
                     all_options.add(items_option.union(dependentItem))
 
-            # 0x28A0D depends on another entity for *non-power* reasons -> This dependency needs to be preserved...
-            if panel_hex != "0x28A0D":
-                return frozenset(all_options)
-            # ...except in Expert, where that dependency doesn't exist, but now there *is* a power dependency.
+            # 0x28A0D depends on another entity for *non-power* reasons -> This dependency needs to be preserved,
+            # except in Expert, where that dependency doesn't exist, but now there *is* a power dependency.
             # In the future, it would be wise to make a distinction between "power dependencies" and other dependencies.
-            if any("0x28998" in option for option in these_panels):
+            if panel_hex == "0x28A0D" and not any("0x28998" in option for option in these_panels):
+                these_items = all_options
+
+            # Another dependency that is not power-based: The Symmetry Island Upper Panel latches
+            elif panel_hex == 0x18269:
+                these_items = all_options
+
+            # For any other door entity, we just return a set with the item that opens it & disregard power dependencies
+            else:
                 return frozenset(all_options)
 
             these_items = all_options
@@ -256,7 +262,7 @@ class WitnessPlayerLogic:
 
         # Make some quick references to some options
         doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
-        early_caves = world.options.early_caves > 0
+        early_caves = world.options.early_caves
         victory = world.options.victory_condition
         mnt_lasers = world.options.mountain_lasers
         chal_lasers = world.options.challenge_lasers
@@ -362,18 +368,18 @@ class WitnessPlayerLogic:
                 adjustment_linesets_in_order.append(get_vault_panels_exclusion_list())
             else:
                 adjustment_linesets_in_order.append(get_vault_exclusion_list())
-            if not victory == 1:
+            if not victory == "challenge":
                 adjustment_linesets_in_order.append(get_challenge_vault_box_exclusion_list())
 
         # Victory Condition
 
-        if victory == 0:
+        if victory == "elevator":
             self.VICTORY_LOCATION = "0x3D9A9"
-        elif victory == 1:
+        elif victory == "challenge":
             self.VICTORY_LOCATION = "0x0356B"
-        elif victory == 2:
+        elif victory == "mountain_box_short":
             self.VICTORY_LOCATION = "0x09F7F"
-        elif victory == 3:
+        elif victory == "mountain_box_long:
             self.VICTORY_LOCATION = "0xFFF00"
 
         if mnt_lasers >= 8:

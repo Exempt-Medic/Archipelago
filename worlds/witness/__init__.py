@@ -174,7 +174,7 @@ class WitnessWorld(World):
         needed_size = 3
         needed_size += self.options.puzzle_randomization == "sigma_expert"
         needed_size += self.options.shuffle_symbols
-        needed_size += self.options.shuffle_doors > 0
+        needed_size += self.options.shuffle_doors != "off"
 
         # Then, add checks in order until the required amount of sphere 1 checks is met.
 
@@ -248,7 +248,7 @@ class WitnessWorld(World):
         remaining_item_slots -= num_puzzle_skips
 
         # Add junk items.
-        if remaining_item_slots > 0:
+        if remaining_item_slots:
             item_pool.update(self.items.get_filler_items(remaining_item_slots))
 
         # Generate the actual items.
@@ -271,7 +271,7 @@ class WitnessWorld(World):
 
         audio_logs = get_audio_logs().copy()
 
-        if hint_amount != 0:
+        if hint_amount:
             generated_hints = make_hints(self, hint_amount, self.own_itempool)
 
             self.random.shuffle(audio_logs)
