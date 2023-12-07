@@ -77,14 +77,12 @@ class WitnessPlayerLogic:
                 these_items = all_options
 
             # Another dependency that is not power-based: The Symmetry Island Upper Panel latches
-            elif panel_hex == 0x18269:
+            elif panel_hex == "0x1C349":
                 these_items = all_options
 
             # For any other door entity, we just return a set with the item that opens it & disregard power dependencies
             else:
                 return frozenset(all_options)
-
-            these_items = all_options
 
         disabled_eps = {eHex for eHex in self.COMPLETELY_DISABLED_ENTITIES
                         if self.REFERENCE_LOGIC.ENTITIES_BY_HEX[eHex]["entityType"] == "EP"}
@@ -379,7 +377,7 @@ class WitnessPlayerLogic:
             self.VICTORY_LOCATION = "0x0356B"
         elif victory == "mountain_box_short":
             self.VICTORY_LOCATION = "0x09F7F"
-        elif victory == "mountain_box_long:
+        elif victory == "mountain_box_long":
             self.VICTORY_LOCATION = "0xFFF00"
 
         if mnt_lasers >= 8:

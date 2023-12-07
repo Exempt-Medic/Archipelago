@@ -122,7 +122,7 @@ class WitnessPlayerItems:
         doors = self._world.options.shuffle_doors
         random_shadows_laser_door = "Shadows Laser Entry Left (Door)" if self._world.random.randint(0, 1) else "Shadows Laser Entry Right (Door)"
         for item_name, item_data in self.item_data.items():
-            # Downgrade doors that only gate progress in EP shuffle.
+            # Downgrade panels/doors that only gate progress in EP shuffle.
             if not eps_shuffled and item_name in {"Monastery Garden Entry (Door)",
                                                   "Monastery Shortcuts",
                                                   "Quarry Boathouse Hook Control (Panel)",
@@ -132,7 +132,7 @@ class WitnessPlayerItems:
             elif not come_to_you and not eps_shuffled and item_name in {"Quarry Elevator Control (Panel)",
                                                                         "Swamp Long Bridge (Panel)"}:
                 item_data.classification = ItemClassification.useful
-            # Downgrade doors that don't gate progress.
+            # Downgrade panels/doors that don't gate progress.
             elif item_name in {"River Monastery Garden Shortcut (Door)",
                                "Monastery Laser Shortcut (Door)",
                                "Orchard Second Gate (Door)",
@@ -142,7 +142,7 @@ class WitnessPlayerItems:
             elif item_name == "Keep Pressure Plates 2 Exit (Door)" and not (difficulty == "none" and eps_shuffled):
                 item_data.classification = ItemClassification.useful
 
-            # Downgrade doors skipped with Snipes
+            # Downgrade panels/doors skipped with Snipes
             elif snipes:
                 if snipes >= 2 and item_name in {"Glass Factory Entry (Door)",
                                                  "Glass Factory Back Wall (Door)",
@@ -151,10 +151,12 @@ class WitnessPlayerItems:
                 elif snipes >= 2 and non_random_snipes and item_name == "Treehouse Drawbridge (Door)":
                     item_data.classification = ItemClassification.useful
                 elif snipes >= 3 and doors <= 1 and non_random_snipes and not eps_shuffled and item_name in {"Quarry Stoneworks Lift Controls (Panel)",
-                                                                                                             "Quarry Stoneworks Ramp Controls (Panel)"}:
+                                                                                                             "Quarry Stoneworks Control Panels"}:
+                    item_data.classification = ItemClassification.useful
+                elif snipes >= 1 and not eps_shuffled and item_name == "Quarry Stoneworks Ramp Controls (Panel)":
                     item_data.classification = ItemClassification.useful
 
-            # Downgrade doors skipped with Foreknowledge
+            # Downgrade [anels/doors skipped with Foreknowledge
             elif foreknowledge:
                 if item_name in {random_shadows_laser_door,
                                  "Bunker Drop-Down Door Controls (Panel)"}:
