@@ -156,7 +156,7 @@ class WitnessPlayerItems:
                 elif snipes >= 1 and not eps_shuffled and item_name == "Quarry Stoneworks Ramp Controls (Panel)":
                     item_data.classification = ItemClassification.useful
 
-            # Downgrade [anels/doors skipped with Foreknowledge
+            # Downgrade Panels/doors skipped with Foreknowledge
             elif foreknowledge:
                 if item_name in {random_shadows_laser_door,
                                  "Bunker Drop-Down Door Controls (Panel)"}:
