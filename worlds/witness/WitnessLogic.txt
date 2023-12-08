@@ -994,7 +994,7 @@ Mountain Top Layer Bridge (Mountain Floor 1) - Mountain Top Layer At Door - True
 Mountain Top Layer At Door (Mountain Floor 1) - Mountain Floor 2 - 0x09E54:
 Door - 0x09E54 (Exit) - 0x09EAF & 0x09F6E & 0x09E6B & 0x09E7B
 
-Mountain Floor 2 (Mountain Floor 2) - Mountain Floor 2 Light Bridge Room Near - 0x09FFB - Mountain Floor 2 Blue Bridge - 0x09E86 - Mountain Pink Bridge EP - TrueOneWay:
+Mountain Floor 2 (Mountain Floor 2) - Mountain Floor 2 Light Bridge Room Near - 0x09FFB - Mountain Floor 2 Blue Bridge - 0x09E86 - Mountain Pink Bridge EP - TrueOneWay - Mountain Elevator Discard Panel - Snipes2 & NRS:
 158426 - 0x09FD3 (Near Row 1) - True - Stars & Colored Squares & Stars + Same Colored Symbol
 158427 - 0x09FD4 (Near Row 2) - 0x09FD3 - Stars & Colored Squares & Stars + Same Colored Symbol
 158428 - 0x09FD6 (Near Row 3) - 0x09FD4 - Stars & Colored Squares & Stars + Same Colored Symbol
@@ -1022,7 +1022,9 @@ Door - 0x09E07 (Staircase Far) - 0x09FD2
 Mountain Floor 2 Light Bridge Room Far (Mountain Floor 2):
 158438 - 0x09ED8 (Light Bridge Controller Far) - True - Stars & Stars + Same Colored Symbol & Rotated Shapers & Eraser
 
-Mountain Floor 2 Elevator Room (Mountain Floor 2) - Mountain Floor 2 Elevator - TrueOneWay:
+Mountain Floor 2 Elevator Room (Mountain Floor 2) - Mountain Floor 2 Elevator - TrueOneWay - Mountain Elevator Discard Panel - TrueOneWay:
+
+Mountain Elevator Discard Panel (Mountain Floor 2):
 158613 - 0x17F93 (Elevator Discard) - True - Triangles
 
 Mountain Floor 2 Elevator (Mountain Floor 2) - Mountain Floor 2 Elevator Room - 0x09EEB - Mountain Third Layer - 0x09EEB:
