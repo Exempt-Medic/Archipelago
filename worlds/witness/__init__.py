@@ -106,7 +106,13 @@ class WitnessWorld(World):
 
         self.log_ids_to_hints = dict()
 
-        if not (self.options.shuffle_symbols or self.options.shuffle_doors or self.options.shuffle_lasers):
+        interacts_with_multiworld = (
+                self.options.shuffle_symbols or
+                self.options.shuffle_doors or
+                self.options.shuffle_lasers == "anywhere"
+        )
+
+        if not interacts_with_multiworld:
             if self.multiworld.players == 1:
                 warning(f"{self.multiworld.get_player_name(self.player)}'s Witness world doesn't have any progression"
                         f" items. Please turn on Symbol Shuffle, Door Shuffle or Laser Shuffle if that doesn't"
@@ -118,6 +124,9 @@ class WitnessWorld(World):
         if (self.options.mountain_lasers > 7 and not self.options.expect_snipes):
             raise Exception(f"{self.multiworld.get_player_name(self.player)}'s Witness world has incompatible snipes"
                             f" and laser box settings. Please enable snipes or set the required lasers to 7 or less.")
+
+        if self.options.shuffle_lasers == "local":
+            self.multiworld.local_items[self.player].value |= self.item_name_groups["Lasers"]
 
     def create_regions(self):
         self.regio.create_regions(self, self.player_logic)
