@@ -103,7 +103,7 @@ class WitnessPlayerLogic:
 
                 if option_entity in self.EVENT_NAMES_BY_HEX:
                     new_items = frozenset({frozenset([option_entity])})
-                elif option_entity in {"7 Lasers", "11 Lasers", "PP2 Weirdness", "Theater to Tunnels", "NRS"} or option_entity.startswith("Foreknowledge") or option_entity.startswith("Snipes"):
+                elif option_entity in {"7 Lasers", "11 Lasers", "PP2 Weirdness", "Theater to Tunnels", "NRS", "FOV"} or option_entity.startswith("Foreknowledge") or option_entity.startswith("Snipes"):
                     new_items = frozenset({frozenset([option_entity])})
                 else:
                     new_items = self.reduce_req_within_region(option_entity)

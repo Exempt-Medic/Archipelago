@@ -62,6 +62,8 @@ def _can_solve_panel(panel: str, world: "WitnessWorld", player: int, player_logi
         return int(panel[13]) <= world.options.expect_prior_knowledge
     elif panel == "NRS":
         return world.options.expect_non_randomized_snipes
+    elif panel == "FOV":
+        return world.options.expect_fov_snipes
 
     panel_obj = player_logic.REFERENCE_LOGIC.ENTITIES_BY_HEX[panel]
     entity_name = panel_obj["checkName"]
@@ -172,10 +174,12 @@ def _has_item(item: str, world: "WitnessWorld", player: int,
         return lambda state: _can_do_theater_to_tunnels(state, world)
     elif item.startswith("Snipes"):
         return lambda state: int(item[6]) <= world.options.expect_snipes
-    elif item == "NRS":
-        return lambda state: world.options.expect_non_randomized_snipes
     elif item.startswith("Foreknowledge"):
         return lambda state: int(item[13]) <= world.options.expect_prior_knowledge            
+    elif item == "NRS":
+        return lambda state: world.options.expect_non_randomized_snipes
+    elif item == "FOV":
+        return lambda state: world.options.expect_fov_snipes
     if item in player_logic.EVENT_PANELS:
         return _can_solve_panel(item, world, player, player_logic, locat)
 

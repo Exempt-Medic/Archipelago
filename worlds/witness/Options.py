@@ -207,6 +207,11 @@ class NonRandomizedSnipes(Toggle):
     display_name = "Include Non-Randomized Snipes"
 
 
+class FieldOfViewSnipes(Toggle):
+    """Whether or not you are expected to solve panels and EPs by changing the FOV. Difficulty matches your Snipe Difficulty setting."""
+    display_name = "Include FOV Snipes"
+
+
 class ExpectPriorKnowledge(Choice):
     """Whether or not you are expected to solve nearby panels earlier than usual."""
     display_name = "Prior Knowledge Required"
@@ -249,5 +254,6 @@ class TheWitnessOptions(PerGameCommonOptions):
     randomization_seed: RandomizationSeed
     expect_snipes: ExpectSnipes
     expect_non_randomized_snipes: NonRandomizedSnipes
+    expect_fov_snipes: FieldOfViewSnipes
     expect_prior_knowledge: ExpectPriorKnowledge
     death_link: DeathLink

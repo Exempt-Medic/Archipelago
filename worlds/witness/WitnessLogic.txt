@@ -165,7 +165,7 @@ Door - 0x03444 (Vault Door) - 0x0CC7B
 158085 - 0x09F86 (Surface 8 Control) - 0x0A053 - True
 158086 - 0x0C339 (Light Room Entry Panel) - 0x09F94 - True
 Door - 0x09FEE (Light Room Entry) - 0x0C339
-158701 - 0x03608 (Laser Panel) - 0x012D7 & 0x0A15F - True
+158701 - 0x03608 (Laser Panel) - 0x012D7 & 0x0A15F | Snipes1 & FOV - True
 Laser - 0x012FB (Laser) - 0x03608
 159020 - 0x3351D (Sand Snake EP) - True - True
 159030 - 0x0053C (Facade Right EP) - True - True
@@ -393,12 +393,12 @@ Shadows Laser Room (Shadows):
 158703 - 0x19650 (Laser Panel) - 0x194B2 & 0x19665 | Foreknowledge1 - True
 Laser - 0x181B3 (Laser) - 0x19650
 
-Treehouse Beach (Treehouse Beach) - Main Island - True - Treehouse Drawbridge Panel - Snipes2 & NRS:
+Treehouse Beach (Treehouse Beach) - Main Island - True - Treehouse Drawbridge Panel - Snipes2 & NRS - Treehouse Burned House Beach EP - Snipes1 & FOV:
 159200 - 0x0053D (Rock Shadow EP) - True - True
 159201 - 0x0053E (Sand Shadow EP) - True - True
 159212 - 0x220BD (Both Orange Bridges EP) - 0x17DA2 & 0x17DDB - True
 
-Keep (Keep) - Main Island - True - Keep 2nd Maze - 0x01954 - Keep 2nd Pressure Plate - 0x01BEC - Keep Hedge Maze 2 Panel - 0x019D8 & Snipes1 & NRS - Keep Hedge Maze 3 Panel - 0x019E6 & Snipes1 & NRS - Keep Hedge Maze 4 Panel - Snipes1 & NRS:
+Keep (Keep) - Main Island - True - Keep 2nd Maze - 0x01954 - Keep 2nd Pressure Plate - 0x01BEC - Keep Hedge Maze 2 Panel - 0x019D8 & Snipes1 & NRS - Keep Hedge Maze 3 Panel - 0x019E6 & Snipes1 & NRS - Keep Hedge Maze 4 Panel - Snipes1 & NRS - Keep Pressure Plates 1 EP - Snipes1 & FOV:
 158193 - 0x00139 (Hedge Maze 1) - True - True
 158197 - 0x0A3A8 (Reset Pressure Plates 1) - True - True
 158198 - 0x033EA (Pressure Plates 1) - 0x0A3A8 - Dots
@@ -427,6 +427,9 @@ Door - 0x01A0E (Hedge Maze 4 Exit) - 0x01A0F
 
 Keep Hedge Maze 4 Panel (Keep):
 158196 - 0x01A0F (Hedge Maze 4) - True - True
+
+Keep Pressure Plates 1 EP (Keep):
+159240 - 0x033BE (Pressure Plates 1 EP) - 0x033EA - True
 
 Keep 2nd Pressure Plate (Keep) - Keep 3rd Pressure Plate - True - Keep Pressure Plates 2 EP - Snipes1:
 158199 - 0x0A3B9 (Reset Pressure Plates 2) - True - True
@@ -466,12 +469,11 @@ Door - 0x17BB4 (Vault Door) - 0x00AFB
 Shipwreck Vault (Shipwreck):
 158655 - 0x03535 (Vault Box) - True - True
 
-Keep Tower (Keep) - Keep - 0x04F8F - Keep Pressure Plates 2 EP - TrueOneWay - Keep Discard - Snipes1 - Keep Tower Shortcut Panel - TrueOneWay:
+Keep Tower (Keep) - Keep - 0x04F8F - Keep Pressure Plates 1 EP - TrueOneWay - Keep Pressure Plates 2 EP - TrueOneWay - Keep Discard - Snipes1 - Keep Tower Shortcut Panel - TrueOneWay:
 Door - 0x04F8F (Tower Shortcut) - 0x0361B
 158704 - 0x0360E (Laser Panel Hedges) - 0x01A0F & 0x019E7 & 0x019DC & 0x00139 | 0x01A0F & Foreknowledge1 - True
 158705 - 0x03317 (Laser Panel Pressure Plates) - 0x033EA & 0x01BE9 & 0x01CD3 & 0x01D3F | 0x01D3F & Foreknowledge2 - Shapers & Black/White Squares & Colored Squares & Stars & Stars + Same Colored Symbol & Dots
 Laser - 0x014BB (Laser) - 0x0360E | 0x03317
-159240 - 0x033BE (Pressure Plates 1 EP) - 0x033EA - True
 159242 - 0x033DD (Pressure Plates 3 EP) - 0x01CD3 & 0x01CD5 - True
 159243 - 0x033E5 (Pressure Plates 4 Left Exit EP) - 0x01D3F - True
 159244 - 0x018B6 (Pressure Plates 4 Right Exit EP) - 0x01D3F - True
@@ -514,7 +516,7 @@ Inside Monastery (Monastery):
 
 Monastery Garden (Monastery):
 
-Town (Town) - Main Island - True - The Ocean - 0x0A054 - Town Maze Rooftop - 0x28AA2 - Town Church - True - Town Wooden Rooftop - 0x034F5 - RGB House - 0x28A61 - Windmill Interior - 0x1845B - Town Inside Cargo Box - 0x0A0C9 - Town Tall Hexagonal Panel - Foreknowledge1:
+Town (Town) - Main Island - True - The Ocean - 0x0A054 - Town Maze Rooftop - 0x28AA2 - Town Church - True - Town Wooden Rooftop - 0x034F5 - RGB House - 0x28A61 - Windmill Interior - 0x1845B - Town Inside Cargo Box - 0x0A0C9 - Town Tall Hexagonal Panel - Foreknowledge1 - Town Black Line Tower EP - Snipes1 & FOV:
 158218 - 0x0A054 (Boat Spawn) - 0x17CA6 | 0x17CDF | 0x09DB8 | 0x17C95 - Boat
 158219 - 0x0A0C8 (Cargo Box Entry Panel) - True - Black/White Squares & Shapers
 Door - 0x0A0C9 (Cargo Box Entry) - 0x0A0C8
@@ -590,10 +592,12 @@ Door - 0x2779C (Third Door) - 0x28AD9
 Door - 0x27799 (First Door) - 0x28A69
 Door - 0x2779A (Fourth Door) - 0x28B39
 
-Town Tower Top (Town):
+Town Tower Top (Town) - Town Black Line Tower EP - TrueOneWay:
 158708 - 0x032F5 (Laser Panel) - True - True
 Laser - 0x032F9 (Laser) - 0x032F5
 159422 - 0x33692 (Brown Bridge EP) - True - True
+
+Town Black Line Tower EP (Town):
 159551 - 0x03BCE (Black Line Tower EP) - True - True
 
 Windmill Interior (Windmill) - Theater - 0x17F88:
@@ -720,6 +724,7 @@ Door - 0x00C1C (Entry) - 0x0056E
 159327 - 0x035DE (Purple Sand Bottom EP) - True - True
 
 Swamp Entry Area (Swamp) - Swamp Sliding Bridge - TrueOneWay - Swamp Intro Front Panels - TrueOneWay - Swamp Intro Back Panels - TrueOneWay:
+159804 - 0xFFD03 (Swamp Entry Reached Independently) - True - True
 
 Swamp Intro Front Panels (Swamp):
 158288 - 0x00469 (Intro Front 1) - True - Shapers
@@ -741,10 +746,11 @@ Swamp Intro Back Panels (Swamp):
 
 Swamp Sliding Bridge (Swamp) - Swamp Entry Area - 0x00609 - Swamp Near Platform - 0x00609:
 158302 - 0x00609 (Sliding Bridge) - True - Shapers
-159342 - 0x0105D (Sliding Bridge Left EP) - 0x00609 - True
-159343 - 0x0A304 (Sliding Bridge Right EP) - 0x00609 - True
+159342 - 0x0105D (Sliding Bridge Left EP) - 0x00609 | 0xFFD03 & 0xFFD04 & Snipes2 - True
+159343 - 0x0A304 (Sliding Bridge Right EP) - 0x00609 | 0xFFD03 & 0xFFD04 & Snipes2 - True
 
 Swamp Near Platform (Swamp) - Swamp Cyan Underwater - 0x04B7F - Swamp Near Boat - 0x38AE6 - Swamp Between Bridges Near - 0x184B7 - Swamp Sliding Bridge - TrueOneWay - Swamp Between Bridges Near Row Panels - Snipes3:
+159805 - 0xFFD04 (Swamp Near Platform Reached Independently) - True - True
 158313 - 0x00982 (Platform Row 1) - True - Shapers
 158314 - 0x0097F (Platform Row 2) - 0x00982 - Shapers
 158315 - 0x0098F (Platform Row 3) - 0x0097F - Shapers
@@ -795,7 +801,7 @@ Swamp Rotating Bridge (Swamp) - Swamp Between Bridges Far - 0x181F5 - Swamp Near
 159334 - 0x036CE (Rotating Bridge CW EP) - 0x181F5 - True
 
 Swamp Near Boat (Swamp) - Swamp Rotating Bridge - TrueOneWay - Swamp Blue Underwater - 0x18482 - Swamp Long Bridge - 0xFFD00 & 0xFFD02 - The Ocean - 0x09DB8:
-158903 - 0xFFD02 (Beyond Rotating Bridge Reached Independently) - True - True
+159803 - 0xFFD02 (Beyond Rotating Bridge Reached Independently) - True - True
 158328 - 0x09DB8 (Boat Spawn) - True - Boat
 158329 - 0x003B2 (Beyond Rotating Bridge 1) - 0x0000A - Rotated Shapers
 158330 - 0x00A1E (Beyond Rotating Bridge 2) - 0x003B2 - Rotated Shapers
@@ -937,16 +943,20 @@ Treehouse Green Bridge Left House (Treehouse):
 Treehouse Laser Room Front Platform (Treehouse) - Treehouse Laser Room - 0x0C323:
 Door - 0x0C323 (Laser House Entry) - 0x17DA2 & 0x2700B & 0x17DDB | 0x17CBC
 
-Treehouse Laser Room Back Platform (Treehouse):
+Treehouse Laser Room Back Platform (Treehouse) - Treehouse Laser Panel - Snipes1 & FOV:
 158611 - 0x17FA0 (Laser Discard) - True - Triangles
 
-Treehouse Burned House (Treehouse):
+Treehouse Burned House (Treehouse) - Treehouse Burned House Beach EP - TrueOneWay:
+
+Treehouse Burned House Beach EP (Treehouse):
 159202 - 0x00769 (Burned House Beach EP) - True - True
 
-Treehouse Laser Room (Treehouse):
-158712 - 0x03613 (Laser Panel) - True - True
+Treehouse Laser Room (Treehouse) - Treehouse Laser Panel - TrueOneWay:
 158403 - 0x17CBC (Laser House Door Timer Inside) - True - True
 Laser - 0x028A4 (Laser) - 0x03613
+
+Treehouse Laser Panel (Treehouse):
+158712 - 0x03613 (Laser Panel) - True - True
 
 Mountainside (Mountainside) - Main Island - True - Mountaintop - True - Mountainside Vault - 0x00085:
 158612 - 0x17C42 (Discard) - True - Triangles
