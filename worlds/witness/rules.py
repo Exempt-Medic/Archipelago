@@ -155,7 +155,26 @@ def _can_do_theater_to_tunnels(state: CollectionState, world: "WitnessWorld") ->
             or _can_move_either_direction(state, "Tunnels", "Town", world.regio)
     )
 
-    return direct_access or theater_from_town and tunnels_from_town
+    tunnels_from_desert = (
+        _can_move_either_direction(state, "Town", "Main Island", world.regio)
+        and _can_move_either_direction(state, "Main Island", "Desert Outside", world.regio)
+        and _can_move_either_direction(state, "Desert Outside", "Desert Floodlight Room", world.regio)
+        and _can_move_either_direction(state, "Desert Floodlight Room", "Desert Pond Room", world.regio)
+        and _can_move_either_direction(state, "Desert Pond Room", "Desert Water Levels Room", world.regio)
+        and _can_move_either_direction(state, "Desert Water Levels Room", "Desert Elevator Room", world.regio)
+        and _can_move_either_direction(state, "Desert Elevator Room", "Desert Lowest Level Inbetween Shortcuts", world.regio)
+        and _can_move_either_direction(state, "Desert Lowest Level Inbetween Shortcuts", "Tunnels", world.regio)
+    )
+
+    tunnels_from_caves = (
+        _can_move_either_direction(state, "Town", "Main Island", world.regio)
+        and _can_move_either_direction(state, "Main Island", "Caves", world.regio)
+        and _can_move_either_direction(state, "Caves", "Path to Challenge", world.regio)
+        and _can_move_either_direction(state, "Path to Challenge", "Challenge", world.regio)
+        and _can_move_either_direction(state, "Challenge", "Tunnels", world.regio)
+    )
+
+    return direct_access or theater_from_town and tunnels_from_town or world.options.expect_prior_knowledge >= 2 and (tunnels_from_desert or tunnels_from_caves)
 
 
 def _has_item(item: str, world: "WitnessWorld", player: int,
