@@ -133,10 +133,10 @@ class WitnessPlayerItems:
                                                                         "Swamp Long Bridge (Panel)"}:
                 item_data.classification = ItemClassification.useful
             # Downgrade panels/doors that don't gate progress.
-            elif item_name in {"River Monastery Garden Shortcut (Door)",
+            elif item_name in {"Jungle Monastery Garden Shortcut (Door)",
                                "Monastery Laser Shortcut (Door)",
                                "Orchard Second Gate (Door)",
-                               "Jungle Bamboo Laser Shortcut (Door)",
+                               "Jungle Laser Shortcut (Door)",
                                "Caves Elevator Controls (Panel)"}:
                 item_data.classification = ItemClassification.useful
             elif item_name == "Keep Pressure Plates 2 Exit (Door)" and not (difficulty == "none" and eps_shuffled):
