@@ -105,11 +105,11 @@ Inside Glass Factory Panels (Glass Factory):
 Inside Glass Factory Behind Back Wall (Glass Factory) - The Ocean - 0x17CC8:
 158039 - 0x17CC8 (Boat Spawn) - 0x17CA6 | 0x17CDF | 0x09DB8 | 0x17C95 - Boat
 
+==Symmetry Island==
+
 Outside Symmetry Island (Symmetry Island) - Main Island - True - Symmetry Island Lower - 0x17F3E:
 158040 - 0x000B0 (Lower Panel) - 0x0343A - Dots
 Door - 0x17F3E (Lower) - 0x000B0
-
-==Symmetry Island==
 
 Symmetry Island Lower (Symmetry Island) - Symmetry Island Upper - 0x18269 - Symmetry Island Upper Black Line EP - Snipes1 - Symmetry Island Lower Right Panels - TrueOneWay - Symmetry Island Lower Scenery Outline Panels - TrueOneWay:
 158046 - 0x0007C (Back 1) - 0x00026 - Symmetry & Colored Dots
