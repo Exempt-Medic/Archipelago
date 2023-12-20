@@ -120,7 +120,10 @@ class WitnessPlayerItems:
         non_random_snipes = self._world.options.expect_non_randomized_snipes
         foreknowledge = self._world.options.expect_prior_knowledge
         doors = self._world.options.shuffle_doors
-        random_shadows_laser_door = "Shadows Laser Entry Left (Door)" if self._world.random.randint(0, 1) else "Shadows Laser Entry Right (Door)"
+        discards = self._world.options.shuffle_discarded_panels
+        vaults = self._world.options.shuffle_vault_boxes
+        disable_non_randomized = self._world.options.disable_non_randomized_puzzles
+
         for item_name, item_data in self.item_data.items():
             # Downgrade panels/doors that only gate progress in EP shuffle.
             if not eps_shuffled and item_name in {"Monastery Garden Entry (Door)",
@@ -141,6 +144,10 @@ class WitnessPlayerItems:
                 item_data.classification = ItemClassification.useful
             elif item_name == "Keep Pressure Plates 2 Exit (Door)" and not (difficulty == "none" and eps_shuffled):
                 item_data.classification = ItemClassification.useful
+            elif item_name == "Town Cargo Box Entry (Door)" and not eps_shuffled and not discards and disable_non_randomized:
+                item_data.classification = ItemClassification.useful
+            elif item_name == "Windmill & Theater Control Panels" and not eps_shuffled and not (vaults and disable_non_randomized):
+                item_data.classification = ItemClassification.useful
 
             # Downgrade panels/doors skipped with Snipes
             elif snipes:
@@ -158,8 +165,7 @@ class WitnessPlayerItems:
 
             # Downgrade Panels/doors skipped with Foreknowledge
             elif foreknowledge:
-                if item_name in {random_shadows_laser_door,
-                                 "Bunker Drop-Down Door Controls (Panel)"}:
+                if item_name == "Bunker Drop-Down Door Controls (Panel)":
                     item_data.classification = ItemClassification.useful
                 elif not eps_shuffled and item_name == "Monastery Shutters Control (Panel)":
                     item_data.classification = ItemClassification.useful
