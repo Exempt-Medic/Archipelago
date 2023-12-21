@@ -137,6 +137,10 @@ def get_no_doors() -> List[str]:
     return get_adjustment_file("settings/Door_Shuffle/No_Doors.txt")
 
 
+def get_doors() -> List[str]:
+    return get_adjustment_file("settings/Door_Shuffle/Doors.txt")
+
+
 def get_complex_doors() -> List[str]:
     return get_adjustment_file("settings/Door_Shuffle/Complex_Doors.txt")
 

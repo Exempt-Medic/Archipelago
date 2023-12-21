@@ -402,6 +402,10 @@ class WitnessPlayerLogic:
         elif world.options.EP_difficulty == "tedious":
             adjustment_linesets_in_order.append(get_ep_no_eclipse())
 
+        if doors:
+            adjustment_linesets_in_order.append(get_doors())
+        else:
+            adjustment_linesets_in_order.append(get_no_doors())
         if world.options.door_groupings == "regional":
             if world.options.shuffle_doors == "panels":
                 adjustment_linesets_in_order.append(get_simple_panels())
