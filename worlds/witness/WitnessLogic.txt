@@ -289,14 +289,16 @@ Quarry Stoneworks Entry Left Panel (Quarry):
 Quarry Stoneworks Entry Right Panel (Quarry):
 158122 - 0x01E59 (Stoneworks Entry Right Panel) - True - Dots
 
-Quarry Stoneworks Ground Floor (Quarry Stoneworks) - Quarry - 0x275FF - Quarry Stoneworks Middle Floor - 0x03678 - Outside Quarry - 0x17CE8 - Quarry Stoneworks Lift - TrueOneWay - Quarry Stoneworks Stairs Panel - Snipes3 & NRS - Quarry Stoneworks Side Exit Panel - TrueOneWay - Quarry Stoneworks Lower Row Panels - Snipes1 - Quarry Stoneworks Upper Row Panels - Snipes2:
+Quarry Stoneworks Ground Floor (Quarry Stoneworks) - Quarry - 0x275FF - Quarry Stoneworks Middle Floor - 0x03678 - Outside Quarry - 0x17CE8 - Quarry Stoneworks Lift - TrueOneWay - Quarry Stoneworks Stairs Panel - Snipes3 & NRS - Quarry Stoneworks Side Exit Panel - TrueOneWay - Quarry Stoneworks Roof Exit Panel - TrueOneWay - Quarry Stoneworks Lower Row Panels - Snipes1 - Quarry Stoneworks Upper Row Panels - Snipes2:
 Door - 0x275FF (Side Exit) - 0x275ED
 158124 - 0x03678 (Lower Ramp Control) - True - Dots & Eraser
-158145 - 0x17CAC (Roof Exit Panel) - True - True
 Door - 0x17CE8 (Roof Exit) - 0x17CAC
 
 Quarry Stoneworks Side Exit Panel (Quarry Stoneworks):
 158123 - 0x275ED (Side Exit Panel) - True - True
+
+Quarry Stoneworks Roof Exit Panel (Quarry Stoneworks):
+158145 - 0x17CAC (Roof Exit Panel) - True - True
 
 Quarry Stoneworks Middle Floor (Quarry Stoneworks) - Quarry Stoneworks Lift - TrueOneWay - Quarry Stoneworks Side Exit Panel - Snipes1 - Quarry Stoneworks Upper Row Panels - Snipes1 - Quarry Stoneworks Lower Row Panels - TrueOneWay:
 
@@ -402,7 +404,7 @@ Door - 0x194B2 (Laser Entry Right) - 0x1972F
 Door - 0x19665 (Laser Entry Left) - 0x197E5
 159400 - 0x28A7B (Quarry Stoneworks Rooftop Vent EP) - True - True
 
-Shadows Ledge (Shadows) - Shadows - 0x1855B - Quarry - 0x19865 & 0x0A2DF - Shadows Ledge Panels - TrueOneWay - Shadows Door Timer Inside Panel - TrueOneWay:
+Shadows Ledge (Shadows) - Shadows - 0x1855B - Quarry - 0x19865 & 0x0A2DF - Shadows Ledge Panels - TrueOneWay - Shadows Door Timer Inside Panel - TrueOneWay - Quarry Stoneworks Roof Exit Panel - Snipes2:
 Door - 0x19865 (Quarry Barrier) - 0x198BF
 Door - 0x0A2DF (Quarry Barrier 2) - 0x198BF
 Door - 0x1855B (Ledge Barrier) - 0x0A8DC
