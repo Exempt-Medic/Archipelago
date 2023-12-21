@@ -150,7 +150,7 @@ class WitnessPlayerItems:
                 item_data.classification = ItemClassification.useful
 
             # Downgrade panels/doors skipped with Snipes
-            elif snipes:
+            if snipes:
                 if snipes >= 2 and item_name in {"Glass Factory Entry (Door)",
                                                  "Glass Factory Back Wall (Door)",
                                                  "Glass Factory Doors"}:
@@ -164,7 +164,7 @@ class WitnessPlayerItems:
                     item_data.classification = ItemClassification.useful
 
             # Downgrade Panels/doors skipped with Foreknowledge
-            elif foreknowledge:
+            if foreknowledge:
                 if item_name == "Bunker Drop-Down Door Controls (Panel)":
                     item_data.classification = ItemClassification.useful
                 elif not eps_shuffled and item_name == "Monastery Shutters Control (Panel)":
