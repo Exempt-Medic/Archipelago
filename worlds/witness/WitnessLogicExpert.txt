@@ -379,6 +379,8 @@ Door - 0x3865F (Second Barrier) - 0x38663
 Quarry Boathouse Second Barrier Panel (Quarry Boathouse):
 158155 - 0x38663 (Second Barrier Panel) - True - True
 
+==Shadows==
+
 Shadows (Shadows) - Main Island - True - Shadows Ledge - 0x19B24 - Shadows Laser Room - 0x194B2 | 0x19665 - Shadows Ledge Panels - Snipes2 & NRS - Shadows Door Timer Inside Panel - Snipes1:
 158170 - 0x334DB (Door Timer Outside) - True - True
 Door - 0x19B24 (Timed Door) - 0x334DB | 0x334DC
@@ -401,8 +403,6 @@ Door - 0x194B2 (Laser Entry Right) - 0x1972F
 158186 - 0x197E5 (Near 5) - 0x197E8 - True
 Door - 0x19665 (Laser Entry Left) - 0x197E5
 159400 - 0x28A7B (Quarry Stoneworks Rooftop Vent EP) - True - True
-
-==Shadows==
 
 Shadows Ledge (Shadows) - Shadows - 0x1855B - Quarry - 0x19865 & 0x0A2DF - Shadows Ledge Panels - TrueOneWay - Shadows Door Timer Inside Panel - TrueOneWay - Quarry Stoneworks Roof Exit Panel - Snipes2:
 Door - 0x19865 (Quarry Barrier) - 0x198BF
