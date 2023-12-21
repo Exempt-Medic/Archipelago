@@ -144,7 +144,7 @@ class WitnessPlayerItems:
                 item_data.classification = ItemClassification.useful
             elif item_name == "Keep Pressure Plates 2 Exit (Door)" and not (difficulty == "none" and eps_shuffled):
                 item_data.classification = ItemClassification.useful
-            elif item_name == "Town Cargo Box Entry (Door)" and not eps_shuffled and not discards and disable_non_randomized:
+            elif item_name == "Town Cargo Box Entry (Door)" and not eps_shuffled and not discards and not disable_non_randomized:
                 item_data.classification = ItemClassification.useful
             elif item_name == "Windmill & Theater Control Panels" and not eps_shuffled and not (vaults and disable_non_randomized):
                 item_data.classification = ItemClassification.useful
