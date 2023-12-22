@@ -335,13 +335,15 @@ Quarry Stoneworks Upper Row Panels (Quarry Stoneworks):
 Quarry Stoneworks Stairs Panel (Quarry Stoneworks):
 158142 - 0x03677 (Stairs Panel) - True - Colored Squares & Eraser
 
-Quarry Boathouse (Quarry Boathouse) - Quarry - True - Quarry Boathouse Upper Front - 0x03852 - Quarry Boathouse Behind Staircase - 0x2769B - Quarry Boathouse Upper Front Panels - Snipes1:
+Quarry Boathouse (Quarry Boathouse) - Quarry - True - Quarry Boathouse Boat Spawn Panel - TrueOneWay - Quarry Boathouse Upper Front - 0x03852 - Quarry Boathouse Behind Staircase - 0x2769B - Quarry Boathouse Upper Front Panels - Snipes1:
 158146 - 0x034D4 (Intro Left) - True - Stars & Stars + Same Colored Symbol & Eraser
 158147 - 0x021D5 (Intro Right) - True - Shapers & Eraser
 158148 - 0x03852 (Ramp Height Control) - 0x034D4 & 0x021D5 - Rotated Shapers
-158166 - 0x17CA6 (Boat Spawn) - True - Boat
 Door - 0x2769B (Dock) - 0x17CA6
 Door - 0x27163 (Dock Invis Barrier) - 0x17CA6
+
+Quarry Boathouse Boat Spawn Panel (Quarry Boathouse):
+158166 - 0x17CA6 (Boat Spawn) - True - Boat
 
 Quarry Boathouse Behind Staircase (Quarry Boathouse) - The Ocean - 0x17CA6:
 
@@ -381,7 +383,7 @@ Quarry Boathouse Second Barrier Panel (Quarry Boathouse):
 
 ==Shadows==
 
-Shadows (Shadows) - Main Island - True - Shadows Ledge - 0x19B24 - Shadows Laser Room - 0x194B2 | 0x19665 - Shadows Ledge Panels - Snipes2 & NRS - Shadows Door Timer Inside Panel - Snipes1:
+Shadows (Shadows) - Main Island - True - Shadows Ledge - 0x19B24 - Shadows Laser Room - 0x194B2 | 0x19665 - Shadows Ledge Panels - Snipes2 & NRS - Shadows Door Timer Inside Panel - Snipes1 - Quarry Boathouse Boat Spawn Panel - Snipes1:
 158170 - 0x334DB (Door Timer Outside) - True - True
 Door - 0x19B24 (Timed Door) - 0x334DB | 0x334DC
 158171 - 0x0AC74 (Intro 6) - 0x0A8DC - True
