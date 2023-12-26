@@ -17,7 +17,7 @@ from .locations import WitnessPlayerLocations, StaticWitnessLocations
 from .items import WitnessItem, StaticWitnessItems, WitnessPlayerItems, ItemData
 from .regions import WitnessRegions
 from .rules import set_rules
-from .Options import TheWitnessOptions
+from .options import TheWitnessOptions
 from .utils import get_audio_logs, build_weighted_int_list
 from logging import warning, error
 from Utils import visualize_regions
