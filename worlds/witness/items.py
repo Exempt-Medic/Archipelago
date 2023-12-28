@@ -123,6 +123,7 @@ class WitnessPlayerItems:
         doors = self._world.options.shuffle_doors
         discards = self._world.options.shuffle_discarded_panels
         vaults = self._world.options.shuffle_vault_boxes
+        symbols = self._world.options.shuffle_symbols
         disable_non_randomized = self._world.options.disable_non_randomized_puzzles
         boat = self._world.options.shuffle_boat
         postgame = self._world.options.shuffle_postgame
@@ -156,6 +157,8 @@ class WitnessPlayerItems:
             elif item_name == "Windmill & Theater Control Panels" and not eps and not (vaults and disable_non_randomized):
                 item_data.classification = ItemClassification.useful
             elif item_name == "Mountain Floor 2 Elevator Control (Panel)" and not discards and doors == "mixed" and mountain_upper_excluded:
+                item_data.classification = ItemClassification.useful
+            elif item_name == "Jungle Popup Wall (Panel)" and not symbols and disable_non_randomized:
                 item_data.classification = ItemClassification.useful
 
             # Downgrade panels/doors skipped with Snipes
