@@ -152,9 +152,9 @@ class WitnessPlayerItems:
                 item_data.classification = ItemClassification.useful
             elif item_name == "Keep Pressure Plates 2 Exit (Door)" and not (difficulty == "none" and eps):
                 item_data.classification = ItemClassification.useful
-            elif item_name == "Town Cargo Box Entry (Door)" and not eps and not discards and not disable_non_randomized:
+            elif item_name == "Town Cargo Box Entry (Door)" and not (eps or discards or disable_non_randomized):
                 item_data.classification = ItemClassification.useful
-            elif item_name == "Windmill & Theater Control Panels" and not eps and not (vaults and disable_non_randomized):
+            elif item_name == "Windmill & Theater Control Panels" and not (eps or vaults and disable_non_randomized):
                 item_data.classification = ItemClassification.useful
             elif item_name == "Mountain Floor 2 Elevator Control (Panel)" and not discards and doors == "mixed" and mountain_upper_excluded:
                 item_data.classification = ItemClassification.useful
@@ -180,7 +180,7 @@ class WitnessPlayerItems:
                 elif item_name == "Treehouse Laser House Door Timer (Panel)" and fov_snipes and doors <= 1 and difficulty != "sigma_expert":
                     item_data.classification = ItemClassification.useful
                 # Quarry can be accessed by Boat under certain conditions
-                elif item_name == "Quarry Elevator Control (Panel)" and not eps and doors <= 1 and not boat:
+                elif item_name == "Quarry Elevator Control (Panel)" and doors <= 1 and not (eps or boat):
                     item_data.classification = ItemClassification.useful
 
             # Downgrade Panels/doors skipped with Foreknowledge
