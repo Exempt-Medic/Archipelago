@@ -172,13 +172,13 @@ Door - 0x03444 (Vault Door) - 0x0CC7B
 158602 - 0x17CE7 (Discard) - True - Triangles
 158076 - 0x00698 (Surface 1) - True - True
 158077 - 0x0048F (Surface 2) - 0x00698 - True
-158078 - 0x09F92 (Surface 3) - 0x0048F & 0x09FA0 - True
+158078 - 0x09F92 (Surface 3) - 0x0048F & 0x09FA0 | 0x0048F & Foreknowledge3 - True
 158079 - 0x09FA0 (Surface 3 Control) - 0x0048F - True
 158080 - 0x0A036 (Surface 4) - 0x09F92 - True
 158081 - 0x09DA6 (Surface 5) - 0x09F92 - True
 158082 - 0x0A049 (Surface 6) - 0x09F92 - True
 158083 - 0x0A053 (Surface 7) - 0x0A036 & 0x09DA6 & 0x0A049 - True
-158084 - 0x09F94 (Surface 8) - 0x0A053 & 0x09F86 - True
+158084 - 0x09F94 (Surface 8) - 0x0A053 & 0x09F86 | 0x0A053 & Foreknowledge3 - True
 158085 - 0x09F86 (Surface 8 Control) - 0x0A053 - True
 158086 - 0x0C339 (Light Room Entry Panel) - 0x09F94 - True
 Door - 0x09FEE (Light Room Entry) - 0x0C339
@@ -237,7 +237,7 @@ Door - 0x0C316 (Elevator Room Entry) - 0x18076
 
 Desert Elevator Room (Desert) - Desert Lowest Level Inbetween Shortcuts - 0x01317:
 158111 - 0x17C31 (Elevator Room Transparent) - True - True
-158113 - 0x012D7 (Elevator Room Hexagonal) - 0x17C31 & 0x0A015 - True
+158113 - 0x012D7 (Elevator Room Hexagonal) - 0x17C31 & 0x0A015 | 0x17C31 & Foreknowledge3 - True
 158114 - 0x0A015 (Elevator Room Hexagonal Control) - 0x17C31 - True
 158115 - 0x0A15C (Elevator Room Bent 1) - True - True
 158116 - 0x09FFF (Elevator Room Bent 2) - 0x0A15C - True
