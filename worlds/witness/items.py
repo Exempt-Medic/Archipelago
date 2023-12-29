@@ -140,7 +140,7 @@ class WitnessPlayerItems:
                                                   "Windmill Turn Control (Panel)"}:
                 item_data.classification = ItemClassification.useful
             # These Bridges/Elevators are not logical access because they may leave you stuck.
-            elif not come_to_you and not eps and item_name in {"Quarry Elevator Control (Panel)",
+            elif not (come_to_you or eps) and item_name in {"Quarry Elevator Control (Panel)",
                                                                "Swamp Long Bridge (Panel)"}:
                 item_data.classification = ItemClassification.useful
             # Downgrade panels/doors that don't gate progress.
