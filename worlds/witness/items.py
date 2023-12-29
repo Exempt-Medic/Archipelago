@@ -92,70 +92,10 @@ class WitnessPlayerItems:
     Class that defines Items for a single world
     """
 
-    def get_item_downgrades(self) -> Set[str]:
-        """Figure out which major items are actually useless in this world's settings"""
-
-        # Gather quick references to relevant options
-        eps_shuffled = self._world.options.shuffle_EPs
-        come_to_you = self._world.options.elevators_come_to_you
-        difficulty = self._world.options.puzzle_randomization
-        snipes = self._world.options.expect_snipes
-        non_random_snipes = self._world.options.expect_non_randomized_snipes
-        fov_snipes = self._world.options.expect_fov_snipes
-        foreknowledge = self._world.options.expect_prior_knowledge
-        doors = self._world.options.shuffle_doors >= 2
-        discards_shuffled = self._world.options.shuffle_discarded_panels
-        vaults_shuffled = self._world.options.shuffle_vault_boxes
-        symbols_shuffled = self._world.options.shuffle_symbols
-        boat_shuffled = self._world.options.shuffle_boat
-        disable_non_randomized = self._world.options.disable_non_randomized_puzzles
-        postgame = self._world.options.shuffle_postgame
-        goal = self._world.options.victory_condition
-        shortbox_req = self._world.options.mountain_lasers
-        longbox_req = self._world.options.challenge_lasers
-        mountain_upper_included = postgame or not (
-            goal == "mountain_box_short"
-            or goal == "mountain_box_long" and longbox_req <= shortbox_req
-        )
-        sphere_1_quarry_via_boat_snipe = snipes and not doors and not boat_shuffled
-
-        # It is easier to think about when these items *are* required, so we make that dict first
-        is_item_required_dict = {
-            "Monastery Garden Entry (Door)": eps_shuffled,
-            "Monastery Shortcuts": eps_shuffled,
-            "Quarry Boathouse Hook Control (Panel)": eps_shuffled,
-            "Windmill Turn Control (Panel)": eps_shuffled,
-            "Quarry Elevator Control (Panel)": come_to_you and sphere_1_quarry_via_boat_snipe or eps_shuffled,
-            "Swamp Long Bridge (Panel)": come_to_you or eps_shuffled,
-            "River Monastery Garden Shortcut (Door)": False,
-            "Monastery Laser Shortcut (Door)": False,
-            "Orchard Second Gate (Door)": False,
-            "Jungle Bamboo Laser Shortcut (Door)": False,
-            "Caves Elevator Controls (Panel)": False,
-            "Keep Pressure Plates 2 Exit (Door)": difficulty == "none" and eps_shuffled,
-            "Town Cargo Box Entry (Door)": eps_shuffled or discards_shuffled or disable_non_randomized,
-            "Windmill & Theater Control Panels": eps_shuffled or (vaults_shuffled and not disable_non_randomized),
-            "Mountain Floor 2 Elevator Control (Panel)": discards_shuffled or mountain_upper_included,
-            "Jungle Popup Wall (Panel)": symbols_shuffled or not disable_non_randomized,
-            "Glass Factory Entry (Door)": snipes <= 1,
-            "Glass Factory Back Wall (Door)": snipes <= 1,
-            "Glass Factory Doors": snipes <= 1,
-            "Treehouse Drawbridge (Door)": snipes <= 1 or not non_random_snipes,
-            "Quarry Stoneworks Lift Controls (Panel)": snipes <= 2 or doors or not non_random_snipes or eps_shuffled,
-            "Quarry Stoneworks Control Panels": snipes <= 2 or doors or not non_random_snipes or eps_shuffled,
-            "Quarry Stoneworks Ramp Controls (Panel)": not snipes or eps_shuffled,
-            "Shadows Door Timer (Panel)": snipes <= 1 or not non_random_snipes or doors,
-            "Treehouse Laser House Door Timer (Panel)": not (snipes and fov_snipes) or doors or difficulty == "sigma_expert",
-            "Bunker Drop-Down Door Controls (Panel)": not foreknowledge,
-            "Monastery Shutters Control (Panel)": not foreknowledge or eps_shuffled,
-            "Desert Light Control (Panel)": foreknowledge <= 2,
-            "Desert Flood Controls (Panel)": foreknowledge <= 2 or eps_shuffled,
-            "Desert Control Panels": foreknowledge <= 2 or eps_shuffled,
-            "Town RGB Control (Panel)": foreknowledge <= 3 or eps_shuffled
-        }
-
-        # Now, return the keys of the dict entries where the result is False to get unrequired major items
-        return {item_name for item_name, is_required in is_item_required_dict.items() if not is_required}
+    # "Windmill & Theater Control Panels": eps_shuffled or (vaults_shuffled and not disable_non_randomized),
+    # "Glass Factory Doors": snipes <= 1,
+    # "Quarry Stoneworks Control Panels": snipes <= 2 or doors or not non_random_snipes or eps_shuffled,
+    # "Desert Control Panels": foreknowledge <= 2 or eps_shuffled,
 
     def __init__(self, world: "WitnessWorld", logic: WitnessPlayerLogic, locat: WitnessPlayerLocations):
         """Adds event items after logic changes due to options"""
@@ -177,12 +117,14 @@ class WitnessPlayerItems:
             or name in logic.PROG_ITEMS_ACTUALLY_IN_THE_GAME
         }
 
-        item_downgrades = self.get_item_downgrades()
-
+        # Downgrade door items
         for item_name, item_data in self.item_data.items():
-            if item_name in item_downgrades:
+            if not isinstance(item_data.definition, DoorItemDefinition):
+                continue
+
+            if all(self._logic.solvability_not_guaranteed(e_hex) for e_hex in item_data.definition.panel_id_hexes):
                 item_data.classification = ItemClassification.useful
-                # print(f"{item_name} was made Useful")
+                print(item_name + " became useful.")
 
         # Build the mandatory item list.
         self._mandatory_items: Dict[str, int] = {}

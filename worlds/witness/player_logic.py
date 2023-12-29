@@ -535,6 +535,94 @@ class WitnessPlayerLogic:
 
             self.CONNECTIONS_BY_REGION_NAME[region] = new_connections
 
+    def solvability_not_guaranteed(self, entity_hex: str):
+        return (
+            entity_hex in self.ENTITIES_WITHOUT_ENSURED_SOLVABILITY
+            or entity_hex in self.COMPLETELY_DISABLED_ENTITIES
+            or entity_hex in self.IRRELEVANT_BUT_NOT_DISABLED_ENTITIES
+        )
+
+    def determine_unrequired_entities(self, world: "WitnessWorld"):
+        """Figure out which major items are actually useless in this world's settings"""
+
+        # Gather quick references to relevant options
+        eps_shuffled = world.options.shuffle_EPs
+        come_to_you = world.options.elevators_come_to_you
+        difficulty = world.options.puzzle_randomization
+        snipes = world.options.expect_snipes
+        non_random_snipes = world.options.expect_non_randomized_snipes
+        fov_snipes = world.options.expect_fov_snipes
+        foreknowledge = world.options.expect_prior_knowledge
+        doors = world.options.shuffle_doors >= 2
+        discards_shuffled = world.options.shuffle_discarded_panels
+        vaults_shuffled = world.options.shuffle_vault_boxes
+        symbols_shuffled = world.options.shuffle_symbols
+        boat_shuffled = world.options.shuffle_boat
+        disable_non_randomized = world.options.disable_non_randomized_puzzles
+        postgame = world.options.shuffle_postgame
+        goal = world.options.victory_condition
+        shortbox_req = world.options.mountain_lasers
+        longbox_req = world.options.challenge_lasers
+        mountain_upper_included = postgame or not (
+            goal == "mountain_box_short"
+            or goal == "mountain_box_long" and longbox_req <= shortbox_req
+        )
+        sphere_1_quarry_via_boat_snipe = snipes and not doors and not boat_shuffled
+
+
+        # It is easier to think about when these items *are* required, so we make that dict first
+        # If the entity is disabled anyway, we don't need to consider that case
+        is_item_required_dict = {
+            "0x03750": eps_shuffled,  # Monastery Garden Entry Door
+            "0x275FA": eps_shuffled,  # Boathouse Hook Control
+            "0x17D02": eps_shuffled,  # Windmill Turn Control
+            "0x17CC4": come_to_you and not sphere_1_quarry_via_boat_snipe or eps_shuffled,  # Quarry Elevator Panel
+            "0x17E2B": come_to_you or eps_shuffled,  # Swamp Long Bridge
+            "0x0CF2A": False,  # Jungle Monastery Garden Shortcut
+            "0x17CAA": doors,  # Jungle Monastery Garden Shortcut Panel
+            "0x0364E": False,  # Monastery Laser Shortcut Door
+            "0x03713": doors,  # Monastery Laser Shortcut Panel
+            "0x03313": False,  # Orchard Second Gate
+            "0x337FA": doors,  # Jungle Bamboo Laser Shortcut Panel
+            "0x3873B": False,  # Jungle Bamboo Laser Shortcut Door
+            "0x335AB": False,  # Caves Elevator Controls
+            "0x335AC": False,  # Caves Elevator Controls
+            "0x3369D": False,  # Caves Elevator Controls
+            "0x01BEA": difficulty == "none" and eps_shuffled,  # Keep PP2 Door
+            "0x0A0C9": eps_shuffled or discards_shuffled or disable_non_randomized,  # Cargo Box Entry Door
+            "0x09EEB": discards_shuffled or mountain_upper_included,  # Mountain Floor 2 Elevator Control
+            "0x17CAB": symbols_shuffled or not disable_non_randomized,  # Jungle Popup Wall Panel
+            "0x01A29": snipes <= 1, # Glass Factory Entry Door
+            "0x0D7ED": snipes <= 1, # Glass Factory Back Wall Door
+            "0x0C32D": snipes <= 1 or not non_random_snipes, # Treehouse Drawbridge Door
+            "0x03679": snipes <= 2 or doors or not non_random_snipes or eps_shuffled, # Quarry Stoneworks Lift Controls
+            "0x03675": snipes <= 2 or doors or not non_random_snipes or eps_shuffled, # Quarry Stoneworks Lift Controls
+            "0x03678": not snipes or eps_shuffled, # Quarry Stoneworks Ramp Controls
+            "0x03676": not snipes or eps_shuffled, # Quarry Stoneworks Ramp Controls
+            "0x334DB": snipes <= 1 or not non_random_snipes or doors, # Shadows Door Timer Panel
+            "0x334DC": snipes <= 1 or not non_random_snipes or doors, # Shadows Door Timer Panel
+            "0x2700B": not (snipes and fov_snipes) or doors or difficulty == "sigma_expert", # Treehouse Laser House Door Timer Panel
+            "0x17CBC": not (snipes and fov_snipes) or doors or difficulty == "sigma_expert", # Treehouse Laser House Door Timer Panel
+            "0x34BC5": not foreknowledge, # Bunker Drop-Down Door Controls
+            "0x34BC6": not foreknowledge, # Bunker Drop-Down Door Controls
+            "0x09D9B": not foreknowledge or eps_shuffled, # Monastery Shutters Control
+            "0x09FAA": foreknowledge <= 2, # Desert Light Control
+            "0x1C2DF": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x1831E": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x1C260": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x1831C": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x1C2F3": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x1831D": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x1C2B1": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x1831B": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
+            "0x334D8": foreknowledge <= 3 or eps_shuffled, # Town RGB Control
+        }
+
+        # Now, return the keys of the dict entries where the result is False to get unrequired major items
+        self.ENTITIES_WITHOUT_ENSURED_SOLVABILITY |= {
+            item_name for item_name, is_required in is_item_required_dict.items() if not is_required
+        }
+
     def make_event_item_pair(self, panel: str):
         """
         Makes a pair of an event panel and its event item
@@ -554,6 +642,8 @@ class WitnessPlayerLogic:
         for event_hex, event_name in self.EVENT_NAMES_BY_HEX.items():
             if event_hex in self.COMPLETELY_DISABLED_ENTITIES or event_hex in self.IRRELEVANT_BUT_NOT_DISABLED_ENTITIES:
                 continue
+            if event_hex in self.ENTITIES_WITHOUT_ENSURED_SOLVABILITY:
+                continue
             self.EVENT_PANELS.add(event_hex)
 
         for panel in self.EVENT_PANELS:
@@ -568,6 +658,8 @@ class WitnessPlayerLogic:
         self.EVENT_PANELS_FROM_REGIONS = set()
 
         self.IRRELEVANT_BUT_NOT_DISABLED_ENTITIES = set()
+
+        self.ENTITIES_WITHOUT_ENSURED_SOLVABILITY = set()
 
         self.THEORETICAL_ITEMS = set()
         self.THEORETICAL_ITEMS_NO_MULTI = set()
@@ -620,5 +712,6 @@ class WitnessPlayerLogic:
         }
 
         self.make_options_adjustments(world)
+        self.determine_unrequired_entities(world)
         self.make_dependency_reduced_checklist()
         self.make_event_panel_lists()
