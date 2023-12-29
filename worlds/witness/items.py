@@ -92,11 +92,6 @@ class WitnessPlayerItems:
     Class that defines Items for a single world
     """
 
-    # "Windmill & Theater Control Panels": eps_shuffled or (vaults_shuffled and not disable_non_randomized),
-    # "Glass Factory Doors": snipes <= 1,
-    # "Quarry Stoneworks Control Panels": snipes <= 2 or doors or not non_random_snipes or eps_shuffled,
-    # "Desert Control Panels": foreknowledge <= 2 or eps_shuffled,
-
     def __init__(self, world: "WitnessWorld", logic: WitnessPlayerLogic, locat: WitnessPlayerLocations):
         """Adds event items after logic changes due to options"""
 
