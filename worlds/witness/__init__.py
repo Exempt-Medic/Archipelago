@@ -200,7 +200,8 @@ class WitnessWorld(World):
         extra_checks = [
             ("Tutorial First Hallway Room", "Tutorial First Hallway Bend"),
             ("Tutorial First Hallway", "Tutorial First Hallway Straight"),
-            ("Desert Outside", "Desert Surface 3"),
+            ("Desert Outside", "Desert Surface 1"),
+            ("Desert Outside", "Desert Surface 2"),
         ]
 
         for i in range(num_early_locs, needed_size):
