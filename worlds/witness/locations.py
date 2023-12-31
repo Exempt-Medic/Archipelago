@@ -497,6 +497,7 @@ class StaticWitnessLocations:
             area = StaticWitnessLogic.ENTITIES_BY_NAME[loc]["area"]["name"]
             self.AREA_LOCATION_GROUPS.setdefault(area, []).append(loc)
 
+
 class WitnessPlayerLocations:
     """
     Class that defines locations for a single player

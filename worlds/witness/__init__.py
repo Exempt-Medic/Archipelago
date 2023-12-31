@@ -277,7 +277,7 @@ class WitnessWorld(World):
                 self.options.local_items.value.add(item_name)
 
     def fill_slot_data(self) -> dict:
-        hint_amount = self.options.hint_amount.value
+        hint_amount = self.options.hint_amount
 
         credits_hint = (
             "This Randomizer is brought to you by",
