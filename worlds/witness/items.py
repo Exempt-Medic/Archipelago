@@ -119,7 +119,6 @@ class WitnessPlayerItems:
 
             if all(self._logic.solvability_not_guaranteed(e_hex) for e_hex in item_data.definition.panel_id_hexes):
                 item_data.classification = ItemClassification.useful
-                print(item_name + " became useful.")
 
         # Build the mandatory item list.
         self._mandatory_items: Dict[str, int] = {}

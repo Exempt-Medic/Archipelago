@@ -281,5 +281,5 @@ class TheWitnessOptions(PerGameCommonOptions):
     expect_non_randomized_snipes: NonRandomizedSnipes
     expect_fov_snipes: FieldOfViewSnipes
     expect_prior_knowledge: ExpectPriorKnowledge
-    death_link: DeathLink,
+    death_link: DeathLink
     death_link_amnesty: DeathLinkAmnesty
