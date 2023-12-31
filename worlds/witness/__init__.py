@@ -128,10 +128,6 @@ class WitnessWorld(World):
                             f" progression items that can be placed in other players' worlds. Please turn on Symbol"
                             f" Shuffle, Door Shuffle or non-local Laser Shuffle.")
 
-        if (self.options.mountain_lasers > 7 and not self.options.expect_snipes):
-            raise Exception(f"{self.multiworld.get_player_name(self.player)}'s Witness world has incompatible snipes"
-                            f" and laser box settings. Please enable snipes or set the required lasers to 7 or less.")
-
         if self.options.shuffle_lasers == "local":
             self.multiworld.local_items[self.player].value |= self.item_name_groups["Lasers"]
 

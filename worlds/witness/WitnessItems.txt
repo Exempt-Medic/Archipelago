@@ -32,7 +32,7 @@ Filler:
 Traps:
 600 - Slowness - 6
 610 - Power Surge - 2
-615 - Bonk Trap - 1
+615 - Bonk - 1
 
 Jokes:
 650 - Functioning Brain
