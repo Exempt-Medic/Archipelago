@@ -235,9 +235,18 @@ class ExpectPriorKnowledge(Choice):
     default = 0
 
 
+class DeathLinkAmnesty(Range):
+    """Amount of panel fails to allow before sending a death in Death Link.
+    0 means every panel fail with send a death, 1 means every other panel fail with send a death, etc."""
+    display_name = "Death Link Amnesty"
+    range_start = 0
+    range_end = 5
+    default = 1
+
+
 class DeathLink(Toggle):
     """If on: Whenever you fail a puzzle (with some exceptions), everyone who is also on Death Link dies.
-    The effect of a "death" in The Witness is a Power Surge."""
+    The effect of a "death" in The Witness is a Bonk Trap."""
     display_name = "Death Link"
 
 
@@ -269,4 +278,5 @@ class TheWitnessOptions(PerGameCommonOptions):
     expect_non_randomized_snipes: NonRandomizedSnipes
     expect_fov_snipes: FieldOfViewSnipes
     expect_prior_knowledge: ExpectPriorKnowledge
-    death_link: DeathLink
+    death_link: DeathLink,
+    death_link_amnesty: DeathLinkAmnesty
