@@ -572,8 +572,8 @@ class WitnessPlayerLogic:
             "0x03750": eps_shuffled,  # Monastery Garden Entry Door
             "0x275FA": eps_shuffled,  # Boathouse Hook Control
             "0x17D02": eps_shuffled,  # Windmill Turn Control
-            "0x17CC4": come_to_you and not sphere_1_quarry_via_boat_snipe or eps_shuffled,  # Quarry Elevator Panel
-            "0x17E2B": come_to_you or eps_shuffled,  # Swamp Long Bridge
+            "0x17CC4": (come_to_you and not sphere_1_quarry_via_boat_snipe) or eps_shuffled,  # Quarry Elevator Panel
+            "0x17E2B": (come_to_you and not boat_shuffled) or (eps_shuffled and (snipes <= 1 or boat_shuffled or not come_to_you)),  # Swamp Long Bridge
             "0x0CF2A": False,  # Jungle Monastery Garden Shortcut
             "0x17CAA": doors,  # Jungle Monastery Garden Shortcut Panel
             "0x0364E": False,  # Monastery Laser Shortcut Door
