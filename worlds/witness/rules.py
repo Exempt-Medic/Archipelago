@@ -199,7 +199,7 @@ def _has_item(item: str, world: "WitnessWorld", player: int,
         return lambda state: world.options.expect_non_randomized_snipes
     elif item == "FOV":
         return lambda state: world.options.expect_fov_snipes
-    if item in player_logic.EVENT_PANELS:
+    if item in player_logic.USED_EVENT_NAMES_BY_HEX:
         return _can_solve_panel(item, world, player, player_logic, locat)
 
     prog_item = StaticWitnessLogic.get_parent_progressive_item(item)
