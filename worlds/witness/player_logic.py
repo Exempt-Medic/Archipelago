@@ -639,7 +639,7 @@ class WitnessPlayerLogic:
 
         self.USED_EVENT_NAMES_BY_HEX = {
             event_hex: event_name for event_hex, event_name in self.USED_EVENT_NAMES_BY_HEX.items()
-            if solvability_guaranteed(event_hex)
+            if self.solvability_guaranteed(event_hex)
         }
 
         for panel in self.USED_EVENT_NAMES_BY_HEX:
