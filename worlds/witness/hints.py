@@ -222,7 +222,6 @@ def get_priority_hint_items(world: "WitnessWorld"):
             "Eraser",
             "Black/White Squares",
             "Colored Squares",
-            "Colored Dots",
             "Sound Dots",
             "Progressive Symmetry"
         ]
