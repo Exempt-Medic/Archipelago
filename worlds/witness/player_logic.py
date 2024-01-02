@@ -549,21 +549,24 @@ class WitnessPlayerLogic:
         non_random_snipes = world.options.expect_non_randomized_snipes
         fov_snipes = world.options.expect_fov_snipes
         foreknowledge = world.options.expect_prior_knowledge
-        doors = world.options.shuffle_doors >= 2
+        doors = world.options.shuffle_doors
         discards_shuffled = world.options.shuffle_discarded_panels
-        vaults_shuffled = world.options.shuffle_vault_boxes
-        symbols_shuffled = world.options.shuffle_symbols
         boat_shuffled = world.options.shuffle_boat
+        symbols_shuffled = world.options.shuffle_symbols
         disable_non_randomized = world.options.disable_non_randomized_puzzles
-        postgame = world.options.shuffle_postgame
+        postgame_included = world.options.shuffle_postgame
         goal = world.options.victory_condition
         shortbox_req = world.options.mountain_lasers
         longbox_req = world.options.challenge_lasers
-        mountain_upper_included = postgame or not (
-            goal == "mountain_box_short"
-            or goal == "mountain_box_long" and longbox_req <= shortbox_req
+
+        # Make some helper booleans so it is easier to follow what's going on
+        mountain_upper_is_in_postgame = (
+                goal == "mountain_box_short" or (goal == "mountain_box_long" and longbox_req <= shortbox_req)
         )
-        sphere_1_quarry_via_boat_snipe = snipes and not doors and not boat_shuffled
+        mountain_upper_included = postgame_included or not mountain_upper_is_in_postgame
+        remote_doors = doors >= 2
+        sphere_1_quarry_via_boat_snipe = snipes and not remote_doors and not boat_shuffled
+        sphere_1_swamp_purple_eps_snipe = snipes >= 2 and come_to_you and not boat_shuffled
 
 
         # It is easier to think about when these items *are* required, so we make that dict first
@@ -573,13 +576,13 @@ class WitnessPlayerLogic:
             "0x275FA": eps_shuffled,  # Boathouse Hook Control
             "0x17D02": eps_shuffled,  # Windmill Turn Control
             "0x17CC4": (come_to_you and not sphere_1_quarry_via_boat_snipe) or eps_shuffled,  # Quarry Elevator Panel
-            "0x17E2B": (come_to_you and not boat_shuffled) or (eps_shuffled and (snipes <= 1 or boat_shuffled or not come_to_you)),  # Swamp Long Bridge
+            "0x17E2B": (come_to_you and not boat_shuffled) or (eps_shuffled and not sphere_1_swamp_purple_eps_snipe),  # Swamp Long Bridge
             "0x0CF2A": False,  # Jungle Monastery Garden Shortcut
-            "0x17CAA": doors,  # Jungle Monastery Garden Shortcut Panel
+            "0x17CAA": remote_doors,  # Jungle Monastery Garden Shortcut Panel
             "0x0364E": False,  # Monastery Laser Shortcut Door
-            "0x03713": doors,  # Monastery Laser Shortcut Panel
+            "0x03713": remote_doors,  # Monastery Laser Shortcut Panel
             "0x03313": False,  # Orchard Second Gate
-            "0x337FA": doors,  # Jungle Bamboo Laser Shortcut Panel
+            "0x337FA": remote_doors,  # Jungle Bamboo Laser Shortcut Panel
             "0x3873B": False,  # Jungle Bamboo Laser Shortcut Door
             "0x335AB": False,  # Caves Elevator Controls
             "0x335AC": False,  # Caves Elevator Controls
@@ -591,14 +594,14 @@ class WitnessPlayerLogic:
             "0x01A29": snipes <= 1, # Glass Factory Entry Door
             "0x0D7ED": snipes <= 1, # Glass Factory Back Wall Door
             "0x0C32D": snipes <= 1 or not non_random_snipes, # Treehouse Drawbridge Door
-            "0x03679": snipes <= 2 or doors or not non_random_snipes or eps_shuffled, # Quarry Stoneworks Lift Controls
-            "0x03675": snipes <= 2 or doors or not non_random_snipes or eps_shuffled, # Quarry Stoneworks Lift Controls
+            "0x03679": snipes <= 2 or remote_doors or not non_random_snipes or eps_shuffled, # Quarry Stoneworks Lift Controls
+            "0x03675": snipes <= 2 or remote_doors or not non_random_snipes or eps_shuffled, # Quarry Stoneworks Lift Controls
             "0x03678": not snipes or eps_shuffled, # Quarry Stoneworks Ramp Controls
             "0x03676": not snipes or eps_shuffled, # Quarry Stoneworks Ramp Controls
-            "0x334DB": snipes <= 1 or not non_random_snipes or doors, # Shadows Door Timer Panel
-            "0x334DC": snipes <= 1 or not non_random_snipes or doors, # Shadows Door Timer Panel
-            "0x2700B": not (snipes and fov_snipes) or doors or difficulty == "sigma_expert", # Treehouse Laser House Door Timer Panel
-            "0x17CBC": not (snipes and fov_snipes) or doors or difficulty == "sigma_expert", # Treehouse Laser House Door Timer Panel
+            "0x334DB": snipes <= 1 or not non_random_snipes or remote_doors, # Shadows Door Timer Panel
+            "0x334DC": snipes <= 1 or not non_random_snipes or remote_doors, # Shadows Door Timer Panel
+            "0x2700B": not (snipes and fov_snipes) or remote_doors or difficulty == "sigma_expert", # Treehouse Laser House Door Timer Panel
+            "0x17CBC": not (snipes and fov_snipes) or remote_doors or difficulty == "sigma_expert", # Treehouse Laser House Door Timer Panel
             "0x34BC5": not foreknowledge, # Bunker Drop-Down Door Controls
             "0x34BC6": not foreknowledge, # Bunker Drop-Down Door Controls
             "0x09D9B": not foreknowledge or eps_shuffled, # Monastery Shutters Control
