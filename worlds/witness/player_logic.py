@@ -595,6 +595,7 @@ class WitnessPlayerLogic:
             "0x0A0C9": eps_shuffled or discards_shuffled or disable_non_randomized,  # Cargo Box Entry Door
             "0x09EEB": discards_shuffled or mountain_upper_included,  # Mountain Floor 2 Elevator Control
             "0x17CAB": symbols_shuffled or not disable_non_randomized,  # Jungle Popup Wall Panel
+            "0x01A54": snipes <= 1 or eps_shuffled, # Glass Factory Entry Panel
             "0x01A29": snipes <= 1, # Glass Factory Entry Door
             "0x0D7ED": snipes <= 1, # Glass Factory Back Wall Door
             "0x0C32D": snipes <= 1 or not non_random_snipes, # Treehouse Drawbridge Door
