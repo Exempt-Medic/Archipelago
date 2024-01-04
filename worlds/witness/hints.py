@@ -81,7 +81,7 @@ joke_hints = [
     "Have you tried Final Fantasy Mystic Quest?\nApparently, it was made in an attempt to simplify Final Fantasy for the western market.\nThey were right, I suck at RPGs.",
     "Have you tried Shivers?\nWitness 2 should totally feature a haunted Museum.",
     "Have you tried Heretic?\nWait, there is a Doom Engine game where you can look UP AND DOWN???",
-
+    
     "One day I was fascinated by the subject of generation of waves by wind.",
     "I don't like sandwiches. Why would you think I like sandwiches? Have you ever seen me with a sandwich?",
     "Where are you right now?\nI'm at soup!\nWhat do you mean you're at soup?",
@@ -212,7 +212,7 @@ def get_always_hint_items(world: "WitnessWorld") -> List[str]:
     return always
 
 
-def get_always_hint_locations(_: "WitnessWorld"):
+def get_always_hint_locations(_: "WitnessWorld") -> List[str]:
     return [
         "Challenge Vault Box",
         "Mountain Bottom Floor Discard",
@@ -222,7 +222,7 @@ def get_always_hint_locations(_: "WitnessWorld"):
     ]
 
 
-def get_priority_hint_items(world: "WitnessWorld"):
+def get_priority_hint_items(world: "WitnessWorld") -> List[str]:
     priority = {
         "Caves Mountain Shortcut (Door)",
         "Caves Swamp Shortcut (Door)",
@@ -273,7 +273,7 @@ def get_priority_hint_items(world: "WitnessWorld"):
     return sorted(priority)
 
 
-def get_priority_hint_locations(_: "WitnessWorld"):
+def get_priority_hint_locations(_: "WitnessWorld") -> List[str]:
     return [
         "Tutorial Patio Floor",
         "Tutorial Patio Flowers EP",

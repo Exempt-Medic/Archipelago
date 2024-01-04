@@ -380,6 +380,9 @@ class WitnessPlayerLogic:
         elif victory == "mountain_box_long":
             self.VICTORY_LOCATION = "0xFFF00"
 
+        # Long box can usually only be solved by opening Mountain Entry. However, if it requires 7 lasers or less
+        # (challenge_lasers <= 7), you can now solve it without opening Mountain Entry first.
+        # Furthermore, if the user sets mountain_lasers > 7, the box is rotated to not require Mountain Entry either.
         if chal_lasers <= 7 or mnt_lasers > 7:
             adjustment_linesets_in_order.append([
                 "Requirement Changes:",
@@ -549,19 +552,20 @@ class WitnessPlayerLogic:
         non_random_snipes = world.options.expect_non_randomized_snipes
         fov_snipes = world.options.expect_fov_snipes
         foreknowledge = world.options.expect_prior_knowledge
-        doors = world.options.shuffle_doors
         discards_shuffled = world.options.shuffle_discarded_panels
         boat_shuffled = world.options.shuffle_boat
         symbols_shuffled = world.options.shuffle_symbols
         disable_non_randomized = world.options.disable_non_randomized_puzzles
         postgame_included = world.options.shuffle_postgame
         goal = world.options.victory_condition
+        doors = world.options.shuffle_doors
         shortbox_req = world.options.mountain_lasers
         longbox_req = world.options.challenge_lasers
 
         # Make some helper booleans so it is easier to follow what's going on
         mountain_upper_is_in_postgame = (
-                goal == "mountain_box_short" or (goal == "mountain_box_long" and longbox_req <= shortbox_req)
+                goal == "mountain_box_short"
+                or goal == "mountain_box_long" and longbox_req <= shortbox_req
         )
         mountain_upper_included = postgame_included or not mountain_upper_is_in_postgame
         remote_doors = doors >= 2

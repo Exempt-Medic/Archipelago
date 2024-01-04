@@ -2,8 +2,8 @@
 Archipelago init file for The Witness
 """
 import dataclasses
-from typing import Dict, Optional, List, Tuple, Set
 
+from typing import Dict, Optional, List, Tuple, Set
 from BaseClasses import Region, Location, MultiWorld, Item, Entrance, Tutorial, CollectionState
 from Options import PerGameCommonOptions, Toggle
 from .presets import witness_option_presets
@@ -20,7 +20,6 @@ from .rules import set_rules
 from .options import TheWitnessOptions
 from .utils import get_audio_logs, build_weighted_int_list
 from logging import warning, error
-from Utils import visualize_regions
 
 
 class WitnessWebWorld(WebWorld):
@@ -331,7 +330,6 @@ class WitnessWorld(World):
             option = getattr(self.options, option_name)
             slot_data[option_name] = bool(option.value) if isinstance(option, Toggle) else option.value
 
-        visualize_regions(self.multiworld.get_region("Menu", self.player), "test_world.puml")
         return slot_data
 
     def create_item(self, item_name: str) -> Item:
