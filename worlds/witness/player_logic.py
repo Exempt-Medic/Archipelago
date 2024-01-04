@@ -262,8 +262,8 @@ class WitnessPlayerLogic:
         doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         early_caves = world.options.early_caves
         victory = world.options.victory_condition
-        mnt_lasers = world.options.mountain_lasers
         chal_lasers = world.options.challenge_lasers
+        mnt_lasers = world.options.mountain_lasers
         foreknowledge = world.options.expect_prior_knowledge
 
         # Goal is "short box" but short box requires more lasers than long box
