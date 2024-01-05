@@ -301,7 +301,7 @@ def get_priority_hint_locations(world: "WitnessWorld") -> List[str]:
         "Boat Shipwreck Green EP",
         "Quarry Stoneworks Control Room Left",
     ]
-    
+
     # Add Obelisk Sides that contain EPs that are meant to be hinted, if they are necessary to complete the Obelisk Side
     if world.options.EP_difficulty != "normal":
         priority.append("Town Obelisk Side 2")  # Tutorial Patio Flowers EP
