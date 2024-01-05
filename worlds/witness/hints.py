@@ -213,14 +213,14 @@ def get_always_hint_items(world: "WitnessWorld") -> List[str]:
 
 
 def get_always_hint_locations(world: "WitnessWorld") -> List[str]:
-    aways = [
+    always = [
         "Challenge Vault Box",
         "Mountain Bottom Floor Discard",
         "Theater Eclipse EP",
         "Shipwreck Couch EP",
         "Mountainside Cloud Cycle EP",
     ]
-
+    
     # Add Obelisk Sides that contain EPs that are meant to be hinted, if they are necessary to complete the Obelisk Side
     if world.options.EP_difficulty == "eclipse":
         always.append("Town Obelisk Side 6")  # Eclipse EP
