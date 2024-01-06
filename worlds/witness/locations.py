@@ -390,8 +390,6 @@ class StaticWitnessLocations:
 
         "Mountain Floor 1 Light Bridge Controller",
 
-        "Mountain Floor 1 Light Bridge Controller",
-
         "Mountain Floor 1 Right Row 5",
         "Mountain Floor 1 Left Row 7",
         "Mountain Floor 1 Back Row 3",

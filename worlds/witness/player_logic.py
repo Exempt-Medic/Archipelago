@@ -218,13 +218,6 @@ class WitnessPlayerLogic:
 
             return
 
-        if adj_type == "Irrelevant Locations":
-            panel_hex = line[:7]
-
-            self.IRRELEVANT_BUT_NOT_DISABLED_ENTITIES.add(panel_hex)
-
-            return
-
         if adj_type == "Region Changes":
             new_region_and_options = define_new_region(line + ":")
 
