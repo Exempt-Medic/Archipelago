@@ -159,12 +159,12 @@ def _can_do_theater_to_tunnels(state: CollectionState, world: "WitnessWorld") ->
     tunnels_from_desert = (
         _can_move_either_direction(state, "Town", "Main Island", world.regio)
         and _can_move_either_direction(state, "Main Island", "Desert Outside", world.regio)
-        and _can_move_either_direction(state, "Desert Outside", "Desert Floodlight Room", world.regio)
-        and _can_move_either_direction(state, "Desert Floodlight Room", "Desert Pond Room", world.regio)
-        and _can_move_either_direction(state, "Desert Pond Room", "Desert Water Levels Room", world.regio)
-        and _can_move_either_direction(state, "Desert Water Levels Room", "Desert Elevator Room", world.regio)
-        and _can_move_either_direction(state, "Desert Elevator Room", "Desert Lowest Level Inbetween Shortcuts", world.regio)
-        and _can_move_either_direction(state, "Desert Lowest Level Inbetween Shortcuts", "Tunnels", world.regio)
+        and _can_move_either_direction(state, "Desert Outside", "Desert Light Room", world.regio)
+        and _can_move_either_direction(state, "Desert Light Room", "Desert Pond Room", world.regio)
+        and _can_move_either_direction(state, "Desert Pond Room", "Desert Flood Room", world.regio)
+        and _can_move_either_direction(state, "Desert Flood Room", "Desert Elevator Room", world.regio)
+        and _can_move_either_direction(state, "Desert Elevator Room", "Desert Behind Elevator", world.regio)
+        and _can_move_either_direction(state, "Desert Behind Elevator", "Tunnels", world.regio)
     )
 
     tunnels_from_caves = (

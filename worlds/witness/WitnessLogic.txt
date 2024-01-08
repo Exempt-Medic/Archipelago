@@ -206,7 +206,7 @@ Desert Light Room Panels (Desert):
 158089 - 0x006E3 (Light Room 2) - 0x09FAA | Foreknowledge3 - True
 158090 - 0x0A02D (Light Room 3) - 0x09FAA & 0x00422 & 0x006E3 | 0x00422 & 0x006E3 & Foreknowledge3 - True
 
-Desert Pond Room (Desert) - Desert Water Levels Room - 0x0A24B:
+Desert Pond Room (Desert) - Desert Flood Room - 0x0A24B:
 158091 - 0x00C72 (Pond Room 1) - True - True
 158092 - 0x0129D (Pond Room 2) - 0x00C72 - True
 158093 - 0x008BB (Pond Room 3) - 0x0129D - True
