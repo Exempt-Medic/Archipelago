@@ -333,6 +333,10 @@ class WitnessPlayerLogic:
         if not (early_caves or doors) and victory == "challenge":
             postgame_adjustments.append(get_caves_except_path_to_challenge_exclusion_list())
 
+        # Tutorial Gate EP can be solved with foreknowledge so it needs to be excluded if it can't be reached normally.
+        if not (early_caves or doors or foreknowledge):
+            postgame_adjustments.append(get_tutorial_gate_exclusion_list())
+
         return postgame_adjustments
 
     def make_options_adjustments(self, world: "WitnessWorld"):
@@ -364,8 +368,10 @@ class WitnessPlayerLogic:
 
         if not world.options.shuffle_vault_boxes:
             adjustment_linesets_in_order.append(get_vault_exclusion_list())
+            # Foreknowledge lets you know vault papers without needing to open vaults
             if not foreknowledge:
                 adjustment_linesets_in_order.append(get_theater_video_input_exclusion_list())
+                adjustment_linesets_in_order.append(get_tutorial_gate_exclusion_list())
             if not victory == "challenge":
                 adjustment_linesets_in_order.append(get_challenge_exclusion_list())
 
