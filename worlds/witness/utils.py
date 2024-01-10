@@ -245,6 +245,10 @@ def get_mountain_lower_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Postgame/Mountain_Lower.txt")
 
 
+def get_caves_except_path_to_challenge_exclusion_list() -> List[str]:
+    return get_adjustment_file("settings/Exclusions/Caves_Except_Path_To_Challenge.txt")
+
+
 def get_elevators_come_to_you() -> List[str]:
     return get_adjustment_file("settings/Door_Shuffle/Elevators_Come_To_You.txt")
 
