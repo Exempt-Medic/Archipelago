@@ -1,0 +1,2 @@
+Disabled Locations:
+0x09F7F (Mountain Box Short)

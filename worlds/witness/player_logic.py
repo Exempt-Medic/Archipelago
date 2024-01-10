@@ -298,15 +298,15 @@ class WitnessPlayerLogic:
         # In case of shortbox, it'd have to be a "reverse shortbox" situation where shortbox requires *more* lasers.
         if not (victory == "elevator" or reverse_shortbox_goal or victory == "challenge"):
             # Disable the timer start panel
-            postgame_adjustments.append(["Disabled Locations:", "0x0A332"])
+            postgame_adjustments.append(get_challenge_exclusion_list())
 
         # If we have a proper short box goal, long box will never be activated first.
         if proper_shortbox_goal:
-            postgame_adjustments.append(["Disabled Locations:", "0xFFF00 (Mountain Box Long)"])
+            postgame_adjustments.append(get_mountainbox_long_exclusion_list())
 
         # In a case where long box can be activated before short box, short box is postgame.
         if reverse_longbox_goal:
-            postgame_adjustments.append(["Disabled Locations:", "0x09F7F (Mountain Box Short)"])
+            postgame_adjustments.append(get_mountainbox_short_exclusion_list())
 
         # "Fun" considerations
         # These are cases in which it was deemed "unfun" to have an "oops, all lasers" situation, especially when
@@ -321,7 +321,7 @@ class WitnessPlayerLogic:
         )
 
         if mbfd_extra_exclusions:
-            postgame_adjustments.append(["Disabled Locations:", "0xFFF00 (Mountain Box Long)"])
+            postgame_adjustments.append(get_mountainbox_long_exclusion_list())
 
         # "Post-or-equal-game" cases
         # These are cases in which something comes into logic *at the same time* as your goal and thus also can't
@@ -359,15 +359,14 @@ class WitnessPlayerLogic:
                 adjustment_linesets_in_order.append(get_discard_exclusion_list())
 
             if doors:
-                adjustment_linesets_in_order.append(["Disabled Locations:", "0x17FA2"])
+                adjustment_linesets_in_order.append(get_challenge_exclusion_list())
 
         if not world.options.shuffle_vault_boxes:
-            if foreknowledge:
-                adjustment_linesets_in_order.append(get_vault_panels_exclusion_list())
-            else:
-                adjustment_linesets_in_order.append(get_vault_exclusion_list())
+            adjustment_linesets_in_order.append(get_vault_exclusion_list())
+            if not foreknowledge:
+                adjustment_linesets_in_order.append(get_theater_video_input_exclusion_list())
             if not victory == "challenge":
-                adjustment_linesets_in_order.append(get_challenge_vault_box_exclusion_list())
+                adjustment_linesets_in_order.append(get_challenge_exclusion_list())
 
         # Victory Condition
 
