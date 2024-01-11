@@ -275,7 +275,7 @@ class WitnessPlayerLogic:
         postgame_adjustments = []
 
         # Make some quick references to some options
-        doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
+        remote_doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         early_caves = world.options.early_caves
         victory = world.options.victory_condition
         mnt_lasers = world.options.mountain_lasers
@@ -314,10 +314,10 @@ class WitnessPlayerLogic:
 
         mbfd_extra_exclusions = (
             # Progressive Dots 2 behind 11 lasers in an Elevator seed with vanilla doors = :(
-            victory == "elevator" and not doors
+            victory == "elevator" and not remote_doors
 
             # Progressive Stars 2 behind 11 lasers in a Challenge seed with vanilla doors = :(
-            or victory == "challenge" and early_caves and not doors
+            or victory == "challenge" and early_caves and not remote_doors
         )
 
         if mbfd_extra_exclusions:
@@ -330,11 +330,11 @@ class WitnessPlayerLogic:
         # When your victory is Challenge, but you have to get to it the vanilla way, there are no required items
         # that can show up in the Caves that aren't also needed on the descent through Mountain.
         # So, we should disable all entities in the Caves and Tunnels *except* for those that are required to enter.
-        if not (early_caves or doors) and victory == "challenge":
+        if not (early_caves or remote_doors) and victory == "challenge":
             postgame_adjustments.append(get_caves_except_path_to_challenge_exclusion_list())
 
         # Tutorial Gate EP can be solved with foreknowledge so it needs to be excluded if it can't be reached normally.
-        if not (early_caves or doors or foreknowledge):
+        if not (early_caves or remote_doors or foreknowledge):
             postgame_adjustments.append(get_tutorial_gate_close_exclusion_list())
 
         return postgame_adjustments
@@ -345,7 +345,7 @@ class WitnessPlayerLogic:
 
         # Make condensed references to some options
 
-        doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
+        remote_doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         lasers = world.options.shuffle_lasers
         victory = world.options.victory_condition
         chal_lasers = world.options.challenge_lasers
@@ -360,10 +360,10 @@ class WitnessPlayerLogic:
         if not world.options.shuffle_discarded_panels:
             # In disable_non_randomized, the discards are needed for alternate activation triggers, UNLESS both
             # (remote) doors and lasers are shuffled.
-            if not world.options.disable_non_randomized_puzzles or (doors and lasers):
+            if not world.options.disable_non_randomized_puzzles or (remote_doors and lasers):
                 adjustment_linesets_in_order.append(get_discard_exclusion_list())
 
-            if doors:
+            if remote_doors:
                 adjustment_linesets_in_order.append(get_mountain_bottom_floor_discard_exclusion_list())
 
         if not world.options.shuffle_vault_boxes:
@@ -406,7 +406,7 @@ class WitnessPlayerLogic:
         elif world.options.EP_difficulty == "tedious":
             adjustment_linesets_in_order.append(get_ep_no_eclipse())
 
-        if doors:
+        if remote_doors:
             adjustment_linesets_in_order.append(get_doors())
         else:
             adjustment_linesets_in_order.append(get_no_doors())
@@ -434,7 +434,7 @@ class WitnessPlayerLogic:
         if world.options.early_caves == "starting_inventory":
             adjustment_linesets_in_order.append(get_early_caves_start_list())
 
-        if world.options.early_caves == "add_to_pool" and not doors:
+        if world.options.early_caves == "add_to_pool" and not remote_doors:
             adjustment_linesets_in_order.append(get_early_caves_list())
 
         if world.options.elevators_come_to_you:
@@ -677,7 +677,7 @@ class WitnessPlayerLogic:
         disable_non_randomized = world.options.disable_non_randomized_puzzles
         postgame_included = world.options.shuffle_postgame
         goal = world.options.victory_condition
-        doors = world.options.shuffle_doors
+        remote_doors = world.options.shuffle_doors >= 2
         shortbox_req = world.options.mountain_lasers
         longbox_req = world.options.challenge_lasers
 
@@ -687,7 +687,6 @@ class WitnessPlayerLogic:
                 or goal == "mountain_box_long" and longbox_req <= shortbox_req
         )
         mountain_upper_included = postgame_included or not mountain_upper_is_in_postgame
-        remote_doors = doors >= 2
         sphere_1_quarry_via_boat_snipe = snipes and not remote_doors and not boat_shuffled
         sphere_1_swamp_purple_eps_snipe = snipes >= 2 and come_to_you and not boat_shuffled
 
