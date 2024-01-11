@@ -1,2 +1,2 @@
 Disabled Locations:
-0x3352F (Gate EP)
+0x17FA2 (Discard)

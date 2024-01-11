@@ -335,7 +335,7 @@ class WitnessPlayerLogic:
 
         # Tutorial Gate EP can be solved with foreknowledge so it needs to be excluded if it can't be reached normally.
         if not (early_caves or doors or foreknowledge):
-            postgame_adjustments.append(get_tutorial_gate_exclusion_list())
+            postgame_adjustments.append(get_tutorial_gate_close_exclusion_list())
 
         return postgame_adjustments
 
@@ -364,7 +364,7 @@ class WitnessPlayerLogic:
                 adjustment_linesets_in_order.append(get_discard_exclusion_list())
 
             if doors:
-                adjustment_linesets_in_order.append(get_challenge_exclusion_list())
+                adjustment_linesets_in_order.append(get_mountain_bottom_floor_discard_exclusion_list())
 
         if not world.options.shuffle_vault_boxes:
             adjustment_linesets_in_order.append(get_vault_exclusion_list())

@@ -201,8 +201,8 @@ def get_theater_video_input_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Exclusions/Theater_Video_Input.txt")
 
 
-def get_tutorial_gate_exclusion_list() -> List[str]:
-    return get_adjustment_file("settings/Exclusions/Tutorial_Gate.txt")
+def get_tutorial_gate_close_exclusion_list() -> List[str]:
+    return get_adjustment_file("settings/Exclusions/Tutorial_Gate_Close.txt")
 
 
 def get_discard_exclusion_list() -> List[str]:
@@ -212,8 +212,13 @@ def get_discard_exclusion_list() -> List[str]:
 def get_mountainbox_short_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Exclusions/Mountainbox_Short.txt")
 
+
 def get_mountainbox_long_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Exclusions/Mountainbox_Long.txt")
+
+
+def get_mountain_bottom_floor_discard_exclusion_list() -> List[str]:
+    return get_adjustment_file("settings/Exclusions/Mountain_Bottom_Floor_Discard.txt")
 
 
 def get_challenge_exclusion_list() -> List[str]:
