@@ -284,13 +284,13 @@ class WitnessPlayerLogic:
         chal_lasers = world.options.challenge_lasers
         foreknowledge = world.options.expect_prior_knowledge
 
-        # Challenge can be required before shortbox goal if shortbox > longbox or when they're equal if Desert Laser Redirect exists
-        challenge_before_shortbox = victory == "mountain_box_short" and (mnt_lasers > chal_lasers or mnt_lasers == chal_lasers and panels)
+        # Challenge is always after a shortbox goal if shortbox < longbox or when they're equal if Desert Laser Redirect doesn't exist
+        challenge_after_shortbox = victory == "mountain_box_short" and (mnt_lasers < chal_lasers or mnt_lasers == chal_lasers and not panels)
 
-        # Challenge can be required before longbox goal if Desert Laser Redirect exists
-        challenge_before_longbox = victory == "mountain_box_long" and panels
+        # Challenge is always after a longbox goal if Desert Laser Redirect doesn't exist
+        challenge_after_longbox = victory == "mountain_box_long" and not panels
 
-        challenge_before_goalbox = challenge_before_shortbox or challenge_before_longbox
+        challenge_after_goalbox = challenge_after_shortbox or challenge_after_longbox
 
         # Goal is "short box", and long box requires at least as many lasers as short box (as god intended)
         proper_shortbox_goal = victory == "mountain_box_short" and chal_lasers >= mnt_lasers
@@ -303,7 +303,7 @@ class WitnessPlayerLogic:
 
         # Challenge can be required if your goal is elevator and is required if your goal is challenge.
         # Special cases have to be considered with shortbox or longbox goal.
-        if not (victory == "elevator" or victory == "challenge" or challenge_before_goalbox):
+        if challenge_after_goalbox:
             # Disable the timer start panel
             postgame_adjustments.append(get_challenge_exclusion_list())
 
@@ -323,7 +323,7 @@ class WitnessPlayerLogic:
             # Progressive Dots 2 behind 11 lasers in an Elevator seed with vanilla doors = :(
             victory == "elevator" and not remote_doors
 
-            # Progressive Stars 2 behind 11 lasers in a Challenge seed with vanilla doors = :(
+            # Caves Shortcuts / Challenge Entry (Panel) on MBFD in a Challenge seed with vanilla doors = :(
             or victory == "challenge" and early_caves and not remote_doors
         )
 
