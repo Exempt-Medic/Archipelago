@@ -275,15 +275,22 @@ class WitnessPlayerLogic:
         postgame_adjustments = []
 
         # Make some quick references to some options
-        remote_doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
+        doors = world.options.shuffle_doors
+        panels = doors == "panels" or doors == "mixed"
+        remote_doors = doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         early_caves = world.options.early_caves
         victory = world.options.victory_condition
         mnt_lasers = world.options.mountain_lasers
         chal_lasers = world.options.challenge_lasers
         foreknowledge = world.options.expect_prior_knowledge
 
-        # Goal is "short box" but short box requires more lasers than long box
-        reverse_shortbox_goal = victory == "mountain_box_short" and mnt_lasers > chal_lasers
+        # Challenge can be required before shortbox goal if shortbox > longbox or when they're equal if Desert Laser Redirect exists
+        challenge_before_shortbox = victory == "mountain_box_short" and (mnt_lasers > chal_lasers or mnt_lasers == chal_lasers and panels)
+
+        # Challenge can be required before longbox goal if Desert Laser Redirect exists
+        challenge_before_longbox = victory == "mountain_box_long" and panels
+
+        challenge_before_goalbox = challenge_before_shortbox or challenge_before_longbox
 
         # Goal is "short box", and long box requires at least as many lasers as short box (as god intended)
         proper_shortbox_goal = victory == "mountain_box_short" and chal_lasers >= mnt_lasers
@@ -294,9 +301,9 @@ class WitnessPlayerLogic:
         # Proper postgame cases
         # When something only comes into logic after the goal, e.g. "longbox is postgame if the goal is shortbox".
 
-        # Challenge can only have something if the goal is not challenge or longbox itself.
-        # In case of shortbox, it'd have to be a "reverse shortbox" situation where shortbox requires *more* lasers.
-        if not (victory == "elevator" or reverse_shortbox_goal or victory == "challenge"):
+        # Challenge can be required if your goal is elevator and is required if your goal is challenge.
+        # Special cases have to be considered with shortbox or longbox goal.
+        if not (victory == "elevator" or victory == "challenge" or challenge_before_goalbox):
             # Disable the timer start panel
             postgame_adjustments.append(get_challenge_exclusion_list())
 
