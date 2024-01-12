@@ -277,7 +277,7 @@ class WitnessPlayerLogic:
         # Make some quick references to some options
         doors = world.options.shuffle_doors
         panels = doors == "panels" or doors == "mixed"
-        remote_doors = doors >= 2  # "Panels" mode has no overarching region accessibility implications.
+        remote_doors = doors >= 2
         early_caves = world.options.early_caves
         victory = world.options.victory_condition
         mnt_lasers = world.options.mountain_lasers
