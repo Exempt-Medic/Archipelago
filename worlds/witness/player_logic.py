@@ -285,37 +285,35 @@ class WitnessPlayerLogic:
         foreknowledge = world.options.expect_prior_knowledge
 
         # Challenge is always after a shortbox goal if shortbox < longbox or when they're equal if Desert Laser Redirect doesn't exist
-        challenge_after_shortbox = victory == "mountain_box_short" and (mnt_lasers < chal_lasers or mnt_lasers == chal_lasers and not panels)
+        challenge_after_shortbox_goal = victory == "mountain_box_short" and (mnt_lasers < chal_lasers or mnt_lasers == chal_lasers and not panels)
 
         # Challenge is always after a longbox goal if Desert Laser Redirect doesn't exist
-        challenge_after_longbox = victory == "mountain_box_long" and not panels
-
-        challenge_after_goalbox = challenge_after_shortbox or challenge_after_longbox
+        challenge_after_longbox_goal = victory == "mountain_box_long" and not panels
 
         # Goal is "short box", and long box requires at least as many lasers as short box (as god intended)
-        proper_shortbox_goal = victory == "mountain_box_short" and chal_lasers >= mnt_lasers
+        longbox_after_shortbox_goal = victory == "mountain_box_short" and chal_lasers >= mnt_lasers
 
-        # Goal is "long box", but short box requires at least as many lasers than long box.
-        reverse_longbox_goal = victory == "mountain_box_long" and mnt_lasers >= chal_lasers
+        # Goal is "long box", and short box requires at least as many lasers as long box.
+        shortbox_after_longbox_goal = victory == "mountain_box_long" and mnt_lasers >= chal_lasers
 
-        # Proper postgame cases
+        # ||| Section 1: Proper postgame cases |||
         # When something only comes into logic after the goal, e.g. "longbox is postgame if the goal is shortbox".
 
         # Challenge can be required if your goal is elevator and is required if your goal is challenge.
         # Special cases have to be considered with shortbox or longbox goal.
-        if challenge_after_goalbox:
+        if challenge_after_shortbox_goal or challenge_after_longbox_goal:
             # Disable the timer start panel
             postgame_adjustments.append(get_challenge_exclusion_list())
 
-        # If we have a proper short box goal, long box will never be activated first.
-        if proper_shortbox_goal:
+        # If longbox is after shortbox, longbox will never be activated first.
+        if longbox_after_shortbox_goal:
             postgame_adjustments.append(get_mountainbox_long_exclusion_list())
 
-        # In a case where long box can be activated before short box, short box is postgame.
-        if reverse_longbox_goal:
+        # If shortbox is after longbox, shortbox will never be activated first.
+        if shortbox_after_longbox_goal:
             postgame_adjustments.append(get_mountainbox_short_exclusion_list())
 
-        # "Fun" considerations
+        # ||| Section 2: "Fun" considerations |||
         # These are cases in which it was deemed "unfun" to have an "oops, all lasers" situation, especially when
         # it's for a single possible item.
 
@@ -330,7 +328,7 @@ class WitnessPlayerLogic:
         if mbfd_extra_exclusions:
             postgame_adjustments.append(get_mountainbox_long_exclusion_list())
 
-        # "Post-or-equal-game" cases
+        # ||| Section 3: "Post-or-equal-game" cases |||
         # These are cases in which something comes into logic *at the same time* as your goal and thus also can't
         # possibly have a required item. These can be a bit awkward.
 
