@@ -640,7 +640,7 @@ RGB Room (Town):
 158245 - 0x03C0C (Left) - 0x334D8 | Foreknowledge4 - Colored Squares & Black/White Squares & Eraser
 158246 - 0x03C08 (Right) - 0x334D8 & 0x03C0C | 0x03C0C & Foreknowledge4 - Symmetry & Dots & Colored Dots & Triangles
 
-Town Tower (Town Tower) - Town - True - Town Tower Top - 0x27799C:
+Town Tower (Town Tower) - Town - True - Town Tower Top - 0x2779C:
 Door - 0x27799 (First Door) - 0x28A69
 
 Town Tower After First Door (Town Tower) - Town Tower After Second Door - 0x27798:
