@@ -170,8 +170,8 @@ def _can_do_theater_to_tunnels(state: CollectionState, world: "WitnessWorld") ->
     tunnels_from_caves = (
         _can_move_either_direction(state, "Town", "Main Island", world.regio)
         and _can_move_either_direction(state, "Main Island", "Caves", world.regio)
-        and _can_move_either_direction(state, "Caves", "Path to Challenge", world.regio)
-        and _can_move_either_direction(state, "Path to Challenge", "Challenge", world.regio)
+        and _can_move_either_direction(state, "Caves", "Caves Path to Challenge", world.regio)
+        and _can_move_either_direction(state, "Caves Path to Challenge", "Challenge", world.regio)
         and _can_move_either_direction(state, "Challenge", "Tunnels", world.regio)
     )
 
