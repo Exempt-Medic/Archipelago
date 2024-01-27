@@ -649,7 +649,7 @@ Door - 0x27798 (Second Door) - 0x28ACC
 Town Tower After Second Door (Town Tower) - Town Tower After Third Door - 0x2779C:
 Door - 0x2779C (Third Door) - 0x28AD9
 
-Town Tower After Third Door (Town Tower) - Town Tower Top - 0x2779A - Town Black Line Tower EP - Snipes1:
+Town Tower After Third Door (Town Tower) - Town Tower Top - 0x2779A:
 Door - 0x2779A (Fourth Door) - 0x28B39
 
 Town Tower Top (Town) - Town Black Line Tower EP - TrueOneWay:
