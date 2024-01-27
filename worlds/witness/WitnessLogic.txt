@@ -649,12 +649,14 @@ Door - 0x27798 (Second Door) - 0x28ACC
 Town Tower After Second Door (Town Tower) - Town Tower After Third Door - 0x2779C:
 Door - 0x2779C (Third Door) - 0x28AD9
 
-Town Tower After Third Door (Town Tower) - Town Tower Top - 0x2779A:
+Town Tower After Third Door (Town Tower) - Town Tower Top - 0x2779A - Town Brown Bridge EP - Snipes1:
 Door - 0x2779A (Fourth Door) - 0x28B39
 
 Town Tower Top (Town) - Town Black Line Tower EP - TrueOneWay:
 158708 - 0x032F5 (Laser Panel) - True - True
 Laser - 0x032F9 (Laser) - 0x032F5
+
+Town Brown Bridge EP (Town):
 159422 - 0x33692 (Brown Bridge EP) - True - True
 
 Town Black Line Tower EP (Town):
