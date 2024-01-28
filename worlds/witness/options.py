@@ -242,6 +242,12 @@ class ExpectPriorKnowledge(Choice):
     default = 0
 
 
+class DeathLink(Toggle):
+    """If on: Whenever you fail a puzzle (with some exceptions), everyone who is also on Death Link dies.
+    The effect of a "death" in The Witness is a Bonk Trap."""
+    display_name = "Death Link"
+
+
 class DeathLinkAmnesty(Range):
     """Amount of panel fails to allow before sending a death in Death Link.
     0 means every panel fail with send a death, 1 means every other panel fail with send a death, etc."""
@@ -249,12 +255,6 @@ class DeathLinkAmnesty(Range):
     range_start = 0
     range_end = 5
     default = 1
-
-
-class DeathLink(Toggle):
-    """If on: Whenever you fail a puzzle (with some exceptions), everyone who is also on Death Link dies.
-    The effect of a "death" in The Witness is a Bonk Trap."""
-    display_name = "Death Link"
 
 
 @dataclass
