@@ -635,7 +635,7 @@ Town RGB House (Town RGB House) - Town RGB House Upstairs - 0x2897B:
 158243 - 0x034E3 (Sound Room Right) - True - Sound Dots
 Door - 0x2897B (Stairs) - 0x034E4 & 0x034E3
 
-RGB Room (Town):
+Town RGB House Upstairs (Town RGB House Upstairs):
 158244 - 0x334D8 (RGB Control) - True - Rotated Shapers & Colored Squares & Triangles
 158245 - 0x03C0C (Left) - 0x334D8 | Foreknowledge4 - Colored Squares & Black/White Squares & Eraser
 158246 - 0x03C08 (Right) - 0x334D8 & 0x03C0C | 0x03C0C & Foreknowledge4 - Symmetry & Dots & Colored Dots & Triangles
