@@ -353,8 +353,8 @@ class WitnessPlayerLogic:
         remote_doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         lasers = world.options.shuffle_lasers
         victory = world.options.victory_condition
-        chal_lasers = world.options.challenge_lasers
         mnt_lasers = world.options.mountain_lasers
+        chal_lasers = world.options.challenge_lasers
         foreknowledge = world.options.expect_prior_knowledge
 
         # Exclude panels from the post-game if shuffle_postgame is false.
@@ -714,7 +714,7 @@ class WitnessPlayerLogic:
             "0x335AB": False,  # Caves Elevator Controls
             "0x335AC": False,  # Caves Elevator Controls
             "0x3369D": False,  # Caves Elevator Controls
-            "0x01BEA": difficulty == "none" and eps_shuffled,  # Keep PP2 Door
+            "0x01BEA": difficulty == "none" and eps_shuffled,  # Keep PP2
             "0x0A0C9": eps_shuffled or discards_shuffled or disable_non_randomized,  # Cargo Box Entry Door
             "0x09EEB": discards_shuffled or mountain_upper_included,  # Mountain Floor 2 Elevator Control
             "0x17CAB": symbols_shuffled or not disable_non_randomized,  # Jungle Popup Wall Panel
