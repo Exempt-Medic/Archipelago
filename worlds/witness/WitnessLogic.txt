@@ -383,7 +383,7 @@ Quarry Boathouse Second Barrier Panel (Quarry Boathouse):
 
 ==Shadows==
 
-Shadows (Shadows) - Main Island - True - Shadows Ledge - 0x19B24 - Shadows Laser Room - 0x194B2 | 0x19665 - Shadows Ledge Panels - Snipes2 & NRS - Shadows Door Timer Inside Panel - Snipes1 - Quarry Boathouse Boat Spawn Panel - Snipes1:
+Shadows (Shadows) - Main Island - True - Shadows Ledge - 0x19B24 - Shadows Laser Room - 0x194B2 | 0x19665 - Shadows Ledge Panels - Snipes2 & NRS - Shadows Door Timer Inside Panel - Snipes1 - Quarry Boathouse Boat Spawn Panel - Snipes1 - Quarry Stoneworks Roof Exit Panel - Snipes2:
 158170 - 0x334DB (Door Timer Outside) - True - True
 Door - 0x19B24 (Timed Door) - 0x334DB | 0x334DC
 158171 - 0x0AC74 (Intro 6) - 0x0A8DC - True
