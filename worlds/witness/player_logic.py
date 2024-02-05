@@ -734,6 +734,8 @@ class WitnessPlayerLogic:
             "0x34BC5": not foreknowledge, # Bunker Drop-Down Door Controls
             "0x34BC6": not foreknowledge, # Bunker Drop-Down Door Controls
             "0x09D9B": not foreknowledge or eps_shuffled, # Monastery Shutters Control
+            "0x09FA0": not foreknowledge <= 2, # Desert Surface Control 3
+            "0x09F86": not foreknowledge <= 2, # Desert Surface Control 8
             "0x09FAA": foreknowledge <= 2, # Desert Light Control
             "0x1C2DF": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
             "0x1831E": foreknowledge <= 2 or eps_shuffled, # Desert Flood Controls
