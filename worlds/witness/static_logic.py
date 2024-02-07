@@ -183,7 +183,7 @@ class StaticWitnessLogicObj:
                 target = connection[0]
                 remaining_options = set()
                 for option in connection[1]:
-                    if not any(req == "TrueOneWay" for req in option):
+                    if not any(req == "TrueOneWay" or req.startswith("Snipes") or req.startswith("Foreknowledge") for req in option):
                         remaining_options.add(option)
 
                 if remaining_options:
