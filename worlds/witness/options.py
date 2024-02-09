@@ -109,6 +109,14 @@ class EnvironmentalPuzzlesDifficulty(Choice):
     option_eclipse = 2
 
 
+class ObeliskKeys(DefaultOnToggle):
+    """
+    Add one Obelisk Key item per Obelisk, locking you out of solving any of the associated Environmental Puzzles.
+    Does nothing if "Shuffle Environmental Puzzles" is set to "off".
+    """
+    display_name = "Obelisk Keys"
+
+
 class ShufflePostgame(Toggle):
     """Adds locations into the pool that are guaranteed to become accessible after or at the same time as your goal.
     Use this if you don't play with release on victory. IMPORTANT NOTE: The possibility of your second
@@ -269,6 +277,7 @@ class TheWitnessOptions(PerGameCommonOptions):
     shuffle_discarded_panels: ShuffleDiscardedPanels
     shuffle_vault_boxes: ShuffleVaultBoxes
     shuffle_EPs: ShuffleEnvironmentalPuzzles
+    obelisk_keys: ObeliskKeys
     EP_difficulty: EnvironmentalPuzzlesDifficulty
     shuffle_postgame: ShufflePostgame
     victory_condition: VictoryCondition

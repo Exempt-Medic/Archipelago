@@ -185,6 +185,10 @@ def get_ep_obelisks() -> List[str]:
     return get_adjustment_file("settings/EP_Shuffle/EP_Sides.txt")
 
 
+def get_obelisk_keys() -> List[str]:
+    return get_adjustment_file("settings/EP_Shuffle/Obelisk_Keys.txt")
+
+
 def get_ep_easy() -> List[str]:
     return get_adjustment_file("settings/EP_Shuffle/EP_Easy.txt")
 
