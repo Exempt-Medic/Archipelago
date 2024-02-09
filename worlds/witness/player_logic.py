@@ -737,6 +737,7 @@ class WitnessPlayerLogic:
             "0x03676": not snipes or eps_shuffled, # Quarry Stoneworks Ramp Controls
             "0x0368A": symbols_shuffled or not remote_doors_no_panels, # Quarry Stoneworks Stairs Door
             "0x03858": not snipes or eps_shuffled or remote_doors, # Quarry Boathouse Ramp Horizontal Control
+            "0x3865F": symbols_shuffled or not remote_doors_no_panels or eps_shuffled, # Quarry Boathouse Second Barrier Door
             "0x334DB": snipes <= 1 or not non_random_snipes or remote_doors, # Shadows Door Timer Panel
             "0x334DC": snipes <= 1 or not non_random_snipes or remote_doors, # Shadows Door Timer Panel
             "0x2700B": not (snipes and fov_snipes) or remote_doors or difficulty == "sigma_expert", # Treehouse Laser House Door Timer Panel
