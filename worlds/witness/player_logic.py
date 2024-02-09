@@ -353,7 +353,6 @@ class WitnessPlayerLogic:
         adjustment_linesets_in_order = []
 
         # Make condensed references to some options
-
         remote_doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         lasers = world.options.shuffle_lasers
         victory = world.options.victory_condition
@@ -691,7 +690,9 @@ class WitnessPlayerLogic:
         disable_non_randomized = world.options.disable_non_randomized_puzzles
         postgame_included = world.options.shuffle_postgame
         goal = world.options.victory_condition
-        remote_doors = world.options.shuffle_doors >= 2
+        doors = world.options.shuffle_doors
+        remote_doors = doors >= 2
+        remote_doors_no_panels = doors == 2
         shortbox_req = world.options.mountain_lasers
         longbox_req = world.options.challenge_lasers
 
@@ -722,7 +723,7 @@ class WitnessPlayerLogic:
             "0x335AB": False,  # Caves Elevator Controls
             "0x335AC": False,  # Caves Elevator Controls
             "0x3369D": False,  # Caves Elevator Controls
-            "0x01BEA": difficulty == "none" and eps_shuffled,  # Keep PP2
+            "0x01BEA": difficulty == "none" and eps_shuffled,  # Keep PP2 Door
             "0x0A0C9": eps_shuffled or discards_shuffled or disable_non_randomized,  # Cargo Box Entry Door
             "0x09EEB": discards_shuffled or mountain_upper_included,  # Mountain Floor 2 Elevator Control
             "0x17CAB": symbols_shuffled or not disable_non_randomized,  # Jungle Popup Wall Panel
@@ -734,6 +735,7 @@ class WitnessPlayerLogic:
             "0x03675": snipes <= 2 or remote_doors or not non_random_snipes or eps_shuffled, # Quarry Stoneworks Lift Controls
             "0x03678": not snipes or eps_shuffled, # Quarry Stoneworks Ramp Controls
             "0x03676": not snipes or eps_shuffled, # Quarry Stoneworks Ramp Controls
+            "0x0368A": symbols_shuffled or not remote_doors_no_panels, # Quarry Stoneworks Stairs Door
             "0x03858": not snipes or eps_shuffled or remote_doors, # Quarry Boathouse Ramp Horizontal Control
             "0x334DB": snipes <= 1 or not non_random_snipes or remote_doors, # Shadows Door Timer Panel
             "0x334DC": snipes <= 1 or not non_random_snipes or remote_doors, # Shadows Door Timer Panel
