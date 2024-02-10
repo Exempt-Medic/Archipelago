@@ -81,7 +81,7 @@ class WitnessPlayerLogic:
             if StaticWitnessLogic.ENTITIES_BY_HEX[panel_hex]["entityType"] != "EP":
                 # 0x28A0D depends on another entity for *non-power* reasons -> This dependency needs to be preserved,
                 # except in Expert, where that dependency doesn't exist, but now there *is* a power dependency.
-                # In the future, it would be wise to make a distinction between "power dependencies" and other dependencies.
+                # In the future, it'd be wise to make a distinction between "power dependencies" and other dependencies.
                 if panel_hex == "0x28A0D" and not any("0x28998" in option for option in these_panels):
                     these_items = all_options
 
@@ -353,6 +353,7 @@ class WitnessPlayerLogic:
         adjustment_linesets_in_order = []
 
         # Make condensed references to some options
+
         remote_doors = world.options.shuffle_doors >= 2  # "Panels" mode has no overarching region accessibility implications.
         lasers = world.options.shuffle_lasers
         victory = world.options.victory_condition

@@ -276,8 +276,8 @@ class TheWitnessOptions(PerGameCommonOptions):
     disable_non_randomized_puzzles: DisableNonRandomizedPuzzles
     shuffle_discarded_panels: ShuffleDiscardedPanels
     shuffle_vault_boxes: ShuffleVaultBoxes
-    shuffle_EPs: ShuffleEnvironmentalPuzzles
     obelisk_keys: ObeliskKeys
+    shuffle_EPs: ShuffleEnvironmentalPuzzles
     EP_difficulty: EnvironmentalPuzzlesDifficulty
     shuffle_postgame: ShufflePostgame
     victory_condition: VictoryCondition
