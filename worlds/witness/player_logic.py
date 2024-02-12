@@ -710,7 +710,7 @@ class WitnessPlayerLogic:
         # If the entity is disabled anyway, we don't need to consider that case
         is_item_required_dict = {
             "0x03750": eps_shuffled,  # Monastery Garden Entry Door
-            "0x275FA": eps_shuffled,  # Quarry Boathouse Hook Control
+            "0x275FA": eps_shuffled,  # Boathouse Hook Control
             "0x17D02": eps_shuffled,  # Windmill Turn Control
             "0x17CC4": (come_to_you and not sphere_1_quarry_via_boat_snipe) or eps_shuffled,  # Quarry Elevator Panel
             "0x17E2B": (come_to_you and boat_shuffled) or (eps_shuffled and not sphere_1_swamp_purple_eps_snipe),  # Swamp Long Bridge
