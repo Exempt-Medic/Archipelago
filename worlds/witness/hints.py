@@ -523,13 +523,13 @@ def word_area_hint(world: "WitnessWorld", hinted_area: str, corresponding_items:
 
     local_progression = sum(
         item.player == world.player
-        and item.classification in {ItemClassification.progression, ItemClassification.progression_skip_balancing}
+        and item.advancement
         for item in corresponding_items
     )
 
     non_local_progression = sum(
         item.player != world.player
-        and item.classification in {ItemClassification.progression, ItemClassification.progression_skip_balancing}
+        and item.advancement
         for item in corresponding_items
     )
 
@@ -578,7 +578,8 @@ def word_area_hint(world: "WitnessWorld", hinted_area: str, corresponding_items:
                     other_player_str = "the other player" if player_count == 2 else "another player"
                     hint_string += f"\nOne of them is for {other_player_str}."
                 else:
-                    hint_string += f"\n{non_local_progression} of them are for other players."
+                    other_player_str = "the other player" if player_count == 2 else "other players"
+                    hint_string += f"\n{non_local_progression} of them are for {other_player_string}."
             elif non_local_progression:
                 other_players_str = "the other player" if player_count == 2 else "other players"
                 hint_string += f"\n{area_progression_word} of them are for {other_players_str}."
