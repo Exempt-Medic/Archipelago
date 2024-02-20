@@ -176,7 +176,7 @@ class WitnessPlayerItems:
 
         # Read trap configuration data.
         trap_weight = self._world.options.trap_percentage / 100
-        trap_items = {name: self._world.options.trap_weights.get(name, 0)
+        trap_items = {name: self._world.options.trap_weights.get(name)
                       for (name, data) in self.item_data.items() if data.definition.category is ItemCategory.TRAP
                       if isinstance(data.definition, WeightedItemDefinition)}
 
