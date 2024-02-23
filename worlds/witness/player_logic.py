@@ -675,7 +675,7 @@ class WitnessPlayerLogic:
         )
 
     def determine_unrequired_entities(self, world: "WitnessWorld"):
-        """Figure out which major items are actually useless in this world's settings."""
+        """Figure out which major items are actually useless in this world's settings"""
 
         # Gather quick references to relevant options
         eps_shuffled = world.options.shuffle_EPs
@@ -726,9 +726,9 @@ class WitnessPlayerLogic:
             "0x3369D": False,  # Caves Elevator Controls
             "0x01BEA": difficulty == "none" and eps_shuffled,  # Keep PP2
             "0x0A0C9": eps_shuffled or discards_shuffled or disable_non_randomized,  # Cargo Box Entry Door
-            "0x09EEB": discards_shuffled or mountain_upper_included,  # Mountain Floor 2 Elevator Control
+            "0x09EEB": discards_shuffled or mountain_upper_included,  # Mountain Floor 2 Elevator Control Panel
             "0x09EDD": mountain_upper_included, # Mountain Floor 2 Exit Door
-            "0x17CAB": symbols_shuffled or not disable_non_randomized,  # Jungle Popup Wall Panel
+            "0x17CAB": symbols_shuffled or not disable_non_randomized or not door_panels,  # Jungle Popup Wall Panel
             "0x01A54": snipes <= 1 or eps_shuffled, # Glass Factory Entry Panel
             "0x01A29": snipes <= 1, # Glass Factory Entry Door
             "0x0D7ED": snipes <= 1, # Glass Factory Back Wall Door
