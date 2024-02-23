@@ -102,17 +102,29 @@ class WitnessWorld(World):
 
         self.log_ids_to_hints = dict()
 
-        interacts_with_multiworld = (
-                self.options.shuffle_symbols or
-                self.options.shuffle_doors or
-                self.options.shuffle_lasers == "anywhere"
+        # Will probably need some progression items to win, except when laser count is very low
+        big_progression = (
+            self.options.shuffle_symbols or
+            self.options.shuffle_doors or
+            self.options.shuffle_lasers == "anywhere"
         )
 
-        has_progression = (
-                interacts_with_multiworld
-                or self.options.shuffle_lasers == "local"
-                or self.options.shuffle_boat
-                or self.options.early_caves == "add_to_pool"
+        interacts_sufficiently_with_multiworld = (
+            big_progression or
+            self.options.obelisk_keys
+        )
+
+        # A note on Obelisk Keys:
+        # Obelisk Keys are never relevant in singleplayer, because the locations they lock are irrelevant to in-game
+        # progress and irrelevant to all victory conditions. Thus, I consider them "fake progression" for singleplayer.
+        # However, those locations could obviously contain big items needed for other players, so I consider
+        # Obelisk Keys valid for multiworld.
+
+        has_locally_relevant_progression = (
+            big_progression
+            or self.options.shuffle_lasers == "local"
+            or self.options.shuffle_boat
+            or self.options.early_caves == "add_to_pool" and self.options.victory_condition == "challenge"
         )
 
         if not has_progression and self.multiworld.players == 1:
