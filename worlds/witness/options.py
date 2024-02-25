@@ -273,6 +273,12 @@ class ExpectPriorKnowledge(Choice):
     default = 0
 
 
+class LaserHints(DefaultOnToggle):
+    """If on, lasers will tell you where their items are if you walk close to them in-game.
+    Only applies if laser shuffle is enabled."""
+    display_name = "Laser Hints"
+
+
 class DeathLink(Toggle):
     """If on: Whenever you fail a puzzle (with some exceptions), everyone who is also on Death Link dies.
     The effect of a "death" in The Witness is a Bonk Trap."""
@@ -318,5 +324,6 @@ class TheWitnessOptions(PerGameCommonOptions):
     expect_non_randomized_snipes: NonRandomizedSnipes
     expect_fov_snipes: FieldOfViewSnipes
     expect_prior_knowledge: ExpectPriorKnowledge
+    laser_hints: LaserHints
     death_link: DeathLink
     death_link_amnesty: DeathLinkAmnesty
