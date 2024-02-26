@@ -337,12 +337,16 @@ class WitnessPlayerLogic:
         if not (early_caves or remote_doors) and victory == "challenge":
             postgame_adjustments.append(get_caves_except_path_to_challenge_exclusion_list())
 
-        # Some postgame EPs can be solved with foreknowledge, so they need to be manually excluded if they can't be reached.
+        # ||| Section 4: "Undetected postgame" cases |||
+        # Some locations aren't detected as being in postgame due to having a foreknowledge requirement
+        # As such, they have to be accounted for manually.
+
+        # Tutorial Gate Close and Challenge Video can't be reached without caves access.
         if not (early_caves or remote_doors or foreknowledge):
             postgame_adjustments.append(get_tutorial_gate_close_exclusion_list())
             postgame_adjustments.append(get_challenge_video_exclusion_list())
 
-        # Challenge Video EP also can't be reached with certain laser configurations.
+        # Challenge Video can't be reached if the challenge is in postgame.
         if not foreknowledge and (challenge_after_shortbox_goal or challenge_after_longbox_goal):
             postgame_adjustments.append(get_challenge_video_exclusion_list())
 
