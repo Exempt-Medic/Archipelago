@@ -142,8 +142,6 @@ class WitnessWorld(World):
         )
         self.regio: WitnessRegions = WitnessRegions(self.locat, self)
 
-        self.log_ids_to_hints = dict()
-
         self.determine_sufficient_progression()
 
         if self.options.shuffle_lasers == "local":
@@ -295,6 +293,8 @@ class WitnessWorld(World):
                 self.options.local_items.value.add(item_name)
 
     def fill_slot_data(self) -> dict:
+        # Audio Log Hints
+
         hint_amount = self.options.hint_amount
 
         credits_hint = (
