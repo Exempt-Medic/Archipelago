@@ -304,10 +304,6 @@ class WitnessPlayerLogic:
             # Disable the timer start panel
             postgame_adjustments.append(get_challenge_exclusion_list())
 
-            # Challenge Video EP can be solved with foreknowledge so it needs to be manually excluded if it can't be reached normally.
-            if not foreknowledge:
-                postgame_adjustments.append(get_challenge_video_exclusion_list())
-
         # If longbox is after shortbox, longbox will never be activated first.
         if longbox_after_shortbox_goal:
             postgame_adjustments.append(get_mountainbox_long_exclusion_list())
@@ -341,9 +337,14 @@ class WitnessPlayerLogic:
         if not (early_caves or remote_doors) and victory == "challenge":
             postgame_adjustments.append(get_caves_except_path_to_challenge_exclusion_list())
 
-        # Tutorial Gate EP can be solved with foreknowledge so it needs to be manually excluded if it can't be reached normally.
+        # Some postgame EPs can be solved with foreknowledge, so they need to be manually excluded if they can't be reached.
         if not (early_caves or remote_doors or foreknowledge):
             postgame_adjustments.append(get_tutorial_gate_close_exclusion_list())
+            postgame_adjustments.append(get_challenge_video_exclusion_list())
+
+        # Challenge Video EP also can't be reached with certain laser configurations.
+        if not foreknowledge and (challenge_after_shortbox_goal or challenge_after_longbox_goal):
+            postgame_adjustments.append(get_challenge_video_exclusion_list())
 
         return postgame_adjustments
 
