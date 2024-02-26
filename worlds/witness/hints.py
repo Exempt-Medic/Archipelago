@@ -233,9 +233,6 @@ def get_always_hint_locations(world: "WitnessWorld") -> List[str]:
         always.append("Treehouse Obelisk Side 4")  # Couch EP
         always.append("Mountainside Obelisk Side 1")  # Cloud Cycle EP.
 
-        if not world.options.disable_non_randomized_puzzles:
-            always.append("Town Obelisk Side 2")  # Tutorial Patio Flowers EP.
-
     return always
 
 
@@ -314,6 +311,9 @@ def get_priority_hint_locations(world: "WitnessWorld") -> List[str]:
         priority.append("Town Obelisk Side 2")  # Tutorial Patio Flowers EP
         priority.append("Town Obelisk Side 6")  # Theater Flowers EP
         priority.append("Treehouse Obelisk Side 4")  # Shipwreck Green EP
+
+    if not world.options.disable_non_randomized_puzzles:
+        priority.append("Town Obelisk Side 2")  # Tutorial Patio Flowers EP.
 
     return priority
 
