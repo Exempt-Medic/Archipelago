@@ -451,7 +451,7 @@ class WitnessPlayerLogic:
             adjustment_linesets_in_order.append(get_laser_shuffle())
 
         if world.options.shuffle_EPs and world.options.obelisk_keys:
-                adjustment_linesets_in_order.append(get_obelisk_keys())
+            adjustment_linesets_in_order.append(get_obelisk_keys())
 
         if world.options.shuffle_EPs == "obelisk_sides":
             ep_gen = ((ep_hex, ep_obj) for (ep_hex, ep_obj) in self.REFERENCE_LOGIC.ENTITIES_BY_HEX.items()

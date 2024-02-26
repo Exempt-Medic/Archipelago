@@ -295,7 +295,7 @@ class WitnessWorld(World):
     def fill_slot_data(self) -> dict:
         # Audio Log Hints
 
-        hint_amount = self.options.hint_amount
+        hint_amount = self.options.hint_amount.value
 
         credits_hint = (
             "This Randomizer is brought to you by\n"
