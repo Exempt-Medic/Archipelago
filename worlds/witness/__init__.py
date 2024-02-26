@@ -314,7 +314,7 @@ class WitnessWorld(World):
 
             duplicates = min(3, len(audio_logs) // hint_amount)
 
-            for _ in range(0, len(generated_hints)):
+            for hint in generated_hints:
                 hint = generated_hints.pop(0)
                 compact_hint_data = make_compact_hint_data(hint, self.player)
 
