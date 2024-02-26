@@ -207,7 +207,6 @@ class StaticWitnessLogicObj:
         # All regions with a list of panels in them and the connections to other regions, before logic adjustments
         self.ALL_REGIONS_BY_NAME = dict()
         self.ALL_AREAS_BY_NAME = dict()
-
         self.CONNECTIONS_WITH_DUPLICATES = defaultdict(lambda: defaultdict(lambda: set()))
         self.STATIC_CONNECTIONS_BY_REGION_NAME = dict()
 
