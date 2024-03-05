@@ -343,7 +343,6 @@ class WitnessWorld(World):
         while audio_logs:
             audio_log = audio_logs.pop()
             self.log_ids_to_hints[int(audio_log, 16)] = joke_hints.pop()
-    
         # Options for the client & auto-tracker
 
         slot_data = self._get_slot_data()

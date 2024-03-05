@@ -638,6 +638,7 @@ def make_area_hints(world: "WitnessWorld", amount: int, already_hinted_locations
 
 def create_all_hints(world: "WitnessWorld", hint_amount: int, area_hints: int,
                      already_hinted_locations: Set[Location]) -> List[WitnessWordedHint]:
+    generated_hints: List[WitnessWordedHint] = []
 
     state = CollectionState(world.multiworld)
 
