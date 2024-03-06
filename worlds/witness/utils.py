@@ -209,10 +209,6 @@ def get_tutorial_gate_close_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Exclusions/Tutorial_Gate_Close.txt")
 
 
-def get_tunnels_entry_exclusion_list() -> List[str]:
-    return get_adjustment_file("settings/Exclusions/Tunnels_Entry.txt")
-
-
 def get_discard_exclusion_list() -> List[str]:
     return get_adjustment_file("settings/Exclusions/Discards.txt")
 

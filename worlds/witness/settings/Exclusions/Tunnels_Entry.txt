@@ -1,2 +1,0 @@
-Disabled Locations:
-0x039B4 (Tunnels Entry Panel)

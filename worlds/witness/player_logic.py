@@ -282,7 +282,6 @@ class WitnessPlayerLogic:
         mnt_lasers = world.options.mountain_lasers
         chal_lasers = world.options.challenge_lasers
         foreknowledge = world.options.expect_prior_knowledge
-        snipes = world.options.expect_snipes
 
         # Challenge is always after a shortbox goal if shortbox < longbox or when they're equal if Desert Laser Redirect doesn't exist
         challenge_after_shortbox_goal = victory == "mountain_box_short" and (mnt_lasers < chal_lasers or mnt_lasers == chal_lasers and not panels)
@@ -350,10 +349,6 @@ class WitnessPlayerLogic:
         # Challenge Video can't be reached if the challenge is in postgame.
         if not foreknowledge and (challenge_after_shortbox_goal or challenge_after_longbox_goal):
             postgame_adjustments.append(get_challenge_video_exclusion_list())
-
-
-        if not (early_caves or remote_doors):
-            postgame_adjustments.append(get_tunnels_entry_exclusion_list())
 
         return postgame_adjustments
 
