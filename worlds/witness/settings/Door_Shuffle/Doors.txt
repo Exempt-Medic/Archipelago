@@ -1,2 +1,5 @@
 Requirement Changes:
 0x03608 - 0x012D7 & 0x0A15F | Snipes1 & FOV & 0x01317 - True
+
+New Connections:
+Theater - Tunnels Entry Panel - 0x0348A & Snipes2
