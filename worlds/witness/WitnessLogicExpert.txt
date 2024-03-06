@@ -676,7 +676,7 @@ Windmill Interior (Windmill) - Theater - 0x17F88:
 158248 - 0x17F89 (Theater Entry Panel) - True - Black/White Squares & Eraser & Triangles
 Door - 0x17F88 (Theater Entry) - 0x17F89
 
-Theater (Theater) - Town - 0x0A16D | 0x3CCDF - Tunnels Entry Panels - Snipes2:
+Theater (Theater) - Town - 0x0A16D | 0x3CCDF - Tunnels Entry Panel - Snipes2:
 158656 - 0x00815 (Video Input) - True - True
 158657 - 0x03553 (Tutorial Video) - 0x00815 & 0x03481 | 0x00815 & Foreknowledge1 - True
 158658 - 0x03552 (Desert Video) - 0x00815 & 0x0339E | 0x00815 & Foreknowledge1 - True
@@ -1251,7 +1251,7 @@ Door - 0x0A19A (Challenge Entry) - 0x0A16E
 
 ==Challenge==
 
-Challenge (Challenge) - Tunnels - 0x0348A - Challenge Vault - 0x04D75 - Tunnels Entry Panels - TrueOneWay:
+Challenge (Challenge) - Tunnels - 0x0348A - Challenge Vault - 0x04D75 - Tunnels Entry Panel - TrueOneWay:
 158499 - 0x0A332 (Start Timer) - 11 Lasers - True
 158500 - 0x0088E (Small Basic) - 0x0A332 - True
 158501 - 0x00BAF (Big Basic) - 0x0088E - True
@@ -1275,7 +1275,7 @@ Door - 0x04D75 (Vault Door) - 0x1C31A & 0x1C319
 Door - 0x0348A (Tunnels Entry) - 0x039B4
 159530 - 0x28B30 (Water EP) - True - True
 
-Tunnels Entry Panels (Challenge):
+Tunnels Entry Panel (Challenge):
 158518 - 0x039B4 (Tunnels Entry Panel) - True - Arrows
 
 Challenge Vault (Challenge):
