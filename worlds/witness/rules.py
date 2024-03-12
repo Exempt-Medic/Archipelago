@@ -78,14 +78,6 @@ def _can_do_expert_pp2(state: CollectionState, world: "WitnessWorld") -> bool:
     player = world.player
     regio = world.regio
 
-    front_access = (
-        any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Keep 2nd Pressure Plate", "Keep"])
-        and state.can_reach("Keep", "Region", player)
-    )
-
-    if not front_access:
-        return False
-
     hedge_2_access = (
         any(e.can_reach(state) for e in regio.two_way_entrance_register["Keep 2nd Maze", "Keep"])
     )
@@ -129,7 +121,12 @@ def _can_do_expert_pp2(state: CollectionState, world: "WitnessWorld") -> bool:
         and (backwards_to_fourth or shadows_shortcut)
     )
 
-    return backwards_access
+    front_access = (
+        any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Keep 2nd Pressure Plate", "Keep"])
+        and state.can_reach("Keep", "Region", player)
+    )
+
+    return front_access and backwards_access
 
 
 def _can_do_theater_to_tunnels(state: CollectionState, world: "WitnessWorld") -> bool:
