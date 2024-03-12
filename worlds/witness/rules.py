@@ -158,7 +158,8 @@ def _can_do_theater_to_tunnels(state: CollectionState, world: "WitnessWorld") ->
         and any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Desert Pond Room", "Desert Flood Room"])
         and any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Desert Flood Room", "Desert Elevator Room"])
         and any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Desert Elevator Room", "Desert Behind Elevator"])
-        and any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Desert Behind Elevator", "Tunnels"])    )
+        and any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Desert Behind Elevator", "Tunnels"])
+    )
 
     tunnels_from_caves = (
         any(e.can_reach(state) for e in world.regio.two_way_entrance_register["Town", "Main Island"])
