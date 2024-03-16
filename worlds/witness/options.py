@@ -23,7 +23,7 @@ class EarlyCaves(Choice):
     Adds an item that opens the Caves Shortcuts to Swamp and Mountain, allowing early access to the Caves even if you are not playing a remote Door Shuffle mode.
     You can either add this item to the pool to be found on one of your randomized checks, or you can outright start with it and have immediate access to the Caves.
 
-    If you choose "add_to_pool" and you are already playing a remote Door Shuffle mode, this setting will do nothing.
+    If you choose "add_to_pool" and you are already playing a remote Door Shuffle mode, this option will do nothing.
     """
     display_name = "Early Caves"
     option_off = 0
@@ -36,7 +36,7 @@ class ShuffleSymbols(DefaultOnToggle):
     If on, you will need to unlock puzzle symbols as items to be able to solve the panels that contain those symbols.
 
     Please note that there is no minimum set of progression items in this randomizer.
-    If you turn this setting off from default settings and don't turn on e.g. door shuffle, there will be no progression items, which will disallow you from adding your yaml to a multiworld generation.
+    If you turn this option off from default options and don't turn on e.g. door shuffle, there will be no progression items, which will disallow you from adding your yaml to a multiworld generation.
     """
     display_name = "Shuffle Symbols"
 
@@ -88,7 +88,6 @@ class ShuffleDiscardedPanels(Toggle):
 
     Solving certain Discarded Panels may still be necessary to beat the game, even if this is off - The main example of this being the alternate activation triggers in disable_non_randomized.
     """
-
     display_name = "Shuffle Discarded Panels"
 
 
@@ -105,7 +104,7 @@ class ShuffleEnvironmentalPuzzles(Choice):
     In "individual", every Environmental Puzzle sends an item.
     In "obelisk_sides", completing every puzzle on one side of an Obelisk sends an item.
 
-    Note: In Obelisk Sides, any EPs excluded through another setting will be counted as pre-completed on their Obelisk.
+    Note: In Obelisk Sides, any EPs excluded through another option will be counted as pre-completed on their Obelisk.
     """
     display_name = "Shuffle Environmental Puzzles"
     option_off = 0
@@ -117,13 +116,12 @@ class ShuffleDog(Toggle):
     """
     Add petting the Town dog into the location pool.
     """
-
     display_name = "Pet the Dog"
 
 
 class EnvironmentalPuzzlesDifficulty(Choice):
     """
-    When "Shuffle Environmental Puzzles" is on, this setting governs which EPs are eligible for the location pool.
+    When "Shuffle Environmental Puzzles" is on, this option governs which EPs are eligible for the location pool.
     On "eclipse", every EP in the game is eligible, including the 1-hour-long "Theater Eclipse EP".
     On "tedious", Theater Eclipse EP is excluded from the location pool.
     On "normal", several other difficult or long EPs are excluded as well.
@@ -148,7 +146,7 @@ class ShufflePostgame(Toggle):
     Adds locations into the pool that are guaranteed to become accessible after or at the same time as your goal.
     Use this if you don't play with release on victory.
 
-    IMPORTANT NOTE: The possibility of your second "Progressive Dots" showing up in the Caves is ignored, they will still be considered "postgame" in base settings.
+    IMPORTANT NOTE: The possibility of your second "Progressive Dots" showing up in the Caves is ignored, they will still be considered "postgame" in base options.
     """
     display_name = "Shuffle Postgame"
 
@@ -173,7 +171,7 @@ class VictoryCondition(Choice):
 
 class PuzzleRandomization(Choice):
     """
-    Puzzles in this randomizer are randomly generated. This setting changes the difficulty/types of puzzles.
+    Puzzles in this randomizer are randomly generated. This option changes the difficulty/types of puzzles.
     """
     display_name = "Puzzle Randomization"
     option_sigma_normal = 0
@@ -185,7 +183,7 @@ class MountainLasers(Range):
     """
     Sets the amount of lasers required to enter the Mountain.
     If set to a higher amount than 7, the mountaintop box will be slightly rotated to make it possible to solve without the hatch being opened.
-    This change will also be applied logically to the long solution ("Challenge Lasers" setting).
+    This change will also be applied logically to the long solution ("Challenge Lasers" option).
     """
     display_name = "Required Lasers for Mountain Entry"
     range_start = 1
@@ -227,7 +225,6 @@ class TrapWeights(OptionDict):
     If you don't want a specific type of trap, you can set the weight for it to 0 (Do not delete the entry outright!).
     If you set all trap weights to 0, you will get no traps, bypassing the "Trap Percentage" option.
     """
-
     display_name = "Trap Weights"
     schema = Schema({
         trap_name: And(int, lambda n: n >= 0)
@@ -276,7 +273,9 @@ class AreaHintPercentage(Range):
 
 
 class RandomizationSeed(Range):
-    """Sets the value of the seed for the randomizer."""
+    """
+    Sets the value of the seed for the randomizer.
+    """
     display_name = "Randomization Seed"
     range_start = 1
     range_end = 999999
@@ -284,7 +283,10 @@ class RandomizationSeed(Range):
 
 
 class ExpectSnipes(Choice):
-    """Difficulty of expected snipes. Includes randomized, trivial, and EP snipes such as Quarry Stoneworks Lower Row, Quarry Stoneworks Side Exit Panel, and Keep Pressure Plates 2 EP."""
+    """
+    Difficulty of expected snipes. Includes randomized, trivial, and EP snipes such as:
+    Quarry Stoneworks Lower Row, Quarry Stoneworks Side Exit Panel, and Keep Pressure Plates 2 EP.
+    """
     display_name = "Snipe Difficulty"
     option_none = 0
     option_easy = 1
@@ -295,17 +297,25 @@ class ExpectSnipes(Choice):
 
 
 class NonRandomizedSnipes(Toggle):
-    """Whether or not you are expected to solve non-trivial, non-randomized snipes such as Shadows. Difficulty matches your Snipe Difficulty setting."""
+    """
+    Whether or not you are expected to solve non-trivial, non-randomized snipes such as Shadows.
+    Difficulty matches your Snipe Difficulty option.
+    """
     display_name = "Include Non-Randomized Snipes"
 
 
 class FieldOfViewSnipes(Toggle):
-    """Whether or not you are expected to solve panels and EPs by changing the FOV. Difficulty matches your Snipe Difficulty setting."""
+    """
+    Whether or not you are expected to solve panels and EPs by changing the FOV.
+    Difficulty matches your Snipe Difficulty option.
+    """
     display_name = "Include FOV Snipes"
 
 
 class ExpectPriorKnowledge(Choice):
-    """Whether or not you are expected to solve nearby panels earlier than usual."""
+    """
+    Whether or not you are expected to solve nearby panels earlier than usual.
+    """
     display_name = "Prior Knowledge Required"
     option_none = 0
     option_easy = 1
