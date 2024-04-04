@@ -29,7 +29,7 @@ class ExcludedLocationsOption(Choice):
 
 class MissableLocationsOption(Choice):
     """Which items can be placed in locations that can be permanently missed.
-
+    * Important: Missable locations can have progression items. WARNING: THIS MAY REQUIRE RESTARTING YOUR GAME!!!
     * Unnecessary: Missable locations can't have progression items, but they can
       have useful items.
     * Unimportant: Neither progression items nor useful items can be placed in
@@ -42,6 +42,7 @@ class MissableLocationsOption(Choice):
     usually items that are quite desirable but not strictly necessary.
     """
     display_name = "Missable Locations"
+    option_important = 0
     option_unnecessary = 1
     option_unimportant = 2
     option_unrandomized = 3
@@ -312,7 +313,8 @@ class LateBasinOfVowsOption(Choice):
     """This option makes it so the Basin of Vows is still randomized, but you can choose the requirements to venture into Lothric Castle.
     "Off": You may have to enter Lothric Castle and the areas beyond it before finding your Small Lothric Banner.
     "After Small Lothric Banner": You are guaranteed to find your Small Lothric Banner before needing to enter Lothric Castle.
-    "After Small Doll": You are guaranteed to find your Small Lothric Banner and your Small Doll before needing to enter Lothric Castle."""
+    "After Catacombs": You are guaranteed to find your Small Lothric Banner and a Scroll before needing to enter Lothric Castle.
+    "After Small Doll": You are guaranteed to find your Small Lothric Banner, a Scroll, and your Small Doll before needing to enter Lothric Castle."""
     display_name = "Late Basin of Vows"
     option_off = 0
     alias_false = 0
@@ -324,8 +326,9 @@ class LateBasinOfVowsOption(Choice):
 class LateDLCOption(Choice):
     """This option makes it so the Small Doll is still randomized, but you can choose the requirements to venture into Painted World of Ariandel.
     "Off": You may have to enter Ariandel and the areas beyond it before finding your Small Doll.
-    "After Small Doll": You are guaranteed to find your Small Doll before needing to enter Ariandel.
-    "After Basin": You are guaranteed to find your Small Doll and your Basin of Vows before needing to enter Ariandel."""
+    "After Catacombs": You are guranteed to find a Scroll before needing to enter Ariandel.
+    "After Small Doll": You are guaranteed to find a Scroll and your Small Doll before needing to enter Ariandel.
+    "After Basin": You are guaranteed to find a Scroll, your Small Doll, and your Basin of Vows before needing to enter Ariandel."""
     display_name = "Late DLC"
     option_off = 0
     alias_false = 0

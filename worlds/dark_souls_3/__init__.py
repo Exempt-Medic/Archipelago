@@ -3,7 +3,7 @@ from collections.abc import Sequence
 from collections import defaultdict
 import json
 from logging import warning
-from typing import Callable, Dict, Set, List, Optional, TextIO, Union
+from typing import Callable, Dict, Set, List, Optional, TextIO, Union, Any
 
 from BaseClasses import CollectionState, MultiWorld, Region, Item, Location, LocationProgressType, Entrance, Tutorial, ItemClassification
 from Options import Toggle
@@ -103,7 +103,17 @@ class DarkSouls3World(World):
         self.all_excluded_locations.update(self.options.exclude_locations.value)
 
         # Randomize Yhorm manually so that we know where to place the Storm Ruler.
-        if self.options.randomize_enemies:
+        if hasattr(self.multiworld, "re_gen_passthrough"):
+            if "Dark Souls III" in self.multiworld.re_gen_passthrough:
+                if self.multiworld.re_gen_passthrough["Dark Souls III"]["options"]["randomize_enemies"]:
+                    yhorm_data = self.multiworld.re_gen_passthrough["Dark Souls III"]["yhorm"]
+                    for boss in all_bosses:
+                        if yhorm_data.startswith(boss.name):
+                            self.yhorm_location = boss
+                else:
+                    self.yhorm_location = default_yhorm_location
+
+        elif self.options.randomize_enemies:
             self.yhorm_location = self.random.choice(
                 [boss for boss in all_bosses if self._allow_boss_for_yhorm(boss)])
 
@@ -578,13 +588,12 @@ class DarkSouls3World(World):
                     "Pyromancy Flame" not in randomized_items
                     or state.has("Pyromancy Flame", self.player)
                 )
-                # This isn't really necessary, but it ensures that the game logic knows players will
-                # want to do Lothric Castle after at least being _able_ to access Catacombs. This is
-                # useful for smooth item placement.
-                and self._has_any_scroll(state)
             ))
 
-            if self.options.late_basin_of_vows > 1: # After Small Doll
+            if self.options.late_basin_of_vows > 1: # After Catacombs
+                self._add_entrance_rule("Lothric Castle", self._has_any_scroll)
+
+            if self.options.late_basin_of_vows > 2: # After Small Doll
                 self._add_entrance_rule("Lothric Castle", "Small Doll")
 
         # DLC Access Rules Below
@@ -600,12 +609,13 @@ class DarkSouls3World(World):
                 and self._can_get(state, "DH: Soul of the Demon Prince")
             ))
 
-            if self.options.late_dlc:
-                self._add_entrance_rule(
-                    "Painted World of Ariandel (Before Contraption)",
-                    lambda state: state.has("Small Doll", self.player) and self._has_any_scroll(state))
+            if self.options.late_dlc: # After Catacombs
+                self._add_entrance_rule("Painted World of Ariandel (Before Contraption)", self._has_any_scroll)
 
-            if self.options.late_dlc > 1: # After Basin
+            if self.options.late_dlc > 1: # After Small Doll
+                self._add_entrance_rule("Painted World of Ariandel (Before Contraption)", "Small Doll")
+
+            if self.options.late_dlc > 2: # After Basin
                 self._add_entrance_rule("Painted World of Ariandel (Before Contraption)", "Basin of Vows")
 
         # Define the access rules to some specific locations
@@ -647,13 +657,12 @@ class DarkSouls3World(World):
                     "Pyromancy Flame" not in randomized_items
                     or state.has("Pyromancy Flame", self.player)
                 )
-                # This isn't really necessary, but it ensures that the game logic knows players will
-                # want to do Lothric Castle after at least being _able_ to access Catacombs. This is
-                # useful for smooth item placement.
-                and self._has_any_scroll(state)
             ))
 
-            if self.options.late_basin_of_vows > 1: # After Small Doll
+            if self.options.late_basin_of_vows > 1: # After Catacombs
+                self._add_location_rule("HWL: Soul of the Dancer", self._has_any_scroll)
+
+            if self.options.late_basin_of_vows > 2: # After Small Doll
                 self._add_location_rule("HWL: Soul of the Dancer", "Small Doll")
 
         self._add_location_rule([
@@ -1577,4 +1586,8 @@ class DarkSouls3World(World):
             "locationIdsToKeys": location_ids_to_keys,
         }
 
+        return slot_data
+
+    @staticmethod
+    def interpret_slot_data(slot_data: Dict[str, Any]) -> Dict[str, Any]:
         return slot_data
