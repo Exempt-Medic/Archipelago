@@ -183,7 +183,7 @@ locations: List[LocationDef] = [
     LocationDef(400198, 'Fraternal Castle Poison 1', 'Fraternal Castle', LocationType.world, ItemType.unknown),
     LocationDef(400199, 'Fraternal Castle Poison 2', 'Fraternal Castle', LocationType.world, ItemType.unknown),
     LocationDef(400200, 'Fraternal Castle Poison 3', 'Fraternal Castle', LocationType.world, ItemType.unknown),
-    LocationDef(400201, 'Fraternal Castle Red Potion', 'Fraternal Castle', LocationType.world, ItemType.red_potion),
+    # LocationDef(400201, 'Fraternal Castle Red Potion', 'Fraternal Castle', LocationType.world, ItemType.red_potion), # This location is innaccessible. Keeping commented for context.
     LocationDef(400202, 'Fraternal Castle Hidden Hourglass', 'Fraternal Castle', LocationType.hidden, ItemType.unknown),
     LocationDef(400203, 'Fraternal Castle Dragon Slayer', 'Fraternal Castle', LocationType.boss_reward, ItemType.unknown),
     LocationDef(400204, 'Fraternal Castle Guru', 'Fraternal Castle', LocationType.give, ItemType.unknown),

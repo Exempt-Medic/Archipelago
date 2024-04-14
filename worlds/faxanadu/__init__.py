@@ -8,7 +8,7 @@ from .Options import FaxanaduOptions
 from worlds.generic.Rules import set_rule
 
 
-DAXANADU_VERSION = "0.2.0"
+DAXANADU_VERSION = "0.3.0"
 
 
 class FaxanaduLocation(Location):
