@@ -563,7 +563,7 @@ class DarkSouls3World(World):
             and state.has("Transposing Kiln", self.player)
         ))
 
-        if self.options.late_basin_of_vows:
+        if self.options.late_basin_of_vows:  # After Banner
             self._add_entrance_rule("Lothric Castle", lambda state: (
                 state.has("Small Lothric Banner", self.player)
                 # Make sure these are actually available early.
@@ -574,13 +574,12 @@ class DarkSouls3World(World):
                     "Pyromancy Flame" not in randomized_items
                     or state.has("Pyromancy Flame", self.player)
                 )
-                # This isn't really necessary, but it ensures that the game logic knows players will
-                # want to do Lothric Castle after at least being _able_ to access Catacombs. This is
-                # useful for smooth item placement.
-                and self._has_any_scroll(state)
             ))
 
-            if self.options.late_basin_of_vows > 1: # After Small Doll
+            if self.options.late_basin_of_vows > 1:  # After Catacombs
+                self._add_entrance_rule("Lothric Castle", self._has_any_scroll)
+
+            if self.options.late_basin_of_vows > 2:  # After Small Doll
                 self._add_entrance_rule("Lothric Castle", "Small Doll")
 
         # DLC Access Rules Below
@@ -596,12 +595,13 @@ class DarkSouls3World(World):
                 and self._can_get(state, "DH: Soul of the Demon Prince")
             ))
 
-            if self.options.late_dlc:
-                self._add_entrance_rule(
-                    "Painted World of Ariandel (Before Contraption)",
-                    lambda state: state.has("Small Doll", self.player) and self._has_any_scroll(state))
+            if self.options.late_dlc:  # After Catacombs
+                self._add_entrance_rule("Painted World of Ariandel (Before Contraption)", self._has_any_scroll)
 
-            if self.options.late_dlc > 1: # After Basin
+            if self.options.late_dlc > 1:  # After Small Doll
+                self._add_entrance_rule("Painted World of Ariandel (Before Contraption)", "Small Doll")
+
+            if self.options.late_dlc > 2:  # After Basin
                 self._add_entrance_rule("Painted World of Ariandel (Before Contraption)", "Basin of Vows")
 
         # Define the access rules to some specific locations
@@ -632,7 +632,7 @@ class DarkSouls3World(World):
 
         # Lump Soul of the Dancer in with LC for locations that should not be reachable
         # before having access to US. (Prevents requiring getting Basin to fight Dancer to get SLB to go to US)
-        if self.options.late_basin_of_vows:
+        if self.options.late_basin_of_vows:  # After Banner
             self._add_location_rule("HWL: Soul of the Dancer", lambda state: (
                 state.has("Small Lothric Banner", self.player)
                 # Make sure these are actually available early.
@@ -643,13 +643,12 @@ class DarkSouls3World(World):
                     "Pyromancy Flame" not in randomized_items
                     or state.has("Pyromancy Flame", self.player)
                 )
-                # This isn't really necessary, but it ensures that the game logic knows players will
-                # want to do Lothric Castle after at least being _able_ to access Catacombs. This is
-                # useful for smooth item placement.
-                and self._has_any_scroll(state)
             ))
 
-            if self.options.late_basin_of_vows > 1: # After Small Doll
+            if self.options.late_basin_of_vows > 1:  # After Catacombs
+                self._add_location_rule("HWL: Soul of the Dancer", self._has_any_scroll)
+
+            if self.options.late_basin_of_vows > 2: # After Basin
                 self._add_location_rule("HWL: Soul of the Dancer", "Small Doll")
 
         self._add_location_rule([
@@ -720,6 +719,22 @@ class DarkSouls3World(World):
             self._add_entrance_rule("Archdragon Peak", "Storm Ruler")
         for location in self.yhorm_location.locations:
             self._add_location_rule(location, "Storm Ruler")
+
+        # Grave Key Skip
+        if self.options.grave_key_expected:
+            self._add_location_rule([
+                "FS: Saint's Ring - Irina",
+                "FS: Heal - Irina",
+                "FS: Replenishment - Irina",
+                "FS: Caressing Tears - Irina",
+                "FS: Homeward - Irina",
+                "FS: Med Heal - Irina for Tome of Carim",
+                "FS: Tears of Denial - Irina for Tome of Carim",
+                "FS: Force - Irina for Tome of Carim",
+                "FS: Bountiful Light - Irina for Tome of Lothric",
+                "FS: Magic Barrier - Irina for Tome of Lothric",
+                "FS: Blessed Weapon - Irina for Tome of Lothric"
+            ], "Grave Key")
 
         self.multiworld.completion_condition[self.player] = lambda state: \
             state.has("Cinders of a Lord - Abyss Watcher", self.player) and \
@@ -1079,13 +1094,6 @@ class DarkSouls3World(World):
             "UG: Wolf Knight Gauntlets - shop after killing FK boss",
             "UG: Wolf Knight Leggings - shop after killing FK boss",
         ], self._has_any_scroll)
-
-        # Not really necessary but ensures players can decide which way to go
-        if self.options.enable_dlc:
-            self._add_entrance_rule(
-                "Painted World of Ariandel (After Contraption)",
-                self._has_any_scroll
-            )
 
         ## Anri
 

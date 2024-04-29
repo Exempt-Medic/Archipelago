@@ -207,24 +207,22 @@ class LateBasinOfVowsOption(Choice):
     "After Small Doll": You are guaranteed to find your Small Lothric Banner, a Scroll, and your Small Doll before needing to enter Lothric Castle."""
     display_name = "Late Basin of Vows"
     option_off = 0
-    alias_false = 0
     option_after_small_lothric_banner = 1
-    alias_true = 1
-    option_after_small_doll = 2
+    option_after_catacombs = 2
+    option_after_small_doll = 3
 
 
 class LateDLCOption(Choice):
     """This option makes it so the Small Doll is still randomized, but you can choose the requirements to venture into Painted World of Ariandel.
     "Off": You may have to enter Ariandel and the areas beyond it before finding your Small Doll.
-    "After Catacombs": You are guranteed to find a Scroll before needing to enter Ariandel.
+    "After Catacombs": You are guaranteed to find a Scroll before needing to enter Ariandel.
     "After Small Doll": You are guaranteed to find a Scroll and your Small Doll before needing to enter Ariandel.
     "After Basin": You are guaranteed to find a Scroll, your Small Doll, and your Basin of Vows before needing to enter Ariandel."""
     display_name = "Late DLC"
     option_off = 0
-    alias_false = 0
-    option_after_small_doll = 1
-    alias_true = 1
-    option_after_basin = 2
+    option_after_catacombs = 1
+    option_after_small_doll = 2
+    option_after_basin = 3
 
 
 class EnableDLCOption(Toggle):
