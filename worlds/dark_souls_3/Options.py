@@ -47,118 +47,8 @@ class MissableLocationsOption(Choice):
     option_unimportant = 2
     option_unrandomized = 3
     default = 2
+
     
-
-class RandomizeWeaponLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Weapons" to the "Exclude
-    Locations" option. It does _not_ cause the locations not be randomized
-    unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Weapon Locations"
-
-
-class RandomizeShieldLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Shields" to the "Exclude
-    Locations" option. It does _not_ cause the locations not be randomized
-    unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Shield Locations"
-
-
-class RandomizeArmorLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Armor" to the "Exclude
-    Locations" option. It does _not_ cause the locations not be randomized
-    unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Armor Locations"
-
-
-class RandomizeRingLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Rings" to the "Exclude
-    Locations" option. It does _not_ cause the locations not be randomized
-    unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Ring Locations"
-
-
-class RandomizeSpellLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Spells" to the "Exclude
-    Locations" option. It does _not_ cause the locations not be randomized
-    unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Spell Locations"
-
-
-class RandomizeKeyLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Progression" to the
-    "Exclude Locations" option. It does _not_ cause the locations not be
-    randomized unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Key Locations"
-
-
-class RandomizeBossSoulLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Boss Souls" to the
-    "Exclude Locations" option. It does _not_ cause the locations not be
-    randomized unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Boss Soul Locations"
-
-
-class RandomizeNPCLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Friendly NPC Rewards" to
-    the "Exclude Locations" option. It does _not_ cause the locations not be
-    randomized unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize NPC Locations"
-
-
-class RandomizeMiscLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Unique" to the "Exclude
-    Locations" option. It does _not_ cause the locations not be randomized
-    unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Miscellaneous Locations"
-
-
-class RandomizeHealthLocations(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Healing" to the "Exclude
-    Locations" option. It does _not_ cause the locations not be randomized
-    unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Health Locations"
-
-
-class RandomizeProgressiveLocationsOption(DefaultOnToggle):
-    """DEPRECATED (use "Excluded Locations" options instead)
-
-    Setting this to false is now equivalent to adding "Miscellaneous" to the
-    "Exclude Locations" option. It does _not_ cause the locations not be
-    randomized unless "Excluded Locations" is also set to "Unrandomized".
-    """
-    display_name = "Randomize Progressive Locations"
-
-
 class SmoothSoulItemsOption(DefaultOnToggle):
     """Whether to distribute soul items in a similar order as the base game.
 
@@ -300,8 +190,8 @@ class MaxLevelsIn10WeaponPoolOption(Range):
 
 
 class EarlySmallLothricBanner(Choice):
-    """This option makes it so the user can choose to force the Small Lothric Banner into an early sphere in their world or
-    into an early sphere across all worlds."""
+    """This option makes it so the user can choose to force the Small Lothric Banner into an early sphere in their world
+     or into an early sphere across all worlds."""
     display_name = "Early Small Lothric Banner"
     option_off = 0
     option_early_global = 1
@@ -362,17 +252,17 @@ class RandomizeEnemiesOption(DefaultOnToggle):
 
 
 class RandomEnemyPresetOption(Option[typing.Dict[str, typing.Any]], VerifyKeys):
-    """The YAML preset for the offline enemy randomizer.
+    """The YAML preset for the static enemy randomizer.
     
-    See the offline randomizer documentation in randomizer\\presets\\README.txt for details.
+    See the static randomizer documentation in randomizer\\presets\\README.txt for details.
     """
     display_name = "Random Enemy Preset"
     supports_weighting = False
     default = {}
 
     valid_keys = ["Description", "RecommendFullRandomization", "RecommendNoEnemyProgression",
-                 "OopsAll", "Boss", "Miniboss", "Basic", "BuffBasicEnemiesAsBosses",
-                 "DontRandomize", "RemoveSource", "Enemies"]
+                  "OopsAll", "Boss", "Miniboss", "Basic", "BuffBasicEnemiesAsBosses",
+                  "DontRandomize", "RemoveSource", "Enemies"]
 
     def __init__(self, value: typing.Dict[str, typing.Any]):
         self.value = deepcopy(value)
@@ -382,7 +272,7 @@ class RandomEnemyPresetOption(Option[typing.Dict[str, typing.Any]], VerifyKeys):
 
     @classmethod
     def from_any(cls, data: typing.Dict[str, typing.Any]) -> "RandomEnemyPresetOption":
-        if type(data) == dict:
+        if isinstance(data, dict):
             cls.verify_keys(data)
             return cls(data)
         else:
@@ -394,7 +284,7 @@ class RandomizeMimicsWithEnemiesOption(Toggle):
 
     If this is enabled, Mimics will be replaced by normal enemies who drop the Mimic rewards on
     death, and Mimics will be placed randomly in place of normal enemies. It's recommended to
-    enable Impatient Mimcs as well if you enable this.
+    enable Impatient Mimics as well if you enable this.
 
     This is ignored unless enemies are randomized.
     """
@@ -474,17 +364,6 @@ class DS3ExcludeLocations(ExcludeLocations):
 class DarkSouls3Options(PerGameCommonOptions):
     excluded_locations: ExcludedLocationsOption
     missable_locations: MissableLocationsOption
-    enable_weapon_locations: RandomizeWeaponLocations
-    enable_shield_locations: RandomizeShieldLocations
-    enable_armor_locations: RandomizeArmorLocations
-    enable_ring_locations: RandomizeRingLocations
-    enable_spell_locations: RandomizeSpellLocations
-    enable_key_locations: RandomizeKeyLocations
-    enable_boss_locations: RandomizeBossSoulLocations
-    enable_npc_locations: RandomizeNPCLocations
-    enable_misc_locations: RandomizeMiscLocations
-    enable_health_upgrade_locations: RandomizeHealthLocations
-    enable_progressive_locations: RandomizeProgressiveLocationsOption
     smooth_soul_items: SmoothSoulItemsOption
     smooth_upgrade_items: SmoothUpgradeItemsOption
     smooth_upgraded_weapons: SmoothUpgradedWeaponsOption
