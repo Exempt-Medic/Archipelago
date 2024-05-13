@@ -6,6 +6,7 @@ from logging import warning
 from typing import Any, Callable, Dict, Set, List, Optional, TextIO, Union
 
 from BaseClasses import CollectionState, MultiWorld, Region, Item, Location, LocationProgressType, Entrance, Tutorial, ItemClassification
+from Fill import fill_restrictive
 
 from worlds.AutoWorld import World, WebWorld
 from worlds.generic.Rules import CollectionRule, ItemRule, add_rule, add_item_rule
@@ -80,7 +81,6 @@ class DarkSouls3World(World):
     """The pool of all items within this particular world. This is a subset of
     `self.multiworld.itempool`."""
 
-
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
         self.locked_items = []
@@ -88,6 +88,8 @@ class DarkSouls3World(World):
         self.main_path_locations = []
         self.enabled_location_categories = set()
         self.all_excluded_locations = set()
+        self.nonrandom_items = []
+        self.nonrandom_locations = []
 
     def generate_early(self):
         self.all_excluded_locations.update(self.options.exclude_locations.value)
@@ -267,21 +269,29 @@ class DarkSouls3World(World):
                 # Don't allow Siegward's Storm Ruler to mark Yhorm as defeatable.
                 if location.name == "PC: Storm Ruler - Siegward": continue
 
-                # Replace non-randomized items with events that give the default item
-                event_item = (
-                    self.create_item(location.default_item_name) if location.default_item_name
-                    else DarkSouls3Item.event(location.name, self.player)
-                )
+                if self.options.excluded_locations == "unrandomized_shuffle" and location.name in excluded:
+                    new_location = DarkSouls3Location(self.player, location, new_region)
+                    excluded.remove(location.name)
+                    if location.default_item_name:
+                        self.nonrandom_items.append(self.create_item(location.default_item_name))
+                        self.nonrandom_locations.append(new_location)
 
-                new_location = DarkSouls3Location(
-                    self.player,
-                    location,
-                    parent = new_region,
-                    event = True,
-                )
-                event_item.code = None
-                new_location.place_locked_item(event_item)
-                if location.name in excluded: excluded.remove(location.name)
+                else:
+                    # Replace non-randomized items with events that give the default item
+                    event_item = (
+                        self.create_item(location.default_item_name) if location.default_item_name
+                        else DarkSouls3Item.event(location.name, self.player)
+                    )
+
+                    new_location = DarkSouls3Location(
+                        self.player,
+                        location,
+                        parent = new_region,
+                        event = True,
+                    )
+                    event_item.code = None
+                    new_location.place_locked_item(event_item)
+                    if location.name in excluded: excluded.remove(location.name)
 
             if region_name == "Menu":
                 add_item_rule(new_location, lambda item: not item.advancement)
@@ -300,6 +310,8 @@ class DarkSouls3World(World):
         self.local_itempool = []
         num_required_extra_items = 0
         for location in self.multiworld.get_unfilled_locations(self.player):
+            if location in self.nonrandom_locations:
+                continue
             if not self._is_location_available(location.name):
                 raise Exception("DS3 generation bug: Added an unavailable location.")
 
@@ -376,7 +388,7 @@ class DarkSouls3World(World):
                 if item in items: continue
                 self.multiworld.push_precollected(self.create_item(item))
                 warning(
-                    f"Couldn't add \"{item.name}\" to the item pool for " + 
+                    f"Couldn't add \"{item.name}\" to the item pool for " +
                     f"{self.multiworld.get_player_name(self.player)}. Adding it to the starting " +
                     f"inventory instead."
                 )
@@ -463,7 +475,7 @@ class DarkSouls3World(World):
         additional_condition: Optional[Callable[[DarkSouls3Location], bool]] = None,
     ) -> None:
         """Chooses a valid location for the item with the given name and places it there.
-        
+
         This always chooses a local location among the given regions. If additional_condition is
         passed, only locations meeting that condition will be considered.
 
@@ -720,7 +732,7 @@ class DarkSouls3World(World):
                 "US: Young White Branch - by white tree #2",
                 lambda item: item.player == self.player and not item.data.unique
             )
-        
+
         # Make sure the Storm Ruler is available BEFORE Yhorm the Giant
         if self.yhorm_location.name == "Ancient Wyvern":
             # This is a white lie, you can get to a bunch of items in AP before you beat the Wyvern,
@@ -751,6 +763,9 @@ class DarkSouls3World(World):
             state.has("Cinders of a Lord - Yhorm the Giant", self.player) and \
             state.has("Cinders of a Lord - Aldrich", self.player) and \
             state.has("Cinders of a Lord - Lothric Prince", self.player)
+
+        if self.options.excluded_locations == "unrandomized_shuffle":
+            fill_restrictive(self.multiworld, self.multiworld.get_all_state(False), self.nonrandom_locations, self.nonrandom_items, True, True)
 
 
     def _add_shop_rules(self) -> None:
@@ -946,7 +961,7 @@ class DarkSouls3World(World):
         ], "Black Eye Orb")
 
         ## Hawkwood
-        
+
         # After Hawkwood leaves and once you have the Torso Stone, you can fight him for dragon
         # stones. Andre will give Swordgrass as a hint as well
         self._add_location_rule([
@@ -1251,7 +1266,7 @@ class DarkSouls3World(World):
                 lambda item: not item.advancement
             )
 
-        if self.options.excluded_locations == "unnecessary":
+        if self.options.excluded_locations == "unnecessary" or self.options.excluded_locations == "unrandomized_shuffle":
             self.options.exclude_locations.value.clear()
 
 
@@ -1348,7 +1363,7 @@ class DarkSouls3World(World):
             and (not data.dlc or self.options.enable_dlc)
             and (not data.ngp or self.options.enable_ngp)
             and not (
-                self.options.excluded_locations == "unrandomized"
+                (self.options.excluded_locations == "unrandomized" or self.options.excluded_locations == "unrandomized_shuffle")
                 and data.name in self.all_excluded_locations
             )
             and not (
