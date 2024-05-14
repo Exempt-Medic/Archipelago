@@ -765,7 +765,7 @@ class DarkSouls3World(World):
             state.has("Cinders of a Lord - Lothric Prince", self.player)
 
         if self.options.excluded_locations == "unrandomized_shuffle":
-            fill_restrictive(self.multiworld, self.multiworld.get_all_state(False), self.nonrandom_locations, self.nonrandom_items, True, True)
+            fill_restrictive(self.multiworld, self.multiworld.get_all_state(False), self.nonrandom_locations, self.nonrandom_items, single_player_placement=True, lock=True, name="DS3 Unrandomized")
 
 
     def _add_shop_rules(self) -> None:
