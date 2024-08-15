@@ -210,6 +210,14 @@ class SmoothUpgradedWeaponsOption(DefaultOnToggle):
     display_name = "Smooth Upgraded Weapons"
 
 
+class SmoothRingsOption(DefaultOnToggle):
+    """Distribute ring items ina  similar order as the base game.
+    
+    By default, rings will be distributed totally randomly. If this is set, lower-level rings
+    will generally appear in earlier spheres and higher-level ones will generally appear later.
+    """
+
+
 ### Enemies
 
 class RandomizeEnemiesOption(DefaultOnToggle):
@@ -399,6 +407,7 @@ class DarkSouls3Options(PerGameCommonOptions):
     smooth_soul_items: SmoothSoulItemsOption
     smooth_upgrade_items: SmoothUpgradeItemsOption
     smooth_upgraded_weapons: SmoothUpgradedWeaponsOption
+    smooth_rings: SmoothRingsOption
 
     # Enemies
     randomize_enemies: RandomizeEnemiesOption
