@@ -1473,6 +1473,11 @@ class DarkSouls3World(World):
             upgraded_weapons.sort(key=lambda item: item.level)
             smooth_items(upgraded_weapons)
 
+        if self.options.smooth_rings:
+            rings = sorted([item for item in all_item_order if item.category == DS3ItemCategory.RING],
+                           key=lambda ring: int(ring.name[-1]) if ring.name[-2] == "+" else 0)
+            smooth_items(rings)
+
     def _shuffle(self, seq: Sequence) -> List:
         """Returns a shuffled copy of a sequence."""
         copy = list(seq)
