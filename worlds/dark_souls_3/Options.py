@@ -216,6 +216,7 @@ class SmoothRingsOption(DefaultOnToggle):
     By default, rings will be distributed totally randomly. If this is set, lower-level rings
     will generally appear in earlier spheres and higher-level ones will generally appear later.
     """
+    display_name = "Smooth Rings"
 
 
 ### Enemies
