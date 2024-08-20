@@ -8,7 +8,7 @@ class Goal(Choice):
     Golden Diva: Defeat the four main passage bosses, reach the depths of the pyramid, and defeat the Golden Diva
     Golden Treasure Hunt: Find the golden treasures scattered in the world, and escape through the Sound Room
     Golden Diva Treasure Hunt: Find the golden treasures, and then defeat the Golden Diva
-    Local Golden Treasure Hunt: Find the treasures scattered in the pyramid and esape through the Sound Room
+    Local Golden Treasure Hunt: Find the treasures scattered in the pyramid and escape through the Sound Room
     Local Golden Diva Treasure Hunt: Find the golden treasures in the pyramid and defeat the Golden Diva
     '''
     display_name = 'Goal'
@@ -47,7 +47,7 @@ class GoldenTreasureCount(Range):
 class Difficulty(Choice):
     '''
     The game's difficulty level.
-    Hard and S-Hard have slightly less locations to check since some Full Health item boxes are missing on those difficulties.
+    Hard and S-Hard have slightly fewer locations to check since some Full Health item boxes are missing on those difficulties.
     '''
     display_name = 'Difficulty'
     option_normal = 0

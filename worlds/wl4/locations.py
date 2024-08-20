@@ -1,6 +1,6 @@
-from typing import NamedTuple, Optional, Sequence, Tuple, Union
+from typing import NamedTuple, Optional, Sequence, Tuple
 
-from BaseClasses import Location, MultiWorld, Region
+from BaseClasses import Location, Region
 
 from .data import ap_id_offset
 from .options import Difficulty
@@ -11,7 +11,7 @@ class LocationData(NamedTuple):
     source: LocationType
     status_bit: Tuple[Passage, int, ItemFlag]
     region_in_level: Optional[str]
-    difficulties: Sequence[Difficulty]
+    difficulties: Sequence[int]
 
     def passage(self):
         return self.status_bit[0]
@@ -44,7 +44,7 @@ location_table = {
     'Hall of Hieroglyphs - Fourth Jewel Box':             LocationData(LocationType.BOX,   (Passage.ENTRY,    0, ItemFlag.JEWEL_NW),       None,              _ALL),
     'Hall of Hieroglyphs - Full Health Item Box':         LocationData(LocationType.BOX,   (Passage.ENTRY,    0, ItemFlag.FULL_HEALTH),    None,              _ALL),
 
-#   'Spoiled Rotten':                                     LocationData(LocationType.BOSS,  (Passage.ENTRY,    4, ItemFlag.KEYZER),         None,              _ALL),
+    #  'Spoiled Rotten':                                     LocationData(LocationType.BOSS,  (Passage.ENTRY,    4, ItemFlag.KEYZER),         None,              _ALL),
 
     # Emerald Passage
     # Palm Tree Paradise
@@ -258,7 +258,7 @@ class WL4Location(Location):
 
     def __init__(self, player: int, name: str, code: Optional[int], parent: Optional[Region],
                  type: LocationType, status_position: Tuple[Passage, int, int],
-                 difficulty: Difficulty):
+                 difficulty: Sequence[int]):
         super().__init__(player, name, code, parent)
         self.type = type
         self.passage, self.level, self.flag = status_position

@@ -100,8 +100,7 @@ def get_access_rule(world: WL4World, region_name: str):
 
 
 def make_boss_access_rule(world: WL4World, passage: Passage, jewels_needed: int):
-    jewel_list = [(name, jewels_needed)
-                  for name in items.filter_item_names(type=ItemType.JEWEL, passage=passage)]
+    jewel_list = [name for name in items.filter_item_names(type=ItemType.JEWEL, passage=passage)]
     return has_all(jewel_list).apply_world(world)
 
 
@@ -161,7 +160,7 @@ advanced = options.Logic.option_advanced
 
 
 # Regions are linear, so each region from the same level adds to the previous
-region_rules: Mapping[str, Requirement] = {
+region_rules: Mapping[str, Optional[Requirement]] = {
     'Hall of Hieroglyphs':                  has_all(['Dash Attack', 'Grab', 'Super Ground Pound']),
 
     'Palm Tree Paradise':                   None,
@@ -203,9 +202,9 @@ region_rules: Mapping[str, Requirement] = {
 
 location_rules: Mapping[str, Requirement] = {
     'Cractus':              has('Ground Pound'),
-    'Cractus - 0:15':       has('Ground Pound') & (not_difficulty(s_hard) | has('Enemy Jump') | logic('advanced')),
-    'Cractus - 0:35':       has('Ground Pound') & (not_difficulty(s_hard) | has('Enemy Jump') | logic('advanced')),
-    'Cractus - 0:55':       has('Ground Pound') & (not_difficulty(s_hard) | has('Enemy Jump') | logic('advanced')),
+    'Cractus - 0:15':       has('Ground Pound') & (not_difficulty(s_hard) | has('Enemy Jump') | logic(advanced)),
+    'Cractus - 0:35':       has('Ground Pound') & (not_difficulty(s_hard) | has('Enemy Jump') | logic(advanced)),
+    'Cractus - 0:55':       has('Ground Pound') & (not_difficulty(s_hard) | has('Enemy Jump') | logic(advanced)),
     'Cuckoo Condor':        has('Grab'),
     'Cuckoo Condor - 0:15': has('Grab'),
     'Cuckoo Condor - 0:35': has('Grab'),

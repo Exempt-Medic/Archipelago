@@ -51,7 +51,7 @@ class WL4World(World):
     the Golden Diva.
     '''
 
-    game: str = 'Wario Land 4'
+    game = 'Wario Land 4'
     options_dataclass = WL4Options
     options: WL4Options
     settings: ClassVar[WL4Settings]
@@ -108,7 +108,7 @@ class WL4World(World):
         if self.options.goal in (Goal.option_local_golden_treasure_hunt, Goal.option_local_golden_diva_treasure_hunt):
             self.options.local_items.value.update(self.item_name_groups['Golden Treasure'])
         if self.options.required_jewels > self.options.pool_jewels:
-            self.options.pool_jewels = PoolJewels(self.options.required_jewels)
+            self.options.pool_jewels = PoolJewels(self.options.required_jewels.value)
         if self.options.required_jewels >= 1 and self.options.golden_jewels == 0:
             self.options.golden_jewels = GoldenJewels(1)
 
@@ -126,12 +126,12 @@ class WL4World(World):
 
         if self.options.goal.needs_diva():
             goal = 'Golden Diva'
-        if self.options.goal.is_treasure_hunt():
+        else:
             goal = 'Sound Room - Emergency Exit'
 
-        goal = self.multiworld.get_location(goal, self.player)
-        goal.place_locked_item(self.create_item('Escape the Pyramid'))
-        goal.show_in_spoiler = False
+        goal_loc = self.multiworld.get_location(goal, self.player)
+        goal_loc.place_locked_item(self.create_item('Escape the Pyramid'))
+        goal_loc.show_in_spoiler = False
 
     def create_items(self):
         difficulty = self.options.difficulty
@@ -228,9 +228,9 @@ class WL4World(World):
             lambda state: state.has('Escape the Pyramid', self.player))
 
     def setup_locations(self):
-        checks = filter(lambda p: self.options.difficulty in p[1].difficulties, location_table.items())
+        checks = list(filter(lambda p: self.options.difficulty in p[1].difficulties, location_table.items()))
         if not self.options.goal.needs_treasure_hunt():
-            checks = filter(lambda p: p[1].source != LocationType.CHEST, checks)
+            checks = list(filter(lambda p: p[1].source != LocationType.CHEST, checks))
         checks = {name for name, _ in checks}
 
         if self.options.goal.needs_diva():

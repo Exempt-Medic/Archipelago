@@ -56,7 +56,7 @@ class Passage(IntEnum):
             return self.short_name() + ' Passage'
 
     def short_name(self):
-        return ('Entry', 'Emerald', 'Ruby', 'Topaz', 'Sapphire', 'Golden')[self]
+        return self.name.title()
 
 
 AccessRule = Optional[Callable[[CollectionState], bool]]

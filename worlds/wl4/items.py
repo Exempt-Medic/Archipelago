@@ -45,9 +45,9 @@ from .types import Box, ItemFlag, ItemType, Passage
 # For AP item, classifications are as reported by ItemClassification.as_flag()
 
 
-def ap_id_from_wl4_data(data: ItemData) -> int:
+def ap_id_from_wl4_data(data: ItemData) -> Optional[int]:
     cat, itemid, _ = data
-    if cat == ItemType.EVENT or itemid == None:
+    if cat == ItemType.EVENT or itemid is None:
         return None
     if cat == ItemType.JEWEL:
         passage, quad = itemid
@@ -76,7 +76,7 @@ def wl4_data_from_ap_id(ap_id: int) -> Tuple[str, ItemData]:
                                                 d[1][1][0] == passage and
                                                 d[1][1][1] == quad,
                                       item_table.items()))
-        elif val >> 5 == 1:
+        else:
             level = val & 3
             candidates = tuple(filter(lambda d: d[1][0] == ItemType.CD and
                                                 d[1][1] == (passage, level),
@@ -216,14 +216,14 @@ item_table = {
 }
 
 
-def filter_items(*, type: ItemType = None, passage: Passage = None) -> Iterable[Tuple[str, ItemData]]:
-    items = item_table.items()
-    if type != None:
-        items = filter(lambda i: i[1].type == type, items)
-    if passage != None:
-        items = filter(lambda i: i[1].passage() == passage, items)
+def filter_items(*, type: Optional[ItemType] = None, passage: Optional[Passage] = None) -> Iterable[Tuple[str, ItemData]]:
+    items = list(item_table.items())
+    if type is not None:
+        items = list(filter(lambda i: i[1].type == type, items))
+    if passage is not None:
+        items = list(filter(lambda i: i[1].passage() == passage, items))
     return items
 
 
-def filter_item_names(*, type: ItemType = None, passage: Passage = None) -> Iterable[str]:
+def filter_item_names(*, type: Optional[ItemType] = None, passage: Optional[Passage] = None) -> Iterable[str]:
     return map(lambda entry: entry[0], filter_items(type=type, passage=passage))

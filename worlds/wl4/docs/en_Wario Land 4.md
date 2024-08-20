@@ -41,7 +41,7 @@ shuffled into only your own world.
 ## What does another world's item look like in Wario Land 4?
 
 Other games' items will look like Archipelago logos. When collected from a box, the item's name will
-be displayed at the bottom left corner of the screen. By default, you will have to carry the item to
+be displayed in the bottom left corner of the screen. By default, you will have to carry the item to
 the end of the level before the other player will receive it, at which point you will be told who
 the item belongs to.
 
