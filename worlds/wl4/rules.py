@@ -100,7 +100,8 @@ def get_access_rule(world: WL4World, region_name: str):
 
 
 def make_boss_access_rule(world: WL4World, passage: Passage, jewels_needed: int):
-    jewel_list = [name for name in items.filter_item_names(type=ItemType.JEWEL, passage=passage)]
+    jewel_list = [(name, jewels_needed)
+                  for name in items.filter_item_names(type=ItemType.JEWEL, passage=passage)]
     return has_all(jewel_list).apply_world(world)
 
 
