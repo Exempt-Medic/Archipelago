@@ -14,7 +14,6 @@ class TestHelpers(WL4TestBase):
         '''Ensure item filters and item names match.'''
         with self.subTest('Jewel Pieces'):
             pieces = items.filter_items(type=ItemType.JEWEL)
-            print(pieces)
             assert all(map(lambda p: p[0].endswith('Piece'), pieces))
             assert all(map(lambda p: p[1].type == ItemType.JEWEL, pieces))
 
