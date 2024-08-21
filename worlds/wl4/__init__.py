@@ -73,7 +73,7 @@ class WL4World(World):
         'CDs': set(filter_item_names(type=ItemType.CD)),
         'Abilities': set(filter_item_names(type=ItemType.ABILITY)),
         'Golden Treasure': set(filter_item_names(type=ItemType.TREASURE)),
-        'Traps': { 'Wario Form Trap', 'Lightning Trap'},
+        'Traps': {'Wario Form Trap', 'Lightning Trap'},
         'Junk': {'Heart', 'Minigame Coin'},
     }
 
@@ -120,7 +120,7 @@ class WL4World(World):
 
         passages = ('Emerald', 'Ruby', 'Topaz', 'Sapphire')
         for passage in passages:
-            location = self.multiworld.get_region(f'{passage} Passage Boss', self.player).locations[0]
+            location = self.get_region(f'{passage} Passage Boss').locations[0]
             location.place_locked_item(self.create_item(f'{passage} Passage Clear'))
             location.show_in_spoiler = False
 
@@ -129,7 +129,7 @@ class WL4World(World):
         else:
             goal = 'Sound Room - Emergency Exit'
 
-        goal_loc = self.multiworld.get_location(goal, self.player)
+        goal_loc = self.get_location(goal)
         goal_loc.place_locked_item(self.create_item('Escape the Pyramid'))
         goal_loc.show_in_spoiler = False
 
@@ -175,22 +175,20 @@ class WL4World(World):
                 full_health_items -= 8
             else:
                 raise ValueError('Not enough locations to place abilities for '
-                                 f'{self.multiworld.player_name[self.player]}. '
+                                 f'{self.player_name}. '
                                  'Set the "Required Jewels" setting to a lower '
                                  'value and try again.')
 
         for _ in range(full_health_items):
             itempool.append(self.create_item('Full Health Item'))
 
-        if (treasure_hunt):
+        if treasure_hunt:
             for name in filter_item_names(type=ItemType.TREASURE):
                 itempool.append(self.create_item(name))
 
         junk_count = total_required_locations - len(itempool)
         junk_item_pool = tuple(filter_item_names(type=ItemType.ITEM))
-        for _ in range(junk_count):
-            item_name = self.multiworld.random.choice(junk_item_pool)
-            itempool.append(self.create_item(item_name))
+        itempool.extend(self.create_item(self.random.choice(junk_item_pool)) for _ in range(junk_count))
 
         self.multiworld.itempool += itempool
 
@@ -206,7 +204,7 @@ class WL4World(World):
         ))
 
         output_filename = self.multiworld.get_out_file_name_base(self.player)
-        patch.write(output_path / f'{output_filename}{patch.patch_file_ending}')
+        patch.write(f"{output_path}/{output_filename}{patch.patch_file_ending}")
 
     def fill_slot_data(self) -> Mapping[str, Any]:
         return self.options.as_dict(
@@ -228,13 +226,13 @@ class WL4World(World):
             lambda state: state.has('Escape the Pyramid', self.player))
 
     def setup_locations(self):
-        checks = list(filter(lambda p: self.options.difficulty in p[1].difficulties, location_table.items()))
+        checks = filter(lambda p: self.options.difficulty in p[1].difficulties, location_table.items())
         if not self.options.goal.needs_treasure_hunt():
-            checks = list(filter(lambda p: p[1].source != LocationType.CHEST, checks))
-        checks = {name for name, _ in checks}
+            checks = filter(lambda p: p[1].source != LocationType.CHEST, checks)
+        check_names = {name for name, _ in checks}
 
         if self.options.goal.needs_diva():
-            checks.remove('Sound Room - Emergency Exit')
+            check_names.remove('Sound Room - Emergency Exit')
         else:
-            checks.remove('Golden Diva')
-        return checks
+            check_names.remove('Golden Diva')
+        return check_names
