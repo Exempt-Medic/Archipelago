@@ -53,7 +53,7 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
     # disconnected.
     local_items_placed_as_ap_items = {}
 
-    placed_item_counts = {}
+    placed_item_counts: Dict[str, int] = {}
 
     # Pre-sort the tuples based on location ID to ensure the generated IDs are consistent even if the input is in a
     # different order.
@@ -63,6 +63,7 @@ def gen_psy_ids(location_tuples_in: Iterable[Tuple[bool, Union[str, None], int]]
             continue
 
         if is_local_item:
+            assert isinstance(local_item_name, str)
             # When there are multiple copies of an item, locally placed items start from the first id for that item
             # and count upwards for each item placed.
             count_placed = placed_item_counts.setdefault(local_item_name, 0)
@@ -95,10 +96,11 @@ def gen_psy_ids_from_filled_locations(self: "PSYWorld") -> List[Tuple[int, int]]
     location_tuples = []
 
     for location in self.multiworld.get_filled_locations(self.player):
+        assert location.item is not None
         location_id = ALL_LOCATIONS[location.name]
 
-        is_local = location.item and location.item.player == self.player
-        local_item_name = location.item.name if is_local else None
+        is_local = location.item.player == self.player
+        local_item_name = location.item.name if location.item.player == self.player else None
 
         location_tuples.append((is_local, local_item_name, location_id))
 

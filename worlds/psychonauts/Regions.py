@@ -606,9 +606,9 @@ DEFAULT_REGIONS: Dict[str, List[str]] = {
 
 
 def place_events(self: "PSYWorld"):
-    final_boss_location = self.multiworld.get_location(LocationName.MeatCircusFinalBossEvent, self.player)
-    oleander_boss_location = self.multiworld.get_location(LocationName.OleanderBrainTankBossEvent, self.player)
-    redeemed_required_brains = self.multiworld.get_location(LocationName.RedeemedBrainsEvent, self.player)
+    final_boss_location = self.get_location(LocationName.MeatCircusFinalBossEvent)
+    oleander_boss_location = self.get_location(LocationName.OleanderBrainTankBossEvent)
+    redeemed_required_brains = self.get_location(LocationName.RedeemedBrainsEvent)
     # Meat Circus Bosses
     if self.options.RequireMeatCircus:
         victory = final_boss_location

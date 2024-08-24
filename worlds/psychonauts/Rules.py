@@ -379,10 +379,7 @@ class PsyRules:
         return state.has(ItemName.CobwebDuster, self.player)
 
     def has_levitation(self, state: CollectionState) -> bool:
-        if self.world.options.StartingLevitation:
-            return True
-        else:
-            return state.has(ItemName.Levitation, self.player)
+        return state.has(ItemName.Levitation, self.player) or bool(self.world.options.StartingLevitation)
 
     def has_telekinesis(self, state: CollectionState) -> bool:
         return state.has(ItemName.Telekinesis, self.player)
@@ -412,7 +409,7 @@ class PsyRules:
         return state.has_all([ItemName.Cake, ItemName.Telekinesis, ItemName.Pyrokinesis], self.player)
 
     def redeemed_brain_goal(self, state: CollectionState, amount) -> bool:
-        return amount <= sum([state.has(item_name, self.player) for item_name in BRAIN_JARS])
+        return state.has_from_list_unique(BRAIN_JARS, self.player, amount)
 
     def set_psy_rules(self) -> None:
         multiworld = self.world.multiworld
@@ -501,6 +498,7 @@ class PsyRules:
             final_boss_location = self.multiworld.get_location(LocationName.MeatCircusFinalBossEvent, self.player)
             # If enabled, the Brain Tank will be the previous goal, otherwise it will be the Brain Hunt.
             previous_goal_location = oleander_boss_location or redeemed_required_brains
+            assert previous_goal_location is not None
             final_boss_location.access_rule = previous_goal_location.can_reach
 
         self.multiworld.completion_condition[self.player] = lambda state: state.has(ItemName.Victory, self.player)

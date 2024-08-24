@@ -48,5 +48,5 @@ Enter the Yellow Door and choose a bunk to start a new game. Raz will wake up in
 start playing! <br>
 Most checks will be sent to you anywhere outside a load or cutscene. Checks are sent one item at a time. <br>
 To swap between seeds, just change your RandoSeed.lua in the Scripts folder. The Client uses the seed name from
-RandoSeed.lua to keep information between seeds seperated. <br>
+RandoSeed.lua to keep information between seeds separated. <br>
 
