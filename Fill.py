@@ -451,6 +451,16 @@ def distribute_items_restrictive(multiworld: MultiWorld,
     itempool = sorted(multiworld.itempool)
     multiworld.random.shuffle(itempool)
 
+    base_state = multiworld.state.copy()
+    base_state.sweep_for_advancements(locations=(loc for loc in multiworld.get_filled_locations() if loc.address is None))
+    players_with_early_locs = {loc.player for loc in fill_locations if loc.can_reach(base_state)}
+    real_players = {player for player in multiworld.player_ids if multiworld.game[player] != "Archipelago"}
+    if len(players_with_early_locs) != len(real_players):
+        players_without_early_locs = [multiworld.get_player_name(player) for player in real_players - players_with_early_locs]
+        if len(players_without_early_locs) == len(real_players):
+            raise Exception("No players have any accessible locations in sphere 1.")
+        logging.warning(f"The following players have zero accessible locations in sphere 1: {players_without_early_locs}")
+
     fill_locations, itempool = distribute_early_items(multiworld, fill_locations, itempool)
 
     progitempool: typing.List[Item] = []
