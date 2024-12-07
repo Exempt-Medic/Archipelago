@@ -456,6 +456,9 @@ def distribute_items_restrictive(multiworld: MultiWorld,
     players_with_early_locs = {loc.player for loc in fill_locations if loc.can_reach(base_state)}
     real_players = {player for player in multiworld.player_ids if multiworld.game[player] not in ("Archipelago", "Sudoku", "Final Fantasy", "Test Game")}
     if len(players_with_early_locs) != len(real_players):
+        print(real_players)
+        print("CHECK HERE")
+        print([multiworld.game[player] for player in real_players])
         players_without_early_locs = [multiworld.get_player_name(player) for player in real_players - players_with_early_locs]
         if len(players_without_early_locs) == len(real_players):
             raise Exception("No players have any accessible locations in sphere 1.")
