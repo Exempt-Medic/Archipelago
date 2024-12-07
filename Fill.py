@@ -454,12 +454,13 @@ def distribute_items_restrictive(multiworld: MultiWorld,
     base_state = multiworld.state.copy()
     base_state.sweep_for_advancements()
     players_with_early_locs = {loc.player for loc in fill_locations if loc.can_reach(base_state)}
-    real_players = {player for player in multiworld.player_ids if multiworld.game[player] not in ("Archipelago", "Test Game", "Final Fantasy", "Sudoku")}
-    if real_players and len(players_with_early_locs) != len(real_players):
-        players_without_early_locs = [multiworld.get_player_name(player) for player in real_players - players_with_early_locs]
-        if len(players_without_early_locs) == len(real_players):
-            raise Exception("No players have any accessible locations in sphere 1.")
-        logging.warning(f"The following players have zero accessible locations in sphere 1: {players_without_early_locs}")
+    real_players = {player for player in multiworld.player_ids if multiworld.game[player] not in ("Archipelago", "Test Game")}
+    if real_players and not (len(real_players) == 1 and multiworld.game[list(real_players)[0]] in ("Final Fantasy", "Sudoku")):
+        if len(players_with_early_locs) != len(real_players):
+            players_without_early_locs = [multiworld.get_player_name(player) for player in real_players - players_with_early_locs]
+            if len(players_without_early_locs) == len(real_players):
+                raise Exception("No players have any accessible locations in sphere 1.")
+            logging.warning(f"The following players have zero accessible locations in sphere 1: {players_without_early_locs}")
 
     fill_locations, itempool = distribute_early_items(multiworld, fill_locations, itempool)
 
