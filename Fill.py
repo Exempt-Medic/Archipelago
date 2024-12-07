@@ -455,7 +455,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
     base_state.sweep_for_advancements()
     players_with_early_locs = {loc.player for loc in fill_locations if loc.can_reach(base_state)}
     real_players = {player for player in multiworld.player_ids if multiworld.game[player] not in ("Archipelago", "Final Fantasy")}
-    if multiworld.game[real_players[0]] not in ("Test Game", "Sudoku"):
+    if multiworld.game[list(real_players)[0]] not in ("Test Game", "Sudoku"):
         if len(players_with_early_locs) != len(real_players):
             players_without_early_locs = [multiworld.get_player_name(player) for player in real_players - players_with_early_locs]
             if len(players_without_early_locs) == len(real_players):
