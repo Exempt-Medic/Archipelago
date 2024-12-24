@@ -50,7 +50,7 @@ class LandstalkerWorld(World):
 
     def fill_slot_data(self) -> dict:
         if not LandstalkerWorld.cached_spheres:
-            LandstalkerWorld.cached_spheres = [sphere for sphere in self.multiworld.get_spheres()]
+            LandstalkerWorld.cached_spheres = list(self.multiworld.get_spheres())
         # Generate hints.
         self.adjust_shop_prices()
         hints = Hints.generate_random_hints(self)
