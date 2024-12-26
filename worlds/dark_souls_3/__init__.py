@@ -1,4 +1,5 @@
 # world/dark_souls_3/__init__.py
+import logging
 from collections.abc import Sequence
 from collections import defaultdict
 import json
@@ -87,9 +88,15 @@ class DarkSouls3World(World):
     def __init__(self, multiworld: MultiWorld, player: int):
         super().__init__(multiworld, player)
         self.all_excluded_locations = set()
+        self.created_regions = set()
 
     def generate_early(self) -> None:
-        self.created_regions = set()
+        vanilla_and_excluded = self.options.exclude_locations.value & self.options.vanilla_locations.value
+        if vanilla_and_excluded:
+            self.options.exclude_locations.value -= vanilla_and_excluded
+            logging.warning(f"The following locations for {self.player_name} were both excluded and vanilla."
+                            f"They will be made vanilla:\n"
+                            f"{vanilla_and_excluded}")
         self.all_excluded_locations.update(self.options.exclude_locations.value)
 
         # Inform Universal Tracker where Yhorm is being randomized to.
@@ -1343,14 +1350,7 @@ class DarkSouls3World(World):
             not data.is_event
             and (not data.dlc or bool(self.options.enable_dlc))
             and (not data.ngp or bool(self.options.enable_ngp))
-            and not (
-                self.options.excluded_location_behavior == "do_not_randomize"
-                and data.name in self.all_excluded_locations
-            )
-            and not (
-                self.options.missable_location_behavior == "do_not_randomize"
-                and data.missable
-            )
+            and not (data.name in self.options.vanilla_locations)
         )
 
     def write_spoiler(self, spoiler_handle: TextIO) -> None:

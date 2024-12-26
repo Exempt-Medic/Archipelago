@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import json
 from typing import Any, Dict
 
-from Options import Choice, DeathLink, DefaultOnToggle, ExcludeLocations, NamedRange, OptionDict, \
+from Options import Choice, DeathLink, DefaultOnToggle, ExcludeLocations, LocationSet, NamedRange, OptionDict, \
     OptionGroup, PerGameCommonOptions, Range, Removed, Toggle
 
 ## Game Options
@@ -324,6 +324,10 @@ class DS3ExcludeLocations(ExcludeLocations):
     default = frozenset({"Hidden", "Small Crystal Lizards", "Upgrade", "Small Souls", "Miscellaneous"})
 
 
+class VanillaLocations(LocationSet):
+    """Force these locations to have their vanilla items."""
+
+
 class ExcludedLocationBehaviorOption(Choice):
     """How to choose items for excluded locations in DS3.
 
@@ -331,8 +335,6 @@ class ExcludedLocationBehaviorOption(Choice):
       items.
     - **Forbid Useful:** Neither progression items nor useful items can be placed in excluded
       locations.
-    - **Do Not Randomize:** Excluded locations always contain the same item as in vanilla Dark Souls
-      III.
 
     A "progression item" is anything that's required to unlock another location in some game. A
     "useful item" is something each game defines individually, usually items that are quite
@@ -341,7 +343,6 @@ class ExcludedLocationBehaviorOption(Choice):
     display_name = "Excluded Locations Behavior"
     option_allow_useful = 1
     option_forbid_useful = 2
-    option_do_not_randomize = 3
     default = 2
 
 
@@ -352,8 +353,6 @@ class MissableLocationBehaviorOption(Choice):
       items.
     - **Forbid Useful:** Neither progression items nor useful items can be placed in missable
       locations.
-    - **Do Not Randomize:** Missable locations always contain the same item as in vanilla Dark Souls
-      III.
 
     A "progression item" is anything that's required to unlock another location in some game. A
     "useful item" is something each game defines individually, usually items that are quite
@@ -362,7 +361,6 @@ class MissableLocationBehaviorOption(Choice):
     display_name = "Missable Locations Behavior"
     option_allow_useful = 1
     option_forbid_useful = 2
-    option_do_not_randomize = 3
     default = 2
 
 
@@ -412,6 +410,7 @@ class DarkSouls3Options(PerGameCommonOptions):
     random_enemy_preset: RandomEnemyPresetOption
 
     # Item & Location
+    vanilla_locations: VanillaLocations
     exclude_locations: DS3ExcludeLocations
     excluded_location_behavior: ExcludedLocationBehaviorOption
     missable_location_behavior: MissableLocationBehaviorOption
@@ -471,6 +470,7 @@ option_groups = [
         RandomEnemyPresetOption,
     ]),
     OptionGroup("Item & Location Options", [
+        VanillaLocations,
         DS3ExcludeLocations,
         ExcludedLocationBehaviorOption,
         MissableLocationBehaviorOption,
