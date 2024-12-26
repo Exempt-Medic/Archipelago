@@ -1350,7 +1350,7 @@ class DarkSouls3World(World):
             not data.is_event
             and (not data.dlc or bool(self.options.enable_dlc))
             and (not data.ngp or bool(self.options.enable_ngp))
-            and not (data.name in self.options.vanilla_locations)
+            and data.name not in self.options.vanilla_locations
         )
 
     def write_spoiler(self, spoiler_handle: TextIO) -> None:
