@@ -94,7 +94,7 @@ class DarkSouls3World(World):
         vanilla_and_excluded = self.options.exclude_locations.value & self.options.vanilla_locations.value
         if vanilla_and_excluded:
             self.options.exclude_locations.value -= vanilla_and_excluded
-            logging.warning(f"The following locations for {self.player_name} were both excluded and vanilla."
+            logging.warning(f"The following locations for {self.player_name} were both excluded and vanilla. "
                             f"They will be made vanilla:\n"
                             f"{vanilla_and_excluded}")
         self.all_excluded_locations.update(self.options.exclude_locations.value)
