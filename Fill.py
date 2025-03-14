@@ -236,7 +236,8 @@ def remaining_fill(multiworld: MultiWorld,
                    itempool: typing.List[Item],
                    name: str = "Remaining", 
                    move_unplaceable_to_start_inventory: bool = False,
-                   check_location_can_fill: bool = False) -> None:
+                   check_location_can_fill: bool = False,
+                   allow_partial: bool = False) -> None:
     unplaced_items: typing.List[Item] = []
     placements: typing.List[Location] = []
     swapped_items: typing.Counter[typing.Tuple[int, str]] = Counter()
@@ -309,8 +310,8 @@ def remaining_fill(multiworld: MultiWorld,
     if total > 1000:
         _log_fill_progress(name, placed, total)
 
-    if unplaced_items and locations:
-        # There are leftover unplaceable items and locations that won't accept them
+    if not allow_partial and locations:
+        # There are leftover unfillable locations
         if move_unplaceable_to_start_inventory:
             last_batch = []
             for item in unplaced_items:
@@ -552,7 +553,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             multiworld.random.shuffle(missable_items)
             # Fill unreachable locations with missable items, with excluded locations first
             remaining_fill(multiworld, unreachable_locations, missable_items, "Inaccessibles Fill",
-                           move_unplaceable_to_start_inventory=panic_method=="start_inventory")
+                           move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
 
             # Fallback rule so items/full players can have missable filler/trap items
             if unreachable_locations:
@@ -572,13 +573,6 @@ def distribute_items_restrictive(multiworld: MultiWorld,
     remaining_fill(multiworld, excludedlocations, filleritempool, "Remaining Excluded",
                    move_unplaceable_to_start_inventory=panic_method=="start_inventory")
 
-    if excludedlocations:
-        raise FillError(
-            f"Not enough filler items for excluded locations. "
-            f"There are {len(excludedlocations)} more excluded locations than excludable items.",
-            multiworld=multiworld,
-        )
-
     restitempool = filleritempool + usefulitempool
 
     remaining_fill(multiworld, defaultlocations, restitempool,
@@ -594,7 +588,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
     unplaced = restitempool
     unfilled = defaultlocations
 
-    if unplaced or unfilled:
+    if unplaced:
         logging.warning(
             f"Unplaced items({len(unplaced)}): {unplaced} - Unfilled Locations({len(unfilled)}): {unfilled}")
         items_counter = Counter(location.item.player for location in multiworld.get_filled_locations())
@@ -612,16 +606,10 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             elif more_items[player]:
                 logging.warning(
                     f"Player {multiworld.get_player_name(player)} had {more_items[player]} more items than locations.")
-        if unfilled:
-            raise FillError(
-                f"Unable to fill all locations.\n" +
-                f"Unfilled locations({len(unfilled)}): {unfilled}"
-            )
-        else:
-            logging.warning(
-                f"Unable to place all items.\n" +
-                f"Unplaced items({len(unplaced)}): {unplaced}"
-            )
+        logging.warning(
+            f"Unable to place all items.\n" +
+            f"Unplaced items({len(unplaced)}): {unplaced}"
+        )
 
 
 def flood_items(multiworld: MultiWorld) -> None:
