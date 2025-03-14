@@ -559,7 +559,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             if unreachable_locations:
                 # This only prevents useful items because progression items were all already placed
                 def forbid_important_item_rule(item: Item):
-                    return not (item.useful and multiworld.worlds[item.player].options.accessibility != 'minimal')
+                    return not item.useful
 
                 for location in unreachable_locations:
                     add_item_rule(location, forbid_important_item_rule)
