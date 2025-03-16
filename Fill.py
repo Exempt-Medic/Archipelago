@@ -310,16 +310,16 @@ def remaining_fill(multiworld: MultiWorld,
     if total > 1000:
         _log_fill_progress(name, placed, total)
 
-    if not allow_partial and locations:
-        # There are leftover unfillable locations
-        if unplaced_items and move_unplaceable_to_start_inventory:
+    if not allow_partial and unplaced_items and locations:
+        # There are leftover unplaceable items and locations that won't accept them
+        if move_unplaceable_to_start_inventory:
             last_batch = []
             for item in unplaced_items:
                 logging.debug(f"Moved {item} to start_inventory to prevent fill failure.")
                 multiworld.push_precollected(item)
                 last_batch.append(multiworld.worlds[item.player].create_filler())
-            remaining_fill(multiworld, locations, unplaced_items, name + " Start Inventory Retry", allow_partial=False)
-        elif unplaced_items:
+            remaining_fill(multiworld, locations, unplaced_items, name + " Start Inventory Retry")
+        else:
             raise FillError(f"No more spots to place {len(unplaced_items)} items. Remaining locations are invalid.\n"
                             f"Unplaced items:\n"
                             f"{', '.join(str(item) for item in unplaced_items)}\n"
@@ -327,8 +327,6 @@ def remaining_fill(multiworld: MultiWorld,
                             f"{', '.join(str(location) for location in locations)}\n"
                             f"Already placed {len(placements)}:\n"
                             f"{', '.join(str(place) for place in placements)}", multiworld=multiworld)
-        else:
-            raise FillError(f"Tried to fill {len(locations)} more locations than items.", multiworld=multiworld)
 
     itempool.extend(unplaced_items)
 
@@ -494,7 +492,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
         # "priority fill"
         fill_restrictive(multiworld, multiworld.state, prioritylocations, progitempool,
                          single_player_placement=single_player, swap=False, on_place=mark_for_locking,
-                         name="Priority", one_item_per_player=True, allow_partial=True)
+                         name="Priority", one_item_per_player=True, allow_partial=False)
 
         if prioritylocations:
             # retry with one_item_per_player off because some priority fills can fail to fill with that optimization
@@ -559,7 +557,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             multiworld.random.shuffle(missable_items)
             # Fill unreachable locations with missable items, with excluded locations first
             remaining_fill(multiworld, unreachable_locations, missable_items, "Inaccessibles Fill",
-                           move_unplaceable_to_start_inventory=panic_method=="start_inventory")
+                           move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
 
             # Fallback rule so items/full players can have missable filler/trap items
             if unreachable_locations:
