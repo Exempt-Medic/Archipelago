@@ -237,7 +237,7 @@ def remaining_fill(multiworld: MultiWorld,
                    name: str = "Remaining", 
                    move_unplaceable_to_start_inventory: bool = False,
                    check_location_can_fill: bool = False,
-                   allow_partial: bool = True) -> None:
+                   allow_partial: bool = False) -> None:
     unplaced_items: typing.List[Item] = []
     placements: typing.List[Location] = []
     swapped_items: typing.Counter[typing.Tuple[int, str]] = Counter()
