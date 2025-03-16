@@ -492,7 +492,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
         # "priority fill"
         fill_restrictive(multiworld, multiworld.state, prioritylocations, progitempool,
                          single_player_placement=single_player, swap=False, on_place=mark_for_locking,
-                         name="Priority", one_item_per_player=True, allow_partial=False)
+                         name="Priority", one_item_per_player=True, allow_partial=True)
 
         if prioritylocations:
             # retry with one_item_per_player off because some priority fills can fail to fill with that optimization
@@ -538,7 +538,6 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             location.locked = True
     del mark_for_locking, lock_later
 
-    unreachable_locations = []
     if any(multiworld.worlds[player].options.accessibility != "minimal" for player in multiworld.player_ids):
         maximum_exploration_state = sweep_from_pool(multiworld.state)
         unreachable_locations = [location for location in excludedlocations + defaultlocations
@@ -577,6 +576,9 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             defaultlocations = [loc for loc in defaultlocations if not loc.item]
             usefulitempool = [item for item in usefulitempool if not item.location]
             filleritempool = [item for item in filleritempool if not item.location]
+
+    else:
+        unreachable_locations = None
 
     remaining_fill(multiworld, excludedlocations, filleritempool, "Remaining Excluded",
                    move_unplaceable_to_start_inventory=panic_method=="start_inventory")
