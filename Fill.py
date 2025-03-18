@@ -387,6 +387,7 @@ def inaccessible_fill(multiworld: MultiWorld,
 
         # Shuffle items so that every item is equally likely to be inaccessible
         multiworld.random.shuffle(missable_items)
+
         # Fill inaccessible locations with missable items, starting with excluded locations
         remaining_fill(multiworld, inaccessible_locations, missable_items, "Inaccessibles Fill",
                        move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
@@ -396,8 +397,6 @@ def inaccessible_fill(multiworld: MultiWorld,
         defaultlocations[:] = [loc for loc in defaultlocations if not loc.item]
         usefulitempool[:] = [item for item in usefulitempool if not item.location]
         filleritempool[:] = [item for item in filleritempool if not item.location]
-
-    return inaccessible_locations
 
 
 def distribute_early_items(multiworld: MultiWorld,
@@ -579,8 +578,7 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             location.locked = True
     del mark_for_locking, lock_later
 
-    inaccessible_locations = inaccessible_fill(
-        multiworld, excludedlocations, defaultlocations, usefulitempool, filleritempool, panic_method)
+    inaccessible_fill(multiworld, excludedlocations, defaultlocations, usefulitempool, filleritempool, panic_method)
 
     remaining_fill(multiworld, excludedlocations, filleritempool, "Remaining Excluded",
                    move_unplaceable_to_start_inventory=panic_method=="start_inventory")
@@ -596,13 +594,6 @@ def distribute_items_restrictive(multiworld: MultiWorld,
 
     remaining_fill(multiworld, defaultlocations, restitempool,
                    move_unplaceable_to_start_inventory=panic_method=="start_inventory")
-
-    if inaccessible_locations:
-        logging.warning(
-            f"Not all items for Full Accessibility players are reachable.\n"
-            f"Inaccessible items:\n"
-            f"{[loc.item for loc in inaccessible_locations]}"
-        )
 
     unplaced = restitempool
     unfilled = defaultlocations
