@@ -370,7 +370,7 @@ def inaccessible_fill(multiworld: MultiWorld,
                               if not location.can_reach(maximum_exploration_state)]
 
     if inaccessible_locations:
-        # Fallback rule so full players can have missable filler/trap items if needed
+        # Fallback rule so non-minimal players can have missable filler/trap items if needed
         def forbid_important_item_rule(item: Item):
             return item.excludable or multiworld.worlds[item.player].options.accessibility == "minimal"
 
