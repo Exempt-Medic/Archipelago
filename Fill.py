@@ -360,13 +360,12 @@ def accessibility_corrections(multiworld: MultiWorld, state: CollectionState, lo
 
 
 def inaccessible_fill(multiworld: MultiWorld,
-                      excludedlocations: typing.List[Location],
-                      defaultlocations: typing.List[Location],
+                      locations: typing.List[Location],
                       usefulitempool: typing.List[Item],
                       filleritempool: typing.List[Item],
                       panic_method: typing.Literal["swap", "raise", "start_inventory"]):
     maximum_exploration_state = sweep_from_pool(multiworld.state)
-    inaccessible_locations = [location for location in excludedlocations + defaultlocations
+    inaccessible_locations = [location for location in locations
                               if not location.can_reach(maximum_exploration_state)]
 
     if inaccessible_locations:
@@ -388,13 +387,12 @@ def inaccessible_fill(multiworld: MultiWorld,
         # Shuffle items so that every item is equally likely to be inaccessible
         multiworld.random.shuffle(missable_items)
 
-        # Fill inaccessible locations with missable items, starting with excluded locations
+        # Fill inaccessible locations with missable items
         remaining_fill(multiworld, inaccessible_locations, missable_items, "Inaccessibles Fill",
                        move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
 
         # Update the location and item pools
-        excludedlocations[:] = [loc for loc in excludedlocations if not loc.item]
-        defaultlocations[:] = [loc for loc in defaultlocations if not loc.item]
+        locations[:] = [loc for loc in locations if not loc.item]
         usefulitempool[:] = [item for item in usefulitempool if not item.location]
         filleritempool[:] = [item for item in filleritempool if not item.location]
 
@@ -578,8 +576,6 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             location.locked = True
     del mark_for_locking, lock_later
 
-    inaccessible_fill(multiworld, excludedlocations, defaultlocations, usefulitempool, filleritempool, panic_method)
-
     remaining_fill(multiworld, excludedlocations, filleritempool, "Remaining Excluded",
                    move_unplaceable_to_start_inventory=panic_method=="start_inventory")
 
@@ -589,6 +585,8 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             f"There are {len(excludedlocations)} more excluded locations than excludable items.",
             multiworld=multiworld,
         )
+
+    inaccessible_fill(multiworld, defaultlocations, usefulitempool, filleritempool, panic_method)
 
     restitempool = filleritempool + usefulitempool
 
