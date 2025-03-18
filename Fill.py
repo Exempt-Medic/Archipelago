@@ -365,9 +365,6 @@ def inaccessible_fill(multiworld: MultiWorld,
                       usefulitempool: typing.List[Item],
                       filleritempool: typing.List[Item],
                       panic_method: typing.Literal["swap", "raise", "start_inventory"]):
-    if all(multiworld.worlds[player].options.accessibility == "minimal" for player in multiworld.player_ids):
-        return
-
     maximum_exploration_state = sweep_from_pool(multiworld.state)
     inaccessible_locations = [location for location in excludedlocations + defaultlocations
                               if not location.can_reach(maximum_exploration_state)]
