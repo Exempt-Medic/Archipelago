@@ -370,6 +370,13 @@ def inaccessible_fill(multiworld: MultiWorld,
                               if not location.can_reach(maximum_exploration_state)]
 
     if inaccessible_locations:
+        # Fallback rule so full players can have missable filler/trap items if needed
+        def forbid_important_item_rule(item: Item):
+            return item.excludable or multiworld.worlds[item.player].options.accessibility == "minimal"
+
+        for location in inaccessible_locations:
+            add_item_rule(location, forbid_important_item_rule)
+
         # Everything is missable on minimal, but only non-useful is missable on items
         missable_items = (
                 [item for item in usefulitempool
@@ -383,15 +390,6 @@ def inaccessible_fill(multiworld: MultiWorld,
         # Fill inaccessible locations with missable items, starting with excluded locations
         remaining_fill(multiworld, inaccessible_locations, missable_items, "Inaccessibles Fill",
                        move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
-
-        # Fallback rule so items/full players can have missable filler/trap items
-        if inaccessible_locations:
-            # This only prevents useful items because progression items were all already placed
-            def forbid_important_item_rule(item: Item):
-                return not item.useful
-
-            for location in inaccessible_locations:
-                add_item_rule(location, forbid_important_item_rule)
 
         # Update the location and item pools
         excludedlocations[:] = [loc for loc in excludedlocations if not loc.item]
