@@ -377,7 +377,7 @@ def inaccessible_fill(multiworld: MultiWorld,
                       usefulitempool: typing.List[Item],
                       filleritempool: typing.List[Item],
                       panic_method: typing.Literal["swap", "raise", "start_inventory"]):
-    # Everything is missable on minimal, but only non-useful is missable on items
+    # Useful is not missable on items. Everything is missable on minimal
     missable_items = (
             [item for item in usefulitempool
              if multiworld.worlds[item.player].options.accessibility == "minimal"]
