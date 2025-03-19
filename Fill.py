@@ -376,8 +376,8 @@ def inaccessible_fill(multiworld: MultiWorld,
                       filleritempool: typing.List[Item],
                       panic_method: typing.Literal["swap", "raise", "start_inventory"]):
     maximum_exploration_state = sweep_from_pool(multiworld.state)
-    unreachable_locations = [location for location in locations if not location.can_reach(maximum_exploration_state)]
-    if unreachable_locations:
+    inaccessible_locations = [location for location in locations if not location.can_reach(maximum_exploration_state)]
+    if inaccessible_locations:
         # Useful is not missable on items. Everything is missable on minimal
         missable_items = (
                 [item for item in usefulitempool
@@ -390,7 +390,7 @@ def inaccessible_fill(multiworld: MultiWorld,
         multiworld.random.shuffle(missable_items)
 
         # Fill inaccessible locations with missable items
-        remaining_fill(multiworld, locations, missable_items, "Inaccessibles Fill",
+        remaining_fill(multiworld, inaccessible_locations, missable_items, "Inaccessibles Fill",
                        move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
 
         # Update the location and item pools
