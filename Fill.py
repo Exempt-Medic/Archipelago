@@ -361,15 +361,15 @@ def accessibility_corrections(multiworld: MultiWorld, state: CollectionState, lo
 
 def inaccessible_location_rules(multiworld: MultiWorld, state: CollectionState, locations) -> typing.List[Location]:
     maximum_exploration_state = sweep_from_pool(state)
-    inaccessible_locations = [location for location in locations if not location.can_reach(maximum_exploration_state)]
-    if inaccessible_locations:
+    unreachable_locations = [location for location in locations if not location.can_reach(maximum_exploration_state)]
+    if unreachable_locations:
         def forbid_important_item_rule(item: Item):
-            return item.excludable or multiworld.worlds[item.player].options.accessibility == "minimal"
+            return not ((item.classification & 0b0011) and multiworld.worlds[item.player].options.accessibility != 'minimal')
 
-        for location in inaccessible_locations:
+        for location in unreachable_locations:
             add_item_rule(location, forbid_important_item_rule)
 
-    return inaccessible_locations
+    return unreachable_locations
 
 
 def inaccessible_fill(multiworld: MultiWorld,
