@@ -359,42 +359,43 @@ def accessibility_corrections(multiworld: MultiWorld, state: CollectionState, lo
         fill_restrictive(multiworld, state, locations, pool, name="Accessibility Corrections")
 
 
-def inaccessible_fill(multiworld: MultiWorld,
-                      locations: typing.List[Location],
-                      usefulitempool: typing.List[Item],
-                      filleritempool: typing.List[Item],
-                      panic_method: typing.Literal["swap", "raise", "start_inventory"]):
-    maximum_exploration_state = sweep_from_pool(multiworld.state)
-    inaccessible_locations = [location for location in locations
-                              if not location.can_reach(maximum_exploration_state)]
-
+def inaccessible_location_rules(multiworld: MultiWorld, state: CollectionState, locations) -> typing.List[Location]:
+    maximum_exploration_state = sweep_from_pool(state)
+    inaccessible_locations = [location for location in locations if not location.can_reach(maximum_exploration_state)]
     if inaccessible_locations:
-        # Fallback rule so non-minimal players can have missable filler/trap items if needed
         def forbid_important_item_rule(item: Item):
             return item.excludable or multiworld.worlds[item.player].options.accessibility == "minimal"
 
         for location in inaccessible_locations:
             add_item_rule(location, forbid_important_item_rule)
 
-        # Everything is missable on minimal, but only non-useful is missable on items
-        missable_items = (
-                [item for item in usefulitempool
-                 if multiworld.worlds[item.player].options.accessibility == "minimal"]
-                + [item for item in filleritempool
-                   if multiworld.worlds[item.player].options.accessibility != "full"]
-        )
+    return inaccessible_locations
 
-        # Shuffle items so that every item is equally likely to be inaccessible
-        multiworld.random.shuffle(missable_items)
 
-        # Fill inaccessible locations with missable items
-        remaining_fill(multiworld, inaccessible_locations, missable_items, "Inaccessibles Fill",
-                       move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
+def inaccessible_fill(multiworld: MultiWorld,
+                      locations: typing.List[Location],
+                      usefulitempool: typing.List[Item],
+                      filleritempool: typing.List[Item],
+                      panic_method: typing.Literal["swap", "raise", "start_inventory"]):
+    # Everything is missable on minimal, but only non-useful is missable on items
+    missable_items = (
+            [item for item in usefulitempool
+             if multiworld.worlds[item.player].options.accessibility == "minimal"]
+            + [item for item in filleritempool
+               if multiworld.worlds[item.player].options.accessibility != "full"]
+    )
 
-        # Update the location and item pools
-        locations[:] = [loc for loc in locations if not loc.item]
-        usefulitempool[:] = [item for item in usefulitempool if not item.location]
-        filleritempool[:] = [item for item in filleritempool if not item.location]
+    # Shuffle items so that every item is equally likely to be inaccessible
+    multiworld.random.shuffle(missable_items)
+
+    # Fill inaccessible locations with missable items
+    remaining_fill(multiworld, locations, missable_items, "Inaccessibles Fill",
+                   move_unplaceable_to_start_inventory=panic_method=="start_inventory", allow_partial=True)
+
+    # Update the location and item pools
+    locations[:] = [loc for loc in locations if not loc.item]
+    usefulitempool[:] = [item for item in usefulitempool if not item.location]
+    filleritempool[:] = [item for item in filleritempool if not item.location]
 
 
 def distribute_early_items(multiworld: MultiWorld,
@@ -576,6 +577,8 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             location.locked = True
     del mark_for_locking, lock_later
 
+    inaccessible_locations = inaccessible_location_rules(multiworld, multiworld.state, defaultlocations)
+
     remaining_fill(multiworld, excludedlocations, filleritempool, "Remaining Excluded",
                    move_unplaceable_to_start_inventory=panic_method=="start_inventory")
 
@@ -586,7 +589,8 @@ def distribute_items_restrictive(multiworld: MultiWorld,
             multiworld=multiworld,
         )
 
-    inaccessible_fill(multiworld, defaultlocations, usefulitempool, filleritempool, panic_method)
+    if inaccessible_locations:
+        inaccessible_fill(multiworld, inaccessible_locations, usefulitempool, filleritempool, panic_method)
 
     restitempool = filleritempool + usefulitempool
 
